@@ -1,0 +1,12 @@
+.barra-navegacion {
+    background-color: black;
+    height: 150px;
+    width: 100%;
+    color: white;
+    display: flex;
+}
+
+.logo {
+    height: 150px;
+    left: 0;
+}

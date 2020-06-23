@@ -1,24 +1,52 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import BarraNavegacion from './components/BarraNavegacion.jsx'
+import Catalogo from './components/Catalogo.jsx';
+import { Route } from 'react-router-dom';
+
 
 function App() {
+
+  var catalogo = [
+    {
+      titulo:"manzana1",
+      descripcion:"es una manzana",
+      precio:20,
+      cantidad: 1,
+      imagen:"https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/120px-Apple_logo_black.svg.png"
+    },{
+      titulo:"manzana2",
+      descripcion:"es una manzana",
+      precio:20,
+      cantidad: 1,
+      imagen:"https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/120px-Apple_logo_black.svg.png"
+    },{
+      titulo:"manzana3",
+      descripcion:"es una manzana",
+      precio:20,
+      cantidad: 1,
+      imagen:"https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/120px-Apple_logo_black.svg.png"
+    },{
+      titulo:"manzana4",
+      descripcion:"es una manzana",
+      precio:20,
+      cantidad: 1,
+      imagen:"https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/120px-Apple_logo_black.svg.png"
+    }
+  ]
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Route
+          path='/'
+          render={() => <BarraNavegacion/>}
+      />
+      
+      <Catalogo productos={catalogo}>
+
+      </Catalogo>
+     
     </div>
   );
 }
