@@ -1,16 +1,27 @@
 import React, { useState } from "react";
+import './css/Busqueda.css'
 
-export default function Busqueda (){
+export default function Busqueda ({buscar}){
+    const [producto, setProducto] = useState("");
 
     return(
-        <form>
+        <form onSubmit={(e)=>{
+            e.preventDefault();
+            if (producto!== ""){
+                buscar(producto)
 
-            <input
+            }
+
+        }}>
+
+            <input className='busqueda'
             type='text'
-            placeholder = ''
+            placeholder = '...'
+            onChange ={ e=> setProducto(e.target.value)}
+            value={producto}
             >
             </input>
-            <input type="submit" value="Buscar" />
+            <input className='boton' type="submit" value="Buscar" />
 
         </form>
     )

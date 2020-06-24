@@ -1,12 +1,18 @@
 .barra-navegacion {
-    background-color: black;
-    height: 150px;
+    background-color: #0b4cb5;
+    height: 100px;
     width: 100%;
     color: white;
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navegacion {
+    max-width: 1200px;
 }
 
 .logo {
-    height: 150px;
+    height: 100px;
     left: 0;
 }
