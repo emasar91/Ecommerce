@@ -9,67 +9,33 @@ import Producto from './components/Producto';
 function App() {
     const [productos, setProductos] = useState([])
 
-    // fetch('endpoint')
-    //     .then(response => {
-    //         response.json()
-    //     })
-    //     .then(response => {
-    //         setProductos(response)
-    //     })
-     var catalogo = [{
-        titulo: "manzana1",
-        descripcion: "es una manzana",
-        precio: 20,
-        cantidad: 1,
-        imagen: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/120px-Apple_logo_black.svg.png"
-    }, {
-        titulo: "pera",
-        descripcion: "es una manzana",
-        precio: 20,
-        cantidad: 1,
-        imagen: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/120px-Apple_logo_black.svg.png"
-    }, {
-        titulo: "naranja",
-        descripcion: "es una manzana",
-        precio: 20,
-        cantidad: 1,
-        imagen: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/120px-Apple_logo_black.svg.png"
-    }, {
-        titulo: "banana",
-        descripcion: "es una manzana",
-        precio: 20,
-        cantidad: 1,
-        imagen: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/120px-Apple_logo_black.svg.png"
-    }]
+    fetch('localhoost:3000/products')
+        .then(response => {
+            response.json()
+        })
+        .then(response => {
+            setProductos(response)
+        })
 
-    function setearProductos(catalogoPrpoductos){
-      setProductos(catalogoPrpoductos);
-    }
-    setProductos(catalogo);
-    // useEffect(()=>setearProductos(catalogo))
+    var catalogo = productos    
+    
 
     function buscar(producto) {
-      var productosFiltrados = catalogo.filter(p => {
+      var catalogoFiltrado = catalogo.filter(p => {
         return p.titulo.includes(producto)
       })
-      setProductos(productosFiltrados)
-      console.log(productosFiltrados)
-      
     }
 
-
     return ( 
-      <div className = "App" >
-        <Route path = '/'
-        render = {
-            () => < BarraNavegacion buscar = { buscar }
-            />} / >
+        <div className = "App" >
+            <Route path = '/'
+              render = {() => < BarraNavegacion buscar = { buscar }/>} 
+            />
+            <Route exact path = '/'
+              render = {() => <Catalogo productos={productos}  />} 
+            />
 
-            <Catalogo productos = { productos } >
-
-            </Catalogo>
-
-            </div>
+        </div>
         );
     }
 

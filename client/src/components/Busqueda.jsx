@@ -9,7 +9,6 @@ export default function Busqueda ({buscar}){
             e.preventDefault();
             if (producto!== ""){
                 buscar(producto)
-
             }
 
         }}>

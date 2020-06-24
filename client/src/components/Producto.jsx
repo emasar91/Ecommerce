@@ -11,7 +11,7 @@ export default function Producto ({item}){
             <img  className='img-producto' src={imagen} alt="producto"/>
             <div className="container-informacion">
                 <span className='precio-producto'>$ {precio}</span>
-                <Link>
+                <Link to='/'>
                     <h3 className='titulo-producto'>{titulo}</h3>
                 </Link>
                 {/* <h4 className='cantidad-producto'>cantidad:{cantidad}</h4>

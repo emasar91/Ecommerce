@@ -7,7 +7,7 @@ export default function Catalogo({productos}){
     
     return (
         <div className='catalogo'>
-        {productos.map(producto => <Producto
+        {productos.map(producto => <Producto key={producto.titulo}
             item={producto} 
         />
         )}

@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 export default function BarraNavegacion({buscar}){
     return(
         <div className="barra-navegacion">
-                <Link>
+                <Link to ='/'>
                     <img className='logo' src={Logo} alt="Logo"/>
                 </Link>
                 <Busqueda className='busqueda' buscar = {buscar}/>
