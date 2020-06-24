@@ -3,40 +3,46 @@ import './App.css';
 import BarraNavegacion from './components/BarraNavegacion.jsx'
 import Catalogo from './components/Catalogo.jsx';
 import { Route } from 'react-router-dom';
-import Producto from './components/Producto';
+// import Producto from './components/Producto';
 
 
 function App() {
     const [productos, setProductos] = useState([])
 
-    fetch('localhoost:3000/products')
-        .then(response => {
-            response.json()
-        })
-        .then(response => {
-            setProductos(response)
-        })
+    useEffect(()=>{
+      fetch('http://localhost:3080/products')
+          .then(response => {
+              return response.json()
+          })
+          .then(response => {
+              setProductos(response)
+          })
+          console.log("Productos Cargados")
 
-    var catalogo = productos    
-    
+    },[])
+
+
+    var catalogoFiltrado = productos
+
 
     function buscar(producto) {
-      var catalogoFiltrado = catalogo.filter(p => {
-        return p.titulo.includes(producto)
-      })
+        catalogoFiltrado = productos.filter(p => {
+            return p.titulo.includes(producto)
+        })
+        console.log(catalogoFiltrado)
     }
 
     return ( 
-        <div className = "App" >
-            <Route path = '/'
-              render = {() => < BarraNavegacion buscar = { buscar }/>} 
-            />
-            <Route exact path = '/'
-              render = {() => <Catalogo productos={productos}  />} 
-            />
+            <div className = "App" >
+                    <Route path = '/'
+                    render = {
+                        () => < BarraNavegacion buscar = { buscar }/>}
+                    />
+                    <Route exact path = '/'
+                    render = {() => < Catalogo productos = { productos }/>}/>
 
-        </div>
-        );
-    }
+            </div>
+                        );
+            }
 
-    export default App;
+            export default App;
