@@ -1,3 +1,4 @@
+const S = require('sequelize');
 const Product = (sequelize, S) => {
   // defino el modelo
   const P = sequelize.define('product', {

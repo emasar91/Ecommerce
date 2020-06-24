@@ -4,7 +4,9 @@ server.post('/changepassword');
 
 server.post('/login');
 
-server.get('/logout');
+server.get('/logout', function(req, res){
+    res.send ('22');
+});
 
 server.post('/register');
 
