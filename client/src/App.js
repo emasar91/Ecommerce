@@ -43,7 +43,7 @@ function App() {
                     <Route exact path = '/'
                     render = {() => < Catalogo productos = { productos }/>}/>
                     <Route exact path = '/products/:id'
-                        render = {({match}) => <DetalleProducto detalle={match.params.id} />}/>
+                        render = {({match}) => <DetalleProducto id={match.params.id} />}/>
 
             </div>
             );
