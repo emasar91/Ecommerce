@@ -4,7 +4,9 @@ import BarraNavegacion from './components/BarraNavegacion.jsx'
 import Catalogo from './components/Catalogo.jsx';
 import { Route } from 'react-router-dom';
 import DetalleProducto from './components/DetalleProducto.jsx';
-// import Producto from './components/Producto';
+import FormularioModificar from './components/FormularioModificar.jsx';
+import FormularioAgregar from './components/FormularioAgregar.jsx';
+import AgregarProducto from './components/AgregarProducto';
 
 
 function App() {
@@ -41,9 +43,21 @@ function App() {
                         () => < BarraNavegacion buscar = { buscar }/>}
                     />
                     <Route exact path = '/'
+                    render = {() => <AgregarProducto/>}/>
+
+                    <Route exact path = '/'
                     render = {() => < Catalogo productos = { productos }/>}/>
-                    <Route exact path = '/products/:id'
+
+                    <Route exact path = '/products/agregar'
+                        render = {() => <FormularioAgregar/>}/>
+                        
+                        
+                    <Route exact path = '/products/producto/:id'
                         render = {({match}) => <DetalleProducto id={match.params.id} />}/>
+
+                    <Route exact path = '/products/modificar/:id'
+                        render = {({match}) => <FormularioModificar id={match.params.id} />}/>
+                        
 
             </div>
             );
