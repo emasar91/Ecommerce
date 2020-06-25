@@ -1,10 +1,12 @@
 import React, {useState, useEffect} from 'react';
+import imagenDefault from '../img/sinImagen.png'
 
-export default function DetalleProducto(titulo){
-    const [productoDetallado, setProductoDetallado] = useState([]);
-  
+export default function DetalleProducto(id){
+  const [productoDetallado, setProductoDetallado] = useState({});
+  const idProducto= id.id
+
     useEffect(()=>{
-        fetch(`http://localhost:3080/products/${titulo}`)
+        fetch('http://localhost:3080/products/'+idProducto)
        .then(response=> {
            return response.json()
        })
@@ -12,13 +14,21 @@ export default function DetalleProducto(titulo){
            setProductoDetallado(response)
         })
     },[])
+    var imagen=''
+    if(productoDetallado.imagen===""){
+        imagen=imagenDefault
+    }else{
+        imagen = productoDetallado.imagen
+    }
 
-    //en productoDetallado estan todos los datos, falta mostralos en el div y darle estilos
 
     return(
         <div>
-            <h1>Detalle</h1>
-
+            <h1>Nombre: {productoDetallado.titulo}</h1>
+            <h1>Precio: {productoDetallado.precio}</h1>
+            <h1>Stock: {productoDetallado.cantidad}</h1>
+            <h1>descripcion:{productoDetallado.descripcion}</h1>
+            <img src={imagen}/> 
         </div>
     );
 }
