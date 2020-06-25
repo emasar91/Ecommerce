@@ -10,29 +10,17 @@ server.get('/', function(req, res) {
         });
 });
 
-server.get('/:id', function(req, res) { //para el detalle 
-    var name = req.params.id;
+server.get('/:id', function(req, res) {
+    var numero = req.params.id;
     Product.findOne({
         where: {
-            id: name,
+            id: numero,
         }
     }).then(function(products) {
-
+        console.log(products);
         return res.status(200).send(products)
-    });
-});
-server.get('/?search', function(req, res) { //para el filtrado
-    var name = req.query.search;
-    Product.findOne({
-        where: {
-            titulo: titulo.includes(name),
-        }
-    }).then(function(products) {
-
-        return res.status(200).send(products)
-    });
-});
-
+    })
+})
 
 
 
