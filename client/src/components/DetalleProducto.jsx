@@ -14,13 +14,12 @@ export default function DetalleProducto(id){
            setProductoDetallado(response)
         })
     },[])
-console.log(productoDetallado)
-var imagen=''
-if(productoDetallado.imagen===""){
-    imagen=imagenDefault
-}else{
-    imagen = productoDetallado.imagen
-}
+    var imagen=''
+    if(productoDetallado.imagen===""){
+        imagen=imagenDefault
+    }else{
+        imagen = productoDetallado.imagen
+    }
 
 
     return(
@@ -30,7 +29,6 @@ if(productoDetallado.imagen===""){
             <h1>Stock: {productoDetallado.cantidad}</h1>
             <h1>descripcion:{productoDetallado.descripcion}</h1>
             <img src={imagen}/> 
-
         </div>
     );
 }
