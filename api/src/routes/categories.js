@@ -1,6 +1,13 @@
  const server = require('express').Router();
  const { Category } = require('../models');
  
+ server.get('/', function(req, res){
+    Category.findAll()
+        .then(function(category) {
+            return res.status(200).send(category);
+        });
+ })
+ 
  server.post('/agregar', function (req, res){
      Category.create({         
          nombre: req.body.nombre,         

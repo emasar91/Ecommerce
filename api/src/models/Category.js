@@ -12,6 +12,7 @@ const Category = (sequelize, S) => {
     nombre: {
         allowNull: false,
         type: S.STRING,
+        unique: true,
       },
   });
   
