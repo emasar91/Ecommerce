@@ -23,6 +23,7 @@ export default function Busqueda ({buscar}){
             {/* <input className='boton' type="submit" value="Buscar" /> */}
             <button className='boton' type="search" name="Buscar" value="Buscar">&#128269;</button>
 
+            
         </form>
     )
     
