@@ -51,6 +51,28 @@ server.post('/agregar', function(req, res) {
 
 });
 
+server.put('/modificar/:id', function(req, res) {
+    Product.findOne({
+            where: {
+                id: req.params.id,
+            }
+        }).then(function(product) {
+            product.update({
+                titulo: req.body.titulo,
+                precio: req.body.precio,
+                cantidad: req.body.cantidad,
+                imagen: req.body.imagen,
+                descripcion: req.body.descripcion,
+            })
+        })
+        .then(() => {
+            return res.send('Producto Modificado')
+        })
+        .catch(() => {
+            return res.send('No se modifico');
+        })
+});
+
 server.delete('/:id', (req, res) => {
     const id = req.params.id;
     Product.destroy({
