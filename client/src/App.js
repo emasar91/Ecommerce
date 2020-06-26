@@ -25,19 +25,23 @@ function App() {
     },[])
 
 
-    var catalogoFiltrado = productos
 
 
     function buscar(producto) {
-        catalogoFiltrado = productos.filter(p => {
-            return p.titulo.includes(producto)
-        })
-        setProductos(catalogoFiltrado)
-        console.log(catalogoFiltrado)
+
+        fetch('http://localhost:3080/products/search/'+producto)
+          .then(response => {
+              return response.json()
+          })
+          .then(response => {
+              setProductos(response)
+          })
+          console.log("Productos Cargados")
     }
 
     return ( 
             <div className = "App" >
+
                     <Route path = '/'
                     render = {
                         () => < BarraNavegacion buscar = { buscar }/>}
@@ -50,15 +54,13 @@ function App() {
 
                     <Route exact path = '/products/agregar'
                         render = {() => <FormularioAgregar/>}/>
-                        
-                        
+                               
                     <Route exact path = '/products/producto/:id'
                         render = {({match}) => <DetalleProducto id={match.params.id} />}/>
 
                     <Route exact path = '/products/modificar/:id'
                         render = {({match}) => <FormularioModificar id={match.params.id} />}/>
                         
-
             </div>
             );
 }

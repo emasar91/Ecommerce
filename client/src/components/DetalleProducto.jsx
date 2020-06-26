@@ -13,7 +13,7 @@ export default function DetalleProducto(id){
        .then(response =>{ 
            setProductoDetallado(response)
         })
-    },[])
+    },[idProducto])
     var imagen=''
     if(productoDetallado.imagen===""){
         imagen=imagenDefault
@@ -28,7 +28,7 @@ export default function DetalleProducto(id){
             <h1>Precio: {productoDetallado.precio}</h1>
             <h1>Stock: {productoDetallado.cantidad}</h1>
             <h1>descripcion:{productoDetallado.descripcion}</h1>
-            <img src={imagen}/> 
+            <img src={imagen} alt="Imagen Producto"/> 
         </div>
     );
 }
