@@ -5,6 +5,7 @@ export default function FormularioAgregar(){
 
     const [input, setInput] = useState({
         titulo:'',
+        categoria: '',
         precio:'',
         cantidad:'',
         descripcion:'',
@@ -49,7 +50,14 @@ export default function FormularioAgregar(){
             <label htmlFor="nombre">Nombre</label>
             <input type="text" name="titulo"  onChange={handleInputChange}/>
             <br/>
-            <label htmlFor="precio">Precio</label>
+            <label htmlFor="Categoría">Categoría</label>
+            <select input={useState.value} onChange={handleInputChange}>  
+            <option value="CategoriaA">Categoría A</option>
+            <option value="CategoriaB">Categoría B</option>
+            <option value="CategoriaC">Categoría C</option>
+            <option value="CategoriaD">Categoría D</option>
+          </select> <br/>
+           <label htmlFor="precio">Precio</label>
             <input type='number' name="precio" onChange={handleInputChange} />
             <br/>
             <label htmlFor="cantidad">Cantidad</label>
