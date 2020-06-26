@@ -8,14 +8,6 @@ const Product = (sequelize, S) => {
       allowNull: false,
       autoIncrement: true,
     },
-    
-    categoryId: {
-      type: S.INTEGER,
-      references: {
-          model: 'categories',
-          key: 'idCat'
-      }
-  },
 
     titulo: {
       allowNull: false,
