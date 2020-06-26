@@ -8,7 +8,10 @@ import { Route } from 'react-router-dom';
 import DetalleProducto from './components/DetalleProducto.jsx';
 import FormularioModificar from './components/FormularioModificar.jsx';
 import FormularioAgregar from './components/FormularioAgregar.jsx';
+import FormularioCategoria from './components/FormularioCategoria.jsx';
 import AgregarProducto from './components/AgregarProducto';
+import AgregarCategoria from './components/AgregarCategoria';
+
 
 
 function App() {
@@ -50,12 +53,18 @@ function App() {
                     />
                     <Route exact path = '/'
                     render = {() => <AgregarProducto/>}/>
+                    
+                    <Route exact path = '/'
+                    render = {() => <AgregarCategoria/>}/>
 
                     <Route exact path = '/'
                     render = {() => < Catalogo productos = { productos }/>}/>
 
                     <Route exact path = '/products/agregar'
                         render = {() => <FormularioAgregar/>}/>
+                    
+                    <Route exact path = '/categories/agregar'
+                        render = {() => <FormularioCategoria/>}/>
                                
                     <Route exact path = '/products/producto/:id'
                         render = {({match}) => <DetalleProducto id={match.params.id} />}/>
