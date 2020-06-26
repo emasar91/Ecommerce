@@ -3,7 +3,7 @@ const Category = (sequelize, S) => {
   // defino el modelo
   
   const C = sequelize.define('category', { 
-    id: {
+    idCat: {
         primaryKey: true,
         type: S.INTEGER,
         allowNull: false,

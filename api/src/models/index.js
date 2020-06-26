@@ -1,8 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 const db = require('../db.js');
-//Product = require ('./Product.js');
-//Category = require ('./Category.js');
+const { Sequelize } = require('sequelize');
+//const Product = require ('./Product.js');
+//const Category = require ('./Category.js');
 const basename = path.basename(__filename);
 const models = {};
 
@@ -16,12 +17,16 @@ fs.readdirSync(__dirname)
     models[name] = model;
   });
 
-const {
-  Product,
-  Category
-} = models;
+   const {
+     Product = require ('./Product.js'),
+     Category = require ('./Category.js')
+   } = models
 
 // Add model relationships here
+db.Sequelize = Sequelize;
 
+
+Product.belongsTo(Category);
+Category.hasMany(Product);
 
 module.exports = models;

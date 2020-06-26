@@ -9,6 +9,14 @@ const Product = (sequelize, S) => {
       autoIncrement: true,
     },
     
+    categoryId: {
+      type: S.INTEGER,
+      references: {
+          model: 'categories',
+          key: 'idCat'
+      }
+  },
+
     titulo: {
       allowNull: false,
       type: S.STRING,
