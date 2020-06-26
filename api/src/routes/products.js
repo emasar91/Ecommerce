@@ -3,26 +3,12 @@ const { Product } = require('../models');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
-
-
 server.get('/', function(req, res) {
     Product.findAll()
         .then(function(products) {
             return res.status(200).send(products);
         });
 });
-
-server.get('/:id', function(req, res) {
-
-    Product.findOne({
-        where: {
-            id: req.params.id,
-        }
-    }).then(function(products) {
-        console.log(products);
-        return res.status(200).send(products)
-    })
-})
 
 server.get('/search/:search', function(req, res) {
     var name = req.params.search;
@@ -39,6 +25,20 @@ server.get('/search/:search', function(req, res) {
         return res.status(200).send(products)
     })
 })
+
+server.get('/:id', function(req, res) {
+
+    Product.findOne({
+        where: {
+            id: req.params.id,
+        }
+    }).then(function(products) {
+        console.log(products);
+        return res.status(200).send(products)
+    })
+})
+
+
 
 server.post('/agregar', function(req, res) {
     Product.create({
