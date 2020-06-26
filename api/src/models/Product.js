@@ -8,7 +8,7 @@ const Product = (sequelize, S) => {
       allowNull: false,
       autoIncrement: true,
     },
-    
+
     titulo: {
       allowNull: false,
       type: S.STRING,

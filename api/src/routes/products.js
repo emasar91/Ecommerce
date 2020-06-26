@@ -15,7 +15,7 @@ server.get('/search/:search', function(req, res) {
     Product.findAll({
         where: {
             titulo: {
-                [Op.like]: '%' + name + '%'
+                [Op.iLike]: '%' + name + '%'
             }
         }
 
@@ -76,7 +76,16 @@ server.put('/modificar/:id', function(req, res) {
         })
 });
 
-
+server.delete('/:id', (req, res) => {
+    const id = req.params.id;
+    Product.destroy({
+            where: { id: id },
+        })
+        .then(deletedProduct => {
+            res.json(deletedProduct);
+        })
+        .catch(res.send);
+});
 
 
 
