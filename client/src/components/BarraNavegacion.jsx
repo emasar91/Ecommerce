@@ -8,7 +8,7 @@ export default function BarraNavegacion({buscar}){
     return(
         <div className="barra-navegacion">
                 <Link to ='/'>
-                    <img className='logo' src={Logo} alt="Logo"/>
+                    <img className='logo' src={Logo} alt="Logo" onClick=" javascript = Location.Reload()"/>
                 </Link>
                 <Busqueda className='busqueda' buscar = {buscar}/>
             

@@ -15,12 +15,13 @@ export default function Busqueda ({buscar}){
 
             <input className='busqueda'
             type='text'
-            placeholder = '...'
+            placeholder = '¿Qué estás buscando?'
             onChange ={ e=> setProducto(e.target.value)}
             value={producto}
             >
             </input>
-            <input className='boton' type="submit" value="Buscar" />
+
+            <button className='boton' type="search" name="Buscar" value="Buscar"> &#128269;</button>
 
         </form>
     )
