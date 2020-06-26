@@ -3,6 +3,7 @@ import './App.css';
 import BarraNavegacion from './components/BarraNavegacion.jsx'
 import Catalogo from './components/Catalogo.jsx';
 import { Route } from 'react-router-dom';
+
 // import Producto from './components/Producto';
 
 
