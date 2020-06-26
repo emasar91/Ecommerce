@@ -3,6 +3,7 @@ import './App.css';
 import BarraNavegacion from './components/BarraNavegacion.jsx'
 import Catalogo from './components/Catalogo.jsx';
 import { Route } from 'react-router-dom';
+import DetalleProducto from './components/DetalleProducto.jsx';
 // import Producto from './components/Producto';
 
 
@@ -29,6 +30,7 @@ function App() {
         catalogoFiltrado = productos.filter(p => {
             return p.titulo.includes(producto)
         })
+        setProductos(catalogoFiltrado)
         console.log(catalogoFiltrado)
     }
 
@@ -40,9 +42,11 @@ function App() {
                     />
                     <Route exact path = '/'
                     render = {() => < Catalogo productos = { productos }/>}/>
+                    <Route exact path = '/products/:id'
+                        render = {({match}) => <DetalleProducto detalle={match.params.id} />}/>
 
             </div>
-                        );
-            }
+            );
+}
 
-            export default App;
+export default App;

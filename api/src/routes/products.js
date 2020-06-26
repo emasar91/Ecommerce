@@ -3,7 +3,6 @@ const { Product } = require('../models');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
-
 server.get('/', function(req, res) {
     Product.findAll()
         .then(function(products) {
@@ -27,19 +26,18 @@ server.get('/search/:search', function(req, res) {
     })
 })
 
+
 server.get('/:id', function(req, res) {
-    var numero = req.params.id;
+
     Product.findOne({
         where: {
-            id: numero,
+            id: req.params.id,
         }
     }).then(function(products) {
         console.log(products);
         return res.status(200).send(products)
     })
 })
-
-
 
 server.post('/agregar', function(req, res) {
     Product.create({
