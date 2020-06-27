@@ -1,12 +1,26 @@
  const server = require('express').Router();
  const { Category } = require('../models');
  
+ 
  server.get('/', function(req, res){
     Category.findAll()
         .then(function(category) {
             return res.status(200).send(category);
         });
  })
+
+ server.get('/products/:id', function(req, res){
+    Product.findAll({
+        where: {
+            idCat: req.params.id,
+        }
+    }).then(function(products) {
+        return res.status(200).send(products)
+    }).catch(()=>{
+        return res.send('No hay productos en esta categoria')
+    })
+ })
+
  
  server.post('/agregar', function (req, res){
      Category.create({         
@@ -81,5 +95,6 @@ server.put("/:productId", function(req, res) {
         res.status(400).send("La accion debe existir y solo puede ser add o remove");
     };
 });
+
 
 module.exports = server;
