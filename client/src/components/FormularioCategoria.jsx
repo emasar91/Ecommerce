@@ -1,9 +1,9 @@
-import React ,{useEffect,useState}from 'react';
+import React ,{useState}from 'react';
 
 export default function FormularioCategoria(){
 
     const [input, setInput] = useState({
-        nombre:'',
+        nombre: null,
         
     })
 
@@ -25,9 +25,10 @@ export default function FormularioCategoria(){
             body: JSON.stringify(input)           
         })
         .then((res)=>{
-            console.log(res.status)
             if(res.status ===200){
                 return window.location.replace('http://localhost:3000')
+            }else{
+                alert("No se pudo ingresar la categoria")
             }
                    
         })
@@ -40,7 +41,7 @@ export default function FormularioCategoria(){
         <form onSubmit={(e)=> e.preventDefault}>
 
             <label htmlFor="nombre">Nombre</label>
-            <input type="text" name="titulo" placeholder= "Categoria" onChange={handleInputChange}/>
+            <input type="text" name="nombre" placeholder= "Categoria" onChange={handleInputChange}/>
             <br/>
             <input type="submit" value="Enviar" onClick={enviarFormulario} />
         </form>

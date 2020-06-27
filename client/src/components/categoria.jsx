@@ -1,11 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './css/Categoria.css'
-//import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-function Categoria() {
+export default function Categoria() {
+
+const [input , setInput] = useState([]);
+
+    useEffect(()=>{
+        fetch('http://localhost:3080/categories')
+            .then(response => {
+                return response.json()
+            })
+            .then(response => {
+                setInput(response)
+            })
+            console.log("Categorias Cargadas")
+    },[])
+
     return (
+      
       <div className="Categoria">
-        <header className="Categoria-header">
+          {input.map(cat =>
+          <Link to ={'/categories/'+cat.nombre}>
+            <li key={cat.id}> {cat.nombre} </li>
+          </Link> 
+          )}
+        {/* <header className="Categoria-header">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
      <button class="navbar-toggler" type="button"
                  data-toggle="collapse" data-target="#navbarToggleExternalContent">
@@ -30,9 +50,7 @@ function Categoria() {
          </ul>
      </div>
  </nav> 
-        </header>
+        </header> */}
       </div>
     );
   }
-  
-  export default Categoria;

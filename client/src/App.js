@@ -11,6 +11,7 @@ import FormularioAgregar from './components/FormularioAgregar.jsx';
 import FormularioCategoria from './components/FormularioCategoria.jsx';
 import AgregarProducto from './components/AgregarProducto';
 import AgregarCategoria from './components/AgregarCategoria';
+import Categoria from './components/Categoria.jsx';
 
 
 
@@ -51,8 +52,13 @@ function App() {
                     render = {
                         () => < BarraNavegacion buscar = { buscar }/>}
                     />
+
+                    <Route exact path = '/'
+                    render = {() => <Categoria/>}/>
+                    
                     <Route exact path = '/'
                     render = {() => <AgregarProducto/>}/>
+                    
                     
                     <Route exact path = '/'
                     render = {() => <AgregarCategoria/>}/>
