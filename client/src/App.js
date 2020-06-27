@@ -4,6 +4,7 @@ import BarraNavegacion from './components/BarraNavegacion.jsx'
 import Catalogo from './components/Catalogo.jsx';
 import { Route } from 'react-router-dom';
 
+
 // import Producto from './components/Producto';
 import DetalleProducto from './components/DetalleProducto.jsx';
 import FormularioModificar from './components/FormularioModificar.jsx';

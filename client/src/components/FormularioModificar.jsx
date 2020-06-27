@@ -1,5 +1,6 @@
 import React ,{useEffect,useState}from 'react';
 
+
 export default function FormularioModificar(id){
 
     const [input, setInput] = useState({

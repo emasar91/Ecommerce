@@ -4,6 +4,7 @@ import './css/BarraNavegacion.css';
 import Busqueda from './Busqueda.jsx';
 import { Link } from 'react-router-dom';
 
+
 export default function BarraNavegacion({buscar}){
     return(
         <div className="barra-navegacion">

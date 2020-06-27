@@ -1,5 +1,6 @@
 import React ,{useState}from 'react';
 
+
 export default function FormularioCategoria(){
 
     const [input, setInput] = useState({

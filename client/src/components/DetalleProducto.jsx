@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import imagenDefault from '../img/sinImagen.png'
 
+
 export default function DetalleProducto(id){
   const [productoDetallado, setProductoDetallado] = useState({});
    const [categorias, setCategorias] = useState([]);
