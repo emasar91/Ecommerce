@@ -1,14 +1,21 @@
  const server = require('express').Router();
  const { Category, Product } = require('../models');
-
+ server.get('/', function(req, res) {
+     Category.findAll()
+         .then(function(category) {
+             return res.status(200).send(category);
+         });
+ })
  server.post('/agregar', function(req, res) {
      Category.create({
-         nombre: req.body.nombre,
-     }).then(() => {
-         res.send('Se ha agregado una nueva categoria');
-     }).catch(() => {
-         res.send('No se agrego una nueva categoria');
-     });
+             nombre: req.body.nombre,
+         })
+         .then(() => {
+             return res.send('Se ha agregado una nueva categoria');
+         })
+         .catch(() => {
+             return res.status(400).send('No se agrego categoria')
+         })
  });
 
  server.put('/modificar/:id', (req, res) => {
@@ -78,4 +85,5 @@
          }).catch(() => res.sendStatus(400));
      } else { res.status(400).send("La accion debe existir y debe ser add o remove") }
  })
+
  module.exports = server;
