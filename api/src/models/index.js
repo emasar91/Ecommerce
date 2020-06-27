@@ -10,23 +10,24 @@ const models = {};
 models.conn = db();
 
 fs.readdirSync(__dirname)
-  .filter((file) => (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js'))
-  .forEach((file) => {
-    const model = models.conn.import(path.join(__dirname, file));
-    const name = file.split('.')[0];
-    models[name] = model;
-  });
+    .filter((file) => (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js'))
+    .forEach((file) => {
+        const model = models.conn.import(path.join(__dirname, file));
+        const name = file.split('.')[0];
+        models[name] = model;
+    });
 
-   const {
-     Product = require ('./Product.js'),
-     Category = require ('./Category.js')
-   } = models
+const {
+    Product = require('./Product.js'),
+        Category = require('./Category.js')
+} = models
 
 // Add model relationships here
 db.Sequelize = Sequelize;
 
 
-Product.belongsTo(Category);
-Category.hasMany(Product);
+Product.belongsToMany(Category, { as: "category", through: 'productoxcategorias' });
+Category.belongsToMany(Product, { as: "product", through: 'productoxcategorias' });
+
 
 module.exports = models;
