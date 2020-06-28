@@ -10,7 +10,8 @@ export default function Catalogo({productos}){
         {productos.map(producto => <Producto key={producto.titulo}
             item={producto} 
         />
-        )}
+        )};
+
 
     </div>
     

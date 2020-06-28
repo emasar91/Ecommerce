@@ -1,5 +1,5 @@
 import React from 'react';
-import Logo from '../img/logo2.png';
+import Logo from '../img/logo.png';
 import './css/BarraNavegacion.css';
 import Busqueda from './Busqueda.jsx';
 import Categoria from './categoria.jsx'

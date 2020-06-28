@@ -20,7 +20,6 @@ export default function Busqueda ({buscar}){
             value={producto}
             >
             </input>
-            {/* <input className='boton' type="submit" value="Buscar" /> */}
             <button className='boton' type="search" name="Buscar" value="Buscar">&#128269;</button>
 
             

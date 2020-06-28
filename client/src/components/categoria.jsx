@@ -16,7 +16,7 @@ function Categoria() {
      <div class="collapse navbar-collapse" id="navbarToggleExternalContent">
          <ul class="navbar-nav">
              <li class="nav-item active">
-                 <a class="nav-link" href="sobre.html">Categoría B</a>
+                 <a class="nav-link" href="/categories/?category=">Categoría B</a>
              </li>
              <li class="nav-item">
                  <a class="nav-link" href="#">Categoría C</a>
