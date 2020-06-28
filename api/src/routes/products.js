@@ -47,10 +47,14 @@ server.post('/agregar', function(req, res) {
             cantidad: req.body.cantidad,
             imagen: req.body.imagen,
             descripcion: req.body.descripcion,
+            categoryIdCat: req.body.categoryIdCat
         })
         .then(() => {
             return res.send('Se ha agregado un nuevo producto')
-        });
+        })
+        .catch(() => {
+            return res.status(400).send('No se agrego el producto')
+        })
 });
 
 server.put('/modificar/:id', function(req, res) {

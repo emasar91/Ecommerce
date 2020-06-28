@@ -7,4 +7,5 @@ export default function AgregarCategoria(){
             <input type="button" value="Agregar Categoria"/>
         </Link>
     )
+    
 } 
