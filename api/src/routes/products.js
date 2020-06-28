@@ -59,6 +59,10 @@ server.post('/agregar', function(req, res) {
 
 server.put('/modificar/:id', function(req, res) {
 
+    if (req.body.titulo === "" || req.body.precio === "" || req.body.cantidad === "") {
+        return res.status(400).send("faltan parametros")
+    }
+
     Product.findOne({
             where: {
                 id: req.params.id,
@@ -76,7 +80,7 @@ server.put('/modificar/:id', function(req, res) {
             return res.send('Producto Modificado')
         })
         .catch(() => {
-            return res.send('No se modifico');
+            return res.status(400).send('No se modifico');
         })
 });
 

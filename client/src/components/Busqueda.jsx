@@ -22,7 +22,7 @@ export default function Busqueda ({buscar}){
             >
             </input>
             {/* <input className='boton' type="submit" value="Buscar" /> */}
-            <button className='boton' type="search" name="Buscar" value="Buscar">&#128269;</button>
+            <button className='boton' type="search" name="Buscar" value="Buscar"> <span role="img" aria-label="Buscar">&#128269;</span></button>
 
             
         </form>
