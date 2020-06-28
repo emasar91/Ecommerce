@@ -7,4 +7,5 @@ export default function AgregarProducto(){
             <input type="button" value="Agregar Producto"/>
         </Link>
     )
+    
 } 

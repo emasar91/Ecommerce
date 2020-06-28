@@ -15,7 +15,7 @@ server.get('/search/:search', function(req, res) {
     Product.findAll({
         where: {
             titulo: {
-                [Op.like]: '%' + name + '%'
+                [Op.iLike]: '%' + name + '%'
             }
         }
 
@@ -47,10 +47,14 @@ server.post('/agregar', function(req, res) {
             cantidad: req.body.cantidad,
             imagen: req.body.imagen,
             descripcion: req.body.descripcion,
+            categoryIdCat: req.body.categoryIdCat
         })
         .then(() => {
             return res.send('Se ha agregado un nuevo producto')
-        });
+        })
+        .catch(() => {
+            return res.status(400).send('No se agrego el producto')
+        })
 });
 
 server.put('/modificar/:id', function(req, res) {
@@ -76,7 +80,16 @@ server.put('/modificar/:id', function(req, res) {
         })
 });
 
-
+server.delete('/:id', (req, res) => {
+    const id = req.params.id;
+    Product.destroy({
+            where: { id: id },
+        })
+        .then(deletedProduct => {
+            res.json(deletedProduct);
+        })
+        .catch(res.send);
+});
 
 
 

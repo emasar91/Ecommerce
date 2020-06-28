@@ -1,5 +1,6 @@
 import React ,{useEffect,useState}from 'react';
 
+
 export default function FormularioModificar(id){
 
     const [input, setInput] = useState({
@@ -60,13 +61,6 @@ export default function FormularioModificar(id){
             <label htmlFor="nombre">Nombre</label>
             <input type="text" name="titulo" placeholder={producto.titulo } onChange={handleInputChange}/>
             <br/>
-            <label htmlFor="Categoría">Categoría</label>
-            <select input={useState.value} onChange={handleInputChange}>  
-            <option value="CategoriaA">Categoría A</option>
-            <option value="CategoriaB">Categoría B</option>
-            <option value="CategoriaC">Categoría C</option>
-            <option value="CategoriaD">Categoría D</option>
-          </select> <br/>
             <label htmlFor="precio">Precio</label>
             <input type="number" name="precio" placeholder={producto.precio } onChange={handleInputChange}/>
             <br/>
