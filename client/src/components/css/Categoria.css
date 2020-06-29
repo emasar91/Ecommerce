@@ -1,0 +1,29 @@
+.Categoria {
+    display: flex;
+    flex-flow: column nowrap;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: left;
+    margin-top: 40px;
+    position: fixed;
+    overflow: auto;
+    padding: 1px;
+    width: 150px;
+    height: 100%;
+    font-size: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+
+    a:hover {
+        background-color: white;
+        color:white;
+    }
+
+    a:link, a:visited {
+        color:black;
+        }
+
+        a:active {
+           color: black
+            }

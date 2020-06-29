@@ -3,13 +3,15 @@ import React ,{useEffect,useState}from 'react';
 
 export default function FormularioModificar(id){
 
+    const[categoria, setCategoria] = useState([])
     const [input, setInput] = useState({
         titulo:'',
         categoria:'',
         precio:'',
         cantidad:'',
         descripcion:'',
-        imagen:''
+        imagen:'',
+        categoryIdCat:''
     })
 
     const handleInputChange = function(e){
@@ -72,6 +74,15 @@ export default function FormularioModificar(id){
             <br/>
             <label htmlFor="imagen">imagen</label>
             <input type="file" name="imagen" onChange={handleInputChange}/>
+            <br/>
+            <label htmlFor="categoryIdCat">Categorias*</label>
+            
+            <select  required  name="categoryIdCat" onChange={handleInputChange}>
+                <option name = "categoryIdCat" key ="-1" value=""> Selecciona la Categoria</option>
+                {categoria.map(cat =>
+                <option name = "categoryIdCat"key= {cat.idCat} value={cat.idCat} >  {cat.nombre} </option>)}
+            </select>
+            
             <br/>
             <input type="submit" value="Enviar" onClick={enviarFormulario}/>
         </form>
