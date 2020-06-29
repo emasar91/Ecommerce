@@ -1,28 +1,31 @@
  const server = require('express').Router();
  const { Category, Product } = require('../models');
- 
- 
+
+
  server.get('/', function(req, res) {
      Category.findAll()
          .then(function(category) {
-             return res.status(200).send(category);    //despues quitar
+             return res.status(200).send(category); //despues quitar
          });
  })
- 
- server.get('/products/:id', function(req, res){
-    
-    Category.findByPk(req.params.id)
-    
-    .then((categoria)=>{
-        categoria.getProduct({categoria}).then((productos)=>{
-            res.send(productos)
-        });
-    });
-})
+
+ server.get('/products/:id', function(req, res) {
+
+     Category.findByPk(req.params.id)
+
+     .then((categoria) => {
+             categoria.getProduct({ categoria }).then((productos) => {
+                 if (productos.length === 0)
+                     return res.status(400).send('Sin productos')
+                 return res.send(productos)
+             });
+         })
+         .catch(err => res.status(400).send("Sin productos"));
+ })
 
 
  server.post('/agregar', function(req, res) {
-    Category.create({
+     Category.create({
              nombre: req.body.nombre,
          })
          .then(() => {
