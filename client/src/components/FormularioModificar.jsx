@@ -126,14 +126,6 @@ export default function FormularioModificar(id){
             <label htmlFor="imagen">imagen</label>
             <input type="file" name="imagen" onChange={handleInputChange}/>
             <br/>
-<<<<<<< HEAD
-            <label htmlFor="categoryIdCat">Categorias*</label>
-            
-            <select  required  name="categoryIdCat" onChange={handleInputChange}>
-                <option name = "categoryIdCat" key ="-1" value=""> Selecciona la Categoria</option>
-                {categoria.map(cat =>
-                <option name = "categoryIdCat"key= {cat.idCat} value={cat.idCat} >  {cat.nombre} </option>)}
-=======
 
 
             <label htmlFor="accion"> Añadir / Eliminar</label>
@@ -154,7 +146,6 @@ export default function FormularioModificar(id){
                 <option name = "categoria" key ="-1" value=""> Selecciona la Categoria</option>
                 {categorias.map(cat =>
                 <option name = "nombre" key= {cat.idCat} value={cat.nombre} >  {cat.nombre} </option>)}
->>>>>>> 56b2f1375765955ecb6aaffb24f3ac8e4520a6ba
             </select>
             
             <br/>
