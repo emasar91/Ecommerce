@@ -1,11 +1,11 @@
 .producto {
     background-color: #fff;
     width: 290px;
-    height: 100%;
-    margin-right: 20px;
-    /* border: solid 1px red; */
+    margin-right: 80px;
     border-radius: 4px 4px 0 0;
     transition: box-shadow .2s ease;
+    margin-bottom: 20px;
+    
 }
 
 .producto:hover {

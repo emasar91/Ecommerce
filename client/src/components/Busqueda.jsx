@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import './css/Busqueda.css'
 
+
 export default function Busqueda ({buscar}){
     const [producto, setProducto] = useState("");
 
@@ -20,8 +21,7 @@ export default function Busqueda ({buscar}){
             value={producto}
             >
             </input>
-            {/* <input className='boton' type="submit" value="Buscar" /> */}
-            <button className='boton' type="search" name="Buscar" value="Buscar">&#128269;</button>
+                      <button className='boton' type="search" name="Buscar" value="Buscar"> <span role="img" aria-label="Buscar">&#128269;</span></button>
 
             
         </form>

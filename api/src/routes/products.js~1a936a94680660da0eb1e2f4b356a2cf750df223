@@ -3,28 +3,14 @@ const { Product } = require('../models');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
+
+
 server.get('/', function(req, res) {
     Product.findAll()
         .then(function(products) {
-            return res.status(200).send(products);      // despeus quitar
+            return res.status(200).send(products);
         });
 });
-
-server.get('/search/:search', function(req, res) {
-    var name = req.params.search;
-    Product.findAll({
-        where: {
-            titulo: {
-                [Op.iLike]: '%' + name + '%'
-            }
-        }
-
-
-    }).then(function(products) {
-        console.log(products);
-        return res.status(200).send(products)           // despeus quitar
-    })
-})
 
 server.get('/:id', function(req, res) {
 
@@ -38,7 +24,21 @@ server.get('/:id', function(req, res) {
     })
 })
 
+server.get('/search/:search', function(req, res) {
+    var name = req.params.search;
+    Product.findAll({
+        where: {
+            titulo: {
+                [Op.like]: '%' + name + '%'
+            }
+        }
 
+
+    }).then(function(products) {
+        console.log(products);
+        return res.status(200).send(products)
+    })
+})
 
 server.post('/agregar', function(req, res) {
     Product.create({
@@ -47,21 +47,13 @@ server.post('/agregar', function(req, res) {
             cantidad: req.body.cantidad,
             imagen: req.body.imagen,
             descripcion: req.body.descripcion,
-            categoryIdCat: req.body.categoryIdCat
         })
         .then(() => {
             return res.send('Se ha agregado un nuevo producto')
-        })
-        .catch(() => {
-            return res.status(400).send('No se agrego el producto')
-        })
+        });
 });
 
 server.put('/modificar/:id', function(req, res) {
-
-    if (req.body.titulo === "" || req.body.precio === "" || req.body.cantidad === "") {
-        return res.status(400).send("faltan parametros")
-    }
 
     Product.findOne({
             where: {
@@ -80,20 +72,11 @@ server.put('/modificar/:id', function(req, res) {
             return res.send('Producto Modificado')
         })
         .catch(() => {
-            return res.status(400).send('No se modifico');
+            return res.send('No se modifico');
         })
 });
 
-server.delete('/:id', (req, res) => {
-    const id = req.params.id;
-    Product.destroy({
-            where: { id: id },
-        })
-        .then(deletedProduct => {
-            res.json(deletedProduct);
-        })
-        .catch(res.send);
-});
+
 
 
 

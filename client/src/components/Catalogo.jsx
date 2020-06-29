@@ -2,6 +2,7 @@ import React from 'react'
 import './css/Catalogo.css';
 import Producto from './Producto.jsx'
 
+
 export default function Catalogo({productos}){
 
     
