@@ -21,7 +21,7 @@ const [input , setInput] = useState([]);
              
       <div className="Categoria">
           {input.map(cat =>
-          <Link to ={'/categories/'+cat.nombre}>
+          <Link  key={cat.id} to ={'/categories/'+cat.nombre}>
             <li key={cat.id}> {cat.nombre} </li>
           </Link> 
           )}

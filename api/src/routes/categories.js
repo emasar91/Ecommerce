@@ -65,7 +65,7 @@
          Promise.all([prod(), cat()]).then((response) => {
              if (response[0] && response[1]) {
                  response[0].addCategory(response[1]);
-                 res.send("Succesfull add");
+                 return res.send("Succesfull add");
              } else {
                  res.status(404).send("La categoria o el producto no existe");
              };
@@ -78,7 +78,7 @@
          Promise.all([prod(), cat()]).then((response) => {
              if (response[0] && response[1]) {
                  response[0].removeCategory(response[1]);
-                 res.send("Succesfull remove");
+                 return res.send("Succesfull remove");
              } else {
                  res.status(404).send("La categoria o el producto no existe");
              };

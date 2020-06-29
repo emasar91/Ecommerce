@@ -2,11 +2,15 @@ import React ,{useEffect,useState}from 'react';
 
 
 export default function FormularioModificar(id){
+    
+    const[categorias, setCategorias] = useState([])
 
-    const[categoria, setCategoria] = useState([])
+    const[categoria, setCategoria] = useState({
+        nombre:"",
+        accion:""
+    })
     const [input, setInput] = useState({
         titulo:'',
-        categoria:'',
         precio:'',
         cantidad:'',
         descripcion:'',
@@ -21,8 +25,31 @@ export default function FormularioModificar(id){
         })
     }
 
+    const handleCategoryChange = function(e){
+        console.log(e.target.name)
+        console.log(e.target.value)
+        setCategoria({
+            ...categoria,
+            [e.target.name] : e.target.value
+            
+        })
+        console.log(categoria)
+    }
+
+    const enviarInicio = function(){
+        return window.location.replace('http://localhost:3000')
+    }
+
+    var baneraCategoria = false
+    var banderaProducto = false
+
+
     const enviarFormulario = function(e){
         e.preventDefault();
+               
+        
+
+        //////MODIFICA EL PRODUCTO
         fetch('http://localhost:3080/products/modificar/'+idP,{
             headers: {
                 'Accept': '*/*',
@@ -32,14 +59,30 @@ export default function FormularioModificar(id){
             body: JSON.stringify(input)           
         })
         .then((res)=>{
-            console.log(res.status)
-            if(res.status ===200){
-                return window.location.replace('http://localhost:3000')
+            if (res.status === 200){
+                //////LE AGREGA LA CATEGORIA
+                fetch('http://localhost:3080/categories/adddelete/'+idP,{
+                    headers: {
+                        'Accept': '*/*',
+                        'Content-Type': 'application/json'
+                    },    
+                    method:'PUT',
+                    body: JSON.stringify(categoria)           
+                }).then(res=>{
+                    if(res.status === 200)
+                    enviarInicio()
+                    if(res.status !== 200)        
+                        alert("No se Añadio/Elimino la Categoria")   
+                        
+                }) 
             }
             if(res.status !== 200)
-                alert("No se pudo ingresar el producto")           
-        })
+                alert("No se pudo modificar el producto")  
+        }) 
     }
+
+    if(banderaProducto && baneraCategoria)
+        enviarInicio()
 
 
 //Trae la informacion del producto que fue clickeado
@@ -52,6 +95,14 @@ export default function FormularioModificar(id){
        })
        .then(response =>{ 
            setProducto(response)
+        })
+
+        fetch('http://localhost:3080/categories')
+        .then(response=>{
+            return response.json()
+        })
+        .then((response)=>{
+            setCategorias(response)
         })
     },[idP])
 
@@ -75,16 +126,40 @@ export default function FormularioModificar(id){
             <label htmlFor="imagen">imagen</label>
             <input type="file" name="imagen" onChange={handleInputChange}/>
             <br/>
+<<<<<<< HEAD
             <label htmlFor="categoryIdCat">Categorias*</label>
             
             <select  required  name="categoryIdCat" onChange={handleInputChange}>
                 <option name = "categoryIdCat" key ="-1" value=""> Selecciona la Categoria</option>
                 {categoria.map(cat =>
                 <option name = "categoryIdCat"key= {cat.idCat} value={cat.idCat} >  {cat.nombre} </option>)}
+=======
+
+
+            <label htmlFor="accion"> Añadir / Eliminar</label>
+            <br/>
+            
+            <select required name="accion" onChange={handleCategoryChange}>
+                <option value=""> Seleccionar Accion</option>
+                <option value="add"> Añadir Categoria</option>
+                <option value="remove"> Eliminar Categoria</option>
+
+            </select>
+            <br/>
+
+
+            <label htmlFor="nombre"> Categorias</label>
+            <br/>
+            <select  required  name="nombre" onChange={handleCategoryChange}>
+                <option name = "categoria" key ="-1" value=""> Selecciona la Categoria</option>
+                {categorias.map(cat =>
+                <option name = "nombre" key= {cat.idCat} value={cat.nombre} >  {cat.nombre} </option>)}
+>>>>>>> 56b2f1375765955ecb6aaffb24f3ac8e4520a6ba
             </select>
             
             <br/>
             <input type="submit" value="Enviar" onClick={enviarFormulario}/>
+            <input type="submit" value="Cancelar" onClick={enviarInicio}/>
         </form>
 
     </div>

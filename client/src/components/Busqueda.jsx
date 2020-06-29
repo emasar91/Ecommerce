@@ -21,7 +21,7 @@ export default function Busqueda ({buscar}){
             value={producto}
             >
             </input>
-            <button className='boton' type="search" name="Buscar" value="Buscar">&#128269;</button>
+                      <button className='boton' type="search" name="Buscar" value="Buscar"> <span role="img" aria-label="Buscar">&#128269;</span></button>
 
             
         </form>
