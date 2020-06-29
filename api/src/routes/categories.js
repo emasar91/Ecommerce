@@ -1,13 +1,28 @@
  const server = require('express').Router();
  const { Category, Product } = require('../models');
+ 
+ 
  server.get('/', function(req, res) {
      Category.findAll()
          .then(function(category) {
-             return res.status(200).send(category);
+             return res.status(200).send(category);    //despues quitar
          });
  })
+ 
+ server.get('/products/:id', function(req, res){
+    
+    Category.findByPk(req.params.id)
+    
+    .then((categoria)=>{
+        categoria.getProduct({categoria}).then((productos)=>{
+            res.send(productos)
+        });
+    });
+})
+
+
  server.post('/agregar', function(req, res) {
-     Category.create({
+    Category.create({
              nombre: req.body.nombre,
          })
          .then(() => {
@@ -56,7 +71,7 @@
      var cat = function() {
          return Category.findOne({
              where: {
-                 nombre: req.body.nombre
+                 nombre: req.body.nombre,
              }
          });
      };

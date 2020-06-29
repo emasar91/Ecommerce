@@ -6,7 +6,7 @@ const Op = Sequelize.Op;
 server.get('/', function(req, res) {
     Product.findAll()
         .then(function(products) {
-            return res.status(200).send(products);
+            return res.status(200).send(products);      // despeus quitar
         });
 });
 
@@ -22,7 +22,7 @@ server.get('/search/:search', function(req, res) {
 
     }).then(function(products) {
         console.log(products);
-        return res.status(200).send(products)
+        return res.status(200).send(products)           // despeus quitar
     })
 })
 
