@@ -1,11 +1,29 @@
  const server = require('express').Router();
  const { Category, Product } = require('../models');
+
+
  server.get('/', function(req, res) {
      Category.findAll()
          .then(function(category) {
-             return res.status(200).send(category);
+             return res.status(200).send(category); //despues quitar
          });
  })
+
+ server.get('/products/:id', function(req, res) {
+
+     Category.findByPk(req.params.id)
+
+     .then((categoria) => {
+             categoria.getProduct({ categoria }).then((productos) => {
+                 if (productos.length === 0)
+                     return res.status(400).send('Sin productos')
+                 return res.send(productos)
+             });
+         })
+         .catch(err => res.status(400).send("Sin productos"));
+ })
+
+
  server.post('/agregar', function(req, res) {
      Category.create({
              nombre: req.body.nombre,
@@ -56,7 +74,7 @@
      var categoria = function() {
          return Category.findOne({
              where: {
-                 nombre: req.body.nombre
+                 nombre: req.body.nombre,
              }
          });
      };
@@ -65,7 +83,7 @@
          Promise.all([product(), categoria()]).then((response) => {
              if (response[0] && response[1]) {
                  response[0].addCategory(response[1]);
-                 res.send("Categoria agregada");
+                 return res.send("Categoria Agregada");
              } else {
                  res.status(404).send("La categoria o el producto no existe");
              };
@@ -78,7 +96,7 @@
          Promise.all([producto(), categoria()]).then((response) => {
              if (response[0] && response[1]) {
                  response[0].removeCategory(response[1]);
-                 res.send("Categoria eliminada");
+                 return res.send("Categoria Eliminada");
              } else {
                  res.status(404).send("La categoria o el producto no existe");
              };

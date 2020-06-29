@@ -19,7 +19,7 @@ const Product = (sequelize, S) => {
         },
 
         precio: {
-            type: S.INTEGER,
+            type: S.REAL,
             allowNull: false,
         },
 

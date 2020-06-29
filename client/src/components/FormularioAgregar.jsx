@@ -4,25 +4,17 @@ import React, {useState , useEffect} from 'react';
 
 export default function FormularioAgregar(){
 
-    const[categoria, setCategoria] = useState([])
     const [input, setInput] = useState({
         titulo : null,
         precio : null,
         cantidad : null,
         descripcion : '',
         imagen : '',
-        categoryIdCat:''
     })
 
 
     useEffect(()=>{
-        fetch('http://localhost:3080/categories')
-        .then(response=>{
-            return response.json()
-        })
-        .then((response)=>{
-            setCategoria(response)
-        })
+        
     },[])
 
     const handleInputChange = function(e){
@@ -51,7 +43,7 @@ export default function FormularioAgregar(){
                 return window.location.replace('http://localhost:3000')
             }
             else{
-                alert("No se pudo ingresar el producto")
+                alert("No se pudo agregar el producto")
             }
             
         })
@@ -77,16 +69,9 @@ export default function FormularioAgregar(){
             <label htmlFor="imagen">imagen</label>
             <input type="file" name="imagen" onChange={handleInputChange}/>
             <br/>
-            <label htmlFor="categoryIdCat">Categorias*</label>
             
-            <select  required  name="categoryIdCat" onChange={handleInputChange}>
-                <option name = "categoryIdCat" key ="-1" value=""> Selecciona la Categoria</option>
-                {categoria.map(cat =>
-                <option name = "categoryIdCat"key= {cat.idCat} value={cat.idCat} >  {cat.nombre} </option>)}
-            </select>
             
-            <br/>
-            <input type="submit" value="Enviar" onClick={enviarFormulario} />
+            <button type="submit" class="btn btn-primary"  value="Enviar" onClick={enviarFormulario} >Enviar</button>
 
         </form>
 

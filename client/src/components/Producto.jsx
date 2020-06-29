@@ -22,7 +22,8 @@ export default function Producto ({item}){
                     <h3 className='titulo-producto'>{titulo}</h3>
                 </Link>
             </div>
-            <Modificar id={id}/>
+                
+             <Modificar id={id}/>
         </div>
     )
 }
