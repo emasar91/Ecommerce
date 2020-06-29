@@ -9,21 +9,29 @@
     position: fixed;
     overflow: auto;
     padding: 1px;
-    width: 150px;
+    width: 350px;
     height: 100%;
     font-size: 20px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    
     }
 
-    a:hover {
-        background-color: white;
+    btn:hover {
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         color:white;
     }
 
-    a:link, a:visited {
-        color:black;
+    .ListaCategoria{
+        margin-left: 7px;
+        width: 180px;
+        color:white;
+        list-style: none;
+            
         }
-
+.ListaCategoria:hover {
+  font-size: 18px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
         a:active {
            color: black
             }

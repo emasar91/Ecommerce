@@ -149,9 +149,9 @@ export default function FormularioModificar(id){
             </select>
             
             <br/>
-            <input type="submit" value="Enviar" onClick={enviarFormulario}/>
-            <input type="submit" value="Cancelar" onClick={enviarInicio}/>
-        </form>
+            <button type="submit" class="btn btn-primary"  value="Enviar" onClick={enviarFormulario} >Enviar</button>
+            <button type="submit" class="btn btn-primary"  value="Cancelar" onClick={enviarInicio} >Cancelar</button>
+            </form>
 
     </div>
    )

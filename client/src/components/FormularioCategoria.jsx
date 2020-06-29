@@ -42,10 +42,10 @@ export default function FormularioCategoria(){
         <form onSubmit={(e)=> e.preventDefault}>
 
             <label htmlFor="nombre">Nombre</label>
-            <input type="text" name="nombre" placeholder= "Categoria" onChange={handleInputChange}/>
+            <input type="text" name="nombre" placeholder= "Categoría" onChange={handleInputChange}/>
             <br/>
-            <input type="submit" value="Enviar" onClick={enviarFormulario} />
-        </form>
+            <button type="submit" class="btn btn-primary"  value="Enviar" onClick={enviarFormulario} >Enviar</button>
+            </form>
 
     </div>
    )

@@ -33,7 +33,7 @@ export default function DetalleProducto(id){
         <div>
             <img src={imagen} alt="Imagen Producto"/> 
             <h1>Nombre: {productoDetallado.titulo}</h1>
-            <h1>Categoria: Aca deberia ir la categoria</h1>
+            {/* <h1>Categoria: Aca deberia ir la categoria</h1> */}
             <h1>Precio: {productoDetallado.precio}</h1>
             <h1>Stock: {productoDetallado.cantidad}</h1>
             <h1>descripcion:{productoDetallado.descripcion}</h1>

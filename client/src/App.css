@@ -39,3 +39,13 @@
         transform: rotate(360deg);
     }
 }
+
+.btn {
+    margin: 20px;
+    }
+
+
+    .btn:hover {
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        color:white;
+    }

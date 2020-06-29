@@ -21,8 +21,8 @@ const [input , setInput] = useState([]);
              
       <div className="Categoria">
           {input.map(cat =>
-          <Link  key={cat.id} to ={'/categories/'+cat.nombre}>
-            <li key={cat.id} onClick="location.reload()" > {cat.nombre} </li>
+          <Link key={cat.id} to ={'/categories/'+cat.nombre}>
+            <li className = "btn btn btn-primary ListaCategoria"  key={cat.id} onClick="location.reload()" > {cat.nombre} </li>
           </Link> 
           )}
              </div>

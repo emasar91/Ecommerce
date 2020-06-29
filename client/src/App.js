@@ -15,6 +15,7 @@ import ProductosPorCategoria from './components/ProductosPorCategoria.jsx'
 
 
 
+
 function App() {
     const [productos, setProductos] = useState([])
 
@@ -56,7 +57,7 @@ function App() {
                     <Route exact path = '/'
                     render = {() => <Categoria/>}/>
                     
-                    <Route exact path = '/categories/:productos'
+                    <Route path = '/categories/:productos'
                     render = {() => <Categoria/>}/>
                     
                     <Route exact path = '/'

@@ -43,7 +43,7 @@ export default function FormularioAgregar(){
                 return window.location.replace('http://localhost:3000')
             }
             else{
-                alert("No se pudo modificar el producto")
+                alert("No se pudo agregar el producto")
             }
             
         })
@@ -71,7 +71,7 @@ export default function FormularioAgregar(){
             <br/>
             
             
-            <input type="submit" value="Enviar" onClick={enviarFormulario} />
+            <button type="submit" class="btn btn-primary"  value="Enviar" onClick={enviarFormulario} >Enviar</button>
 
         </form>
 
