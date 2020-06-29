@@ -68,10 +68,10 @@
  });
 
  server.put("/adddelete/:productId", function(req, res) {
-     var prod = function() {
+     var product = function() {
          return Product.findByPk(req.params.productId);
      };
-     var cat = function() {
+     var categoria = function() {
          return Category.findOne({
              where: {
                  nombre: req.body.nombre,
@@ -80,10 +80,10 @@
      };
 
      if (req.body.accion === 'add') {
-         Promise.all([prod(), cat()]).then((response) => {
+         Promise.all([product(), categoria()]).then((response) => {
              if (response[0] && response[1]) {
                  response[0].addCategory(response[1]);
-                 return res.send("Succesfull add");
+                 return res.send("Categoria Agregada");
              } else {
                  res.status(404).send("La categoria o el producto no existe");
              };
@@ -93,10 +93,10 @@
 
 
      } else if (req.body.accion === 'remove') {
-         Promise.all([prod(), cat()]).then((response) => {
+         Promise.all([producto(), categoria()]).then((response) => {
              if (response[0] && response[1]) {
                  response[0].removeCategory(response[1]);
-                 return res.send("Succesfull remove");
+                 return res.send("Categoria Eliminada");
              } else {
                  res.status(404).send("La categoria o el producto no existe");
              };
