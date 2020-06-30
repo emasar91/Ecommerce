@@ -26,7 +26,7 @@ export default function producto(state = initialState, action) {
         case SEARCH_PRODUCT:
             return {
                 ...state,
-                productos: state.payload
+                productos: action.payload
             }
 
         default:

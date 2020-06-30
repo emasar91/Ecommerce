@@ -6,7 +6,8 @@ import { getProducts } from '../actions/productoAction'
 
 function Catalogo({productos, getProducts}){
 
-    useEffect(()=>{getProducts()},[productos])        
+    useEffect(()=>{getProducts()
+    },[])        
     
     return (
         <div className='catalogo'>
