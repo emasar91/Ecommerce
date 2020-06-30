@@ -72,7 +72,7 @@ function App() {
                 () => < FormularioAgregar /> }
             />
 
-            <Route exact path = '/categories/agregar'
+            <Route  exact  path = '/categories/agregar'
             render = {
                 () => < FormularioCategoria /> }
             />
@@ -89,7 +89,7 @@ function App() {
             ({ match }) => < FormularioModificar id = { match.params.id }
             />}/>
 
-            <Route exact path = '/categories/:nombre'
+            <Route exact path = '/categories/productporcategory/:nombre'
             render = {
                 ({ match }) => < ProductosPorCategoria nombre = { match.params.nombre }
             />}/>

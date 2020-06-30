@@ -13,8 +13,8 @@ function Categoria({categorias, getCategories}) {
              
       <div className="Categoria">
           {categorias.map(cat =>
-          <Link key={cat.id+cat.nombre} to ={'/categories/'+cat.nombre}>
-            <li className = "btn btn btn-primary ListaCategoria"  key={cat.id}  > {cat.nombre} </li>
+          <Link key={cat.id+cat.nombre} to ={'/categories/productporcategory/'+cat.nombre}>
+            <li className = "btn btn btn-primary ListaCategoria"  key={cat.id}   > {cat.nombre} </li>
           </Link> 
           )}
              </div>

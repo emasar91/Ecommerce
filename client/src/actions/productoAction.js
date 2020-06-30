@@ -67,6 +67,9 @@ export function productByCategory(categoria) {
             .then(json => {
                 dispatch({ type: PRODUCT_BY_CATEGORY, payload: json })
             })
+            .catch(() => {
+                dispatch({ type: PRODUCT_BY_CATEGORY, payload: [] })
+            })
     }
 }
 
@@ -97,7 +100,6 @@ export function modifyProduct(producto, categoria, id) {
                         }
                         if (res.status !== 200)
                             alert("No se Añadio/Elimino la Categoria")
-
                     })
                 }
                 if (res.status !== 200)

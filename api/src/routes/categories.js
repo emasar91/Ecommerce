@@ -93,7 +93,7 @@
 
 
      } else if (req.body.accion === 'remove') {
-         Promise.all([producto(), categoria()]).then((response) => {
+         Promise.all([product(), categoria()]).then((response) => {
              if (response[0] && response[1]) {
                  response[0].removeCategory(response[1]);
                  return res.send("Categoria Eliminada");

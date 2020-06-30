@@ -4,23 +4,24 @@ import Catalogo from './Catalogo'
 import { productByCategory } from '../actions/productoAction'
 
 function ProductosPorCategoria({nombre, categorias,  productByCategory, productos}){
-    console.log(productos)
-
+    
     useEffect(()=>{
-
+        
         categorias.map(c=>{
-            if(c.nombre === nombre){
-                console.log(c.nombre,c.idCat)
+            if(c.nombre === nombre && c.nombre!==0){
                 productByCategory(c.idCat)
             }      
         })    
     },[nombre])
+
         
     return(
         <div>
             <Catalogo productos={productos}/>
         </div>
     )
+        console.log(productos)
+
 }
 
 function mapStateToProps(state){
