@@ -4,12 +4,13 @@ import Catalogo from './Catalogo'
 import { productByCategory } from '../actions/productoAction'
 
 function ProductosPorCategoria({nombre, categorias,  productByCategory, productos}){
-
+    console.log(productos)
 
     useEffect(()=>{
 
         categorias.map(c=>{
             if(c.nombre === nombre){
+                console.log(c.nombre,c.idCat)
                 productByCategory(c.idCat)
             }      
         })    

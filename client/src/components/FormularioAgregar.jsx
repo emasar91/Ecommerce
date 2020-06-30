@@ -27,7 +27,6 @@ function FormularioAgregar({addProduct}){
     const enviarFormulario = function(e){
         e.preventDefault();
         addProduct(input)
-        // window.location.replace('http://localhost:3000')
         
     }
          

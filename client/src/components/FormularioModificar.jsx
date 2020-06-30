@@ -1,11 +1,12 @@
 import React ,{useEffect,useState}from 'react';
 import { connect } from 'react-redux'
+import {modifyProduct, getProductDetail} from '../actions/productoAction'
  
 
-export default function FormularioModificar(id){
+function FormularioModificar({id, categorias, getProductDetail, modifyProduct, producto}){
     
-    const[categorias, setCategorias] = useState([])
-
+    console.log(id)
+   
     const[categoria, setCategoria] = useState({
         nombre:"",
         accion:""
@@ -18,14 +19,14 @@ export default function FormularioModificar(id){
         imagen:'',
         categoryIdCat:''
     })
-
+    //input que modifica el producto
     const handleInputChange = function(e){
         setInput({
             ...input,
             [e.target.name] : e.target.value
         })
     }
-
+    //input para agregar o quitar la categoria
     const handleCategoryChange = function(e){
         console.log(e.target.name)
         console.log(e.target.value)
@@ -34,78 +35,26 @@ export default function FormularioModificar(id){
             [e.target.name] : e.target.value
             
         })
-        console.log(categoria)
     }
 
     const enviarInicio = function(){
         return window.location.replace('http://localhost:3000')
     }
 
-    var baneraCategoria = false
-    var banderaProducto = false
+   
 
 
     const enviarFormulario = function(e){
         e.preventDefault();
-               
-        
-
-        //////MODIFICA EL PRODUCTO
-        fetch('http://localhost:3080/products/modificar/'+idP,{
-            headers: {
-                'Accept': '*/*',
-                'Content-Type': 'application/json'
-              },    
-            method:'PUT',
-            body: JSON.stringify(input)           
-        })
-        .then((res)=>{
-            if (res.status === 200){
-                //////LE AGREGA LA CATEGORIA
-                fetch('http://localhost:3080/categories/adddelete/'+idP,{
-                    headers: {
-                        'Accept': '*/*',
-                        'Content-Type': 'application/json'
-                    },    
-                    method:'PUT',
-                    body: JSON.stringify(categoria)           
-                }).then(res=>{
-                    if(res.status === 200)
-                    enviarInicio()
-                    if(res.status !== 200)        
-                        alert("No se Añadio/Elimino la Categoria")   
-                        
-                }) 
-            }
-            if(res.status !== 200)
-                alert("No se pudo modificar el producto")  
-        }) 
+         modifyProduct( input,categoria, id)      
+       
     }
 
-    if(banderaProducto && baneraCategoria)
-        enviarInicio()
 
 
 //Trae la informacion del producto que fue clickeado
-    var idP = id.id
-    const [producto, setProducto] = useState({});
-    useEffect(()=>{
-        fetch('http://localhost:3080/products/'+idP)
-       .then(response=> {
-           return response.json()
-       })
-       .then(response =>{ 
-           setProducto(response)
-        })
-
-        fetch('http://localhost:3080/categories')
-        .then(response=>{
-            return response.json()
-        })
-        .then((response)=>{
-            setCategorias(response)
-        })
-    },[idP])
+    
+    useEffect(()=>{getProductDetail(id)},[])
 
    return (
     <div>
@@ -157,3 +106,11 @@ export default function FormularioModificar(id){
     </div>
    )
 }
+function mapStateToProps(state){
+    return {
+        categorias :state.categoria.categorias,
+        producto : state.producto.productoDetallado
+    }
+}
+
+export default connect(mapStateToProps,{getProductDetail, modifyProduct})(FormularioModificar)
