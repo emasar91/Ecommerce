@@ -33,6 +33,11 @@ export default function producto(state = initialState, action) {
                 ...state,
                 productos: action.payload
             }
+        case MODIFY_PRODUCT:
+            return {
+                ...state,
+                productos: action.payload
+            }
 
         default:
             return state
