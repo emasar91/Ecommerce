@@ -1,30 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './css/Categoria.css'
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux'
+import { getCategories } from '../actions/categoriaAction'
 
 
-export default function Categoria() {
+function Categoria({categorias, getCategories}) {
 
-const [input , setInput] = useState([]);
-    useEffect(()=>{
-        fetch('http://localhost:3080/categories')
-            .then(response => {
-                return response.json()
-            })
-            .then(response => {
-                setInput(response)
-            })
-            console.log("Categorias Cargadas")
-    },[])
+     useEffect(()=>{getCategories()},[])
 
     return (
              
       <div className="Categoria">
-          {input.map(cat =>
-          <Link key={cat.id} to ={'/categories/'+cat.nombre}>
+          {categorias.map(cat =>
+          <Link key={cat.id+cat.nombre} to ={'/categories/'+cat.nombre}>
             <li className = "btn btn btn-primary ListaCategoria"  key={cat.id} onClick="location.reload()" > {cat.nombre} </li>
           </Link> 
           )}
              </div>
     );
   }
+
+
+function mapStateToProps(state){
+  return{
+      categorias: state.categoria.categorias
+  }
+}
+
+  
+  export default connect(mapStateToProps, {getCategories})(Categoria)

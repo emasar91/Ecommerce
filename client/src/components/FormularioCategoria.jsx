@@ -1,8 +1,10 @@
 import React ,{useState}from 'react';
+import { addCategory } from '../actions/categoriaAction'
+import { connect } from 'react-redux'
 
 
-export default function FormularioCategoria(){
-
+function FormularioCategoria({addCategory}){
+    
     const [input, setInput] = useState({
         nombre: null,
         
@@ -17,22 +19,7 @@ export default function FormularioCategoria(){
 
     const enviarFormulario = function(e){
         e.preventDefault();
-        fetch('http://localhost:3080/categories/agregar',{
-            headers: {
-                'Accept': '*/*',
-                'Content-Type': 'application/json'
-              },    
-            method:'POST',
-            body: JSON.stringify(input)           
-        })
-        .then((res)=>{
-            if(res.status ===200){
-                return window.location.replace('http://localhost:3000')
-            }else{
-                alert("No se pudo ingresar la categoria")
-            }
-                   
-        })
+        addCategory(input)
     }
 
 
@@ -50,3 +37,5 @@ export default function FormularioCategoria(){
     </div>
    )
 }
+
+export default connect(null,{addCategory})(FormularioCategoria)

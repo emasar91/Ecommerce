@@ -1,8 +1,12 @@
-import React, {useState , useEffect} from 'react';
+import React, { useState } from 'react';
+import { addProduct } from '../actions/productoAction'
+
+import { connect } from 'react-redux'
 
 
 
-export default function FormularioAgregar(){
+function FormularioAgregar({addProduct}){
+    
 
     const [input, setInput] = useState({
         titulo : null,
@@ -11,11 +15,6 @@ export default function FormularioAgregar(){
         descripcion : '',
         imagen : '',
     })
-
-
-    useEffect(()=>{
-        
-    },[])
 
     const handleInputChange = function(e){
         e.preventDefault()
@@ -27,26 +26,9 @@ export default function FormularioAgregar(){
 
     const enviarFormulario = function(e){
         e.preventDefault();
-        fetch('http://localhost:3080/products/agregar',{
-            headers: {
-                'Accept': '*/*',
-                'Content-Type': 'application/json'
-              },    
-            method:'POST',
-            body: JSON.stringify(input)
-            
-        })
-        .then((res)=>{
-            console.log(res.status)
-            if(res.status ===200){
-                console.log(input)
-                return window.location.replace('http://localhost:3000')
-            }
-            else{
-                alert("No se pudo agregar el producto")
-            }
-            
-        })
+        addProduct(input)
+        // window.location.replace('http://localhost:3000')
+        
     }
          
    return (
@@ -78,3 +60,5 @@ export default function FormularioAgregar(){
     </div>
    )
 }
+
+export default connect(null,{addProduct})(FormularioAgregar)
