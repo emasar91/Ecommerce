@@ -14,7 +14,7 @@ function Categoria({categorias, getCategories}) {
       <div className="Categoria">
           {categorias.map(cat =>
           <Link key={cat.id+cat.nombre} to ={'/categories/'+cat.nombre}>
-            <li className = "btn btn btn-primary ListaCategoria"  key={cat.id} onClick="location.reload()" > {cat.nombre} </li>
+            <li className = "btn btn btn-primary ListaCategoria"  key={cat.id}  > {cat.nombre} </li>
           </Link> 
           )}
              </div>

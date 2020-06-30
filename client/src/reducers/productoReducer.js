@@ -1,4 +1,4 @@
-import { GET_PRODUCTS, GET_PRODUCT_DETAIL, ADD_PRODUCT, SEARCH_PRODUCT } from '../actions/productoAction'
+import { GET_PRODUCTS, GET_PRODUCT_DETAIL, ADD_PRODUCT, SEARCH_PRODUCT, PRODUCT_BY_CATEGORY } from '../actions/productoAction'
 const initialState = {
     productos: [],
     productoDetallado: {}
@@ -24,6 +24,11 @@ export default function producto(state = initialState, action) {
                 productos: state.productos
             }
         case SEARCH_PRODUCT:
+            return {
+                ...state,
+                productos: action.payload
+            }
+        case PRODUCT_BY_CATEGORY:
             return {
                 ...state,
                 productos: action.payload

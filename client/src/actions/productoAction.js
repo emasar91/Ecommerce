@@ -2,6 +2,7 @@ export const GET_PRODUCTS = 'GET_PRODUCTS'
 export const GET_PRODUCT_DETAIL = 'GET_PRODUCT_DETAIL'
 export const ADD_PRODUCT = 'ADD_PRODUCT'
 export const SEARCH_PRODUCT = 'SEARCH_PRODUCT'
+export const PRODUCT_BY_CATEGORY = 'PRODUCT_BY_CATEGORY'
 
 export function getProducts() {
     return function(dispatch) {
@@ -54,6 +55,16 @@ export function searchProduct(producto) {
             .then(response => response.json())
             .then(json => {
                 dispatch({ type: SEARCH_PRODUCT, payload: json })
+            })
+    }
+}
+
+export function productByCategory(categoria) {
+    return function(dispatch) {
+        return fetch('http://localhost:3080/products/search/' + categoria)
+            .then(response => response.json())
+            .then(json => {
+                dispatch({ type: PRODUCT_BY_CATEGORY, payload: json })
             })
     }
 }
