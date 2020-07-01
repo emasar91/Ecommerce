@@ -2,6 +2,7 @@ import React from 'react';
 import Logo from '../img/logo.png';
 import './css/BarraNavegacion.css';
 import Busqueda from './Busqueda.jsx';
+import AgregarUsuario from './AgregarUsuario'
 import { Link } from 'react-router-dom';
 
 
@@ -20,6 +21,7 @@ export default function BarraNavegacion({buscar}){
                 </Link>           
                 
                 <Busqueda className='busqueda' buscar = {buscar}/>
+                <AgregarUsuario className=' usuarioAgregar btn'/>
             
         </div>
            

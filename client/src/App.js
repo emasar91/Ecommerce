@@ -10,6 +10,7 @@ import FormularioAgregar from './components/FormularioAgregar.jsx';
 import FormularioCategoria from './components/FormularioCategoria.jsx';
 import AgregarProducto from './components/AgregarProducto';
 import AgregarCategoria from './components/AgregarCategoria';
+import FormularioUsuario from './components/FormularioUsuario';
 import Categoria from './components/Categoria.jsx';
 import ProductosPorCategoria from './components/ProductosPorCategoria.jsx'
 
@@ -58,6 +59,10 @@ function App() {
             <Route  exact  path = '/categories/agregar'
             render = {
                 () => < FormularioCategoria /> }
+            />
+            <Route  exact  path = '/user/crearUsuario'
+            render = {
+                () => < FormularioUsuario /> }
             />
 
 
