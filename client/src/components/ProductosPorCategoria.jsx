@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useEffect} from 'react'
 import { connect } from 'react-redux'
 import Catalogo from './Catalogo'
 import { productByCategory } from '../actions/productoAction'
@@ -20,7 +20,6 @@ function ProductosPorCategoria({nombre, categorias,  productByCategory, producto
             <Catalogo productos={productos}/>
         </div>
     )
-        console.log(productos)
 
 }
 

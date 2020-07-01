@@ -31,7 +31,7 @@ function FormularioCategoria({addCategory}){
             <label htmlFor="nombre">Nombre</label>
             <input type="text" name="nombre" placeholder= "Categoría" onChange={handleInputChange}/>
             <br/>
-            <button type="submit" class="btn btn-primary"  value="Enviar" onClick={enviarFormulario} >Enviar</button>
+            <button type="submit" className="btn btn-primary"  value="Enviar" onClick={enviarFormulario} >Enviar</button>
             </form>
 
     </div>

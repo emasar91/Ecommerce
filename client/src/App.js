@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './App.css';
 import BarraNavegacion from './components/BarraNavegacion.jsx'
 import Catalogo from './components/Catalogo.jsx';
@@ -17,23 +17,6 @@ import ProductosPorCategoria from './components/ProductosPorCategoria.jsx'
 
 
 function App() {
-    const [productos, setProductos] = useState([])
-
-    // useEffect(() => {
-    //     fetch('http://localhost:3080/products')
-    //         .then(response => {
-    //             return response.json()
-    //         })
-    //         .then(response => {
-    //             setProductos(response)
-    //         })
-    //     console.log("Productos Cargados")
-
-    // }, [])
-
-
-
-
     
 
     return ( <div className = "App" >

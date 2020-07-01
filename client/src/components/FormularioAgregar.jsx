@@ -52,7 +52,7 @@ function FormularioAgregar({addProduct}){
             <br/>
             
             
-            <button type="submit" class="btn btn-primary"  value="Enviar" onClick={enviarFormulario} >Enviar</button>
+            <button type="submit" className="btn btn-primary"  value="Enviar" onClick={enviarFormulario} >Enviar</button>
 
         </form>
 

@@ -5,7 +5,6 @@ import {modifyProduct, getProductDetail} from '../actions/productoAction'
 
 function FormularioModificar({id, categorias, getProductDetail, modifyProduct, producto}){
     
-    console.log(id)
    
     const[categoria, setCategoria] = useState({
         nombre:"",
@@ -28,8 +27,6 @@ function FormularioModificar({id, categorias, getProductDetail, modifyProduct, p
     }
     //input para agregar o quitar la categoria
     const handleCategoryChange = function(e){
-        console.log(e.target.name)
-        console.log(e.target.value)
         setCategoria({
             ...categoria,
             [e.target.name] : e.target.value
@@ -99,8 +96,8 @@ function FormularioModificar({id, categorias, getProductDetail, modifyProduct, p
             </select>
             
             <br/>
-            <button type="submit" class="btn btn-primary"  value="Enviar" onClick={enviarFormulario} >Enviar</button>
-            <button type="submit" class="btn btn-primary"  value="Cancelar" onClick={enviarInicio} >Cancelar</button>
+            <button type="submit" className="btn btn-primary"  value="Enviar" onClick={enviarFormulario} >Enviar</button>
+            <button type="submit" className="btn btn-primary"  value="Cancelar" onClick={enviarInicio} >Cancelar</button>
             </form>
 
     </div>

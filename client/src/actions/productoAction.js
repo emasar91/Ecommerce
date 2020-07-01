@@ -67,9 +67,7 @@ export function productByCategory(categoria) {
             .then(json => {
                 dispatch({ type: PRODUCT_BY_CATEGORY, payload: json })
             })
-            .catch(() => {
-                dispatch({ type: PRODUCT_BY_CATEGORY, payload: [] })
-            })
+
     }
 }
 
