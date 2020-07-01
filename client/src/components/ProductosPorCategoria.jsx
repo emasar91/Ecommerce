@@ -12,7 +12,7 @@ function ProductosPorCategoria({nombre, categorias,  productByCategory, producto
                 productByCategory(c.idCat)
             }      
         })    
-    },[nombre])
+    },[nombre,categorias,productByCategory])
 
         
     return(

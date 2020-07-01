@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 
 function DetalleProducto({id, detalleProducto, getProductDetail}){
     
-    useEffect(()=>{getProductDetail(id)},[])
+    useEffect(()=>{getProductDetail(id)},[id,getProductDetail])
 
     var imagen=''
     if(detalleProducto.imagen===""){

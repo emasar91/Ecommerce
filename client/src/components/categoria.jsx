@@ -7,7 +7,7 @@ import { getCategories } from '../actions/categoriaAction'
 
 function Categoria({categorias, getCategories}) {
 
-     useEffect(()=>{getCategories()},[])
+     useEffect(()=>{getCategories()},[getCategories])
 
     return (
              

@@ -51,7 +51,7 @@ function FormularioModificar({id, categorias, getProductDetail, modifyProduct, p
 
 //Trae la informacion del producto que fue clickeado
     
-    useEffect(()=>{getProductDetail(id)},[])
+    useEffect(()=>{getProductDetail(id)},[id,getProductDetail])
 
    return (
     <div>
