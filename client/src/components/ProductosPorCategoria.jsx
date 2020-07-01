@@ -1,45 +1,34 @@
-import React, {useState, useEffect} from 'react'
+import React, {useEffect} from 'react'
+import { connect } from 'react-redux'
 import Catalogo from './Catalogo'
+import { productByCategory } from '../actions/productoAction'
 
-export default function ProductosPorCategoria(nombre){
-
-    const [productos, setProductos] = useState([])
-    const [idC, setIdC] = useState([])
-
+function ProductosPorCategoria({nombre, categorias,  productByCategory, productos}){
+    
     useEffect(()=>{
         
-        fetch('http://localhost:3080/categories')
-        .then(response=>{
-            return response.json()
-        })
-        .then((response)=>{
-            response.map((c)=>{
-                if(c.nombre === nombre.nombre){
-                    setIdC(c.idCat)
+        categorias.map(c=>{
+            if(c.nombre === nombre && c.nombre!==0){
+                productByCategory(c.idCat)
+            }      
+        })    
+    },[nombre,categorias,productByCategory])
 
-                }
-            })
-            return true
-        })
         
-
-        fetch( 'http://localhost:3080/categories/products/'+idC)
-        .then(response=>{
-            return response.json()
-        })
-        .then(response =>{
-            setProductos(response)
-        })
-        .catch(err=>console.log(err))
-        
-        
-    },[idC])
-    
-
-     
     return(
         <div>
             <Catalogo productos={productos}/>
         </div>
     )
+
 }
+
+function mapStateToProps(state){
+    return {
+        categorias : state.categoria.categorias,
+        productos : state.producto.productos
+    }
+}
+
+
+export default connect(mapStateToProps,{productByCategory})(ProductosPorCategoria)

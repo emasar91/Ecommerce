@@ -16,7 +16,7 @@
      .then((categoria) => {
              categoria.getProduct({ categoria }).then((productos) => {
                  if (productos.length === 0)
-                     return res.status(400).send('Sin productos')
+                     return res.status(200).send(productos)
                  return res.send(productos)
              });
          })
@@ -93,7 +93,7 @@
 
 
      } else if (req.body.accion === 'remove') {
-         Promise.all([producto(), categoria()]).then((response) => {
+         Promise.all([product(), categoria()]).then((response) => {
              if (response[0] && response[1]) {
                  response[0].removeCategory(response[1]);
                  return res.send("Categoria Eliminada");
