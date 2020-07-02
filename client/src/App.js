@@ -13,6 +13,8 @@ import AgregarCategoria from './components/AgregarCategoria';
 import FormularioUsuario from './components/FormularioUsuario';
 import Categoria from './components/Categoria.jsx';
 import ProductosPorCategoria from './components/ProductosPorCategoria.jsx'
+import Login from './components/Login';
+import AdministrarCuentas from './components/AdministrarCuentas';
 
 
 
@@ -30,6 +32,16 @@ function App() {
             <Route exact path = '/'
             render = {
                 () => < Categoria /> }
+            />
+
+            <Route exact path = '/login'
+            render = {
+                () => < Login /> }
+            />
+
+            <Route exact path = '/administrarCuentas'
+            render = {
+                () => < AdministrarCuentas /> }
             />
 
             <Route path = '/categories/:productos'

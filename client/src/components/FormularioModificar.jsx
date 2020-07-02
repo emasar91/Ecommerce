@@ -34,7 +34,7 @@ function FormularioModificar({id, categorias, getProductDetail, modifyProduct, p
         })
     }
 
-    const enviarInicio = function(){
+    const cancelar = function(){
         return window.location.replace('http://localhost:3000')
     }
 
@@ -97,7 +97,7 @@ function FormularioModificar({id, categorias, getProductDetail, modifyProduct, p
             
             <br/>
             <button type="submit" className="btn btn-primary"  value="Enviar" onClick={enviarFormulario} >Enviar</button>
-            <button type="submit" className="btn btn-primary"  value="Cancelar" onClick={enviarInicio} >Cancelar</button>
+            <button type="button" className="btn-lg btn-danger btn-block"  value="Cancelar" onClick={cancelar} >Cancelar</button>
             </form>
 
     </div>

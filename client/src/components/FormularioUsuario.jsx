@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { addUser } from '../actions/usuarioAction'
-
+import './css/AgregarUsuario.css'
 import { connect } from 'react-redux'
 
 // nombreUser: req.body.nombreUser,
@@ -25,24 +25,28 @@ const handleInputChange = function(e){
 const enviarFormulario = function(e){
     e.preventDefault();
     addUser(input)
-   
+}
+
+const cancelar = function(e){
+    window.location.replace('http://localhost:3000')  
 }
     return(
-        <div>
-            <h1>Crear Usuario: </h1>
-            <form  onSubmit={(e)=> e.preventDefault} >
+        <div className="container">
+            <form className="form-signin" >
 
-                <label htmlFor="nombreUser">Nombre de Usuario*</label>
-                <input  required type="text" name="nombreUser"  onChange={handleInputChange}/>
-                <br/>            
-                <label htmlFor="contraUser">Constraseña*</label>
-                <input  required type="password" name="contraUser"  onChange={handleInputChange}/>
-                <br/>            
-                <label htmlFor="emailUser">Email*</label>
-                <input  required type="email" name="emailUser"  onChange={handleInputChange}/>
-                <br/>            
+                <h1>Crear Usuario </h1>
+                <label htmlFor="nombreUser" className ="sr-only">Nombre de Usuario*</label>
+                <input className="form-control" required type="text" name="nombreUser" placeholder="Nombre de Usuario" onChange={handleInputChange}/>
+                          
+                <label htmlFor="emailUser" className ="sr-only">Email*</label>
+                <input className="form-control" required type="email" name="emailUser" placeholder="Email" onChange={handleInputChange}/>
+                          
+                <label htmlFor="contraUser" className ="sr-only">Constraseña*</label>
+                <input className="form-control" required type="password" name="contraUser" placeholder="Contraseña" onChange={handleInputChange}/>
+                           
                 
-                <button type="submit" className="btn btn-primary"  value="Enviar" onClick={enviarFormulario} >Enviar</button>
+                <button type="submit" className=" btn-lg btn-primary btn-block"  value="Enviar" onClick={enviarFormulario} >Crear</button>
+                <button type="button" className=" btn-lg btn-danger btn-block"  value="Cancelar" onClick={cancelar} >Cancelar</button>
 
             </form>
         </div>
