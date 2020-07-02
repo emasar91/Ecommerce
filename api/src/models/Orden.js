@@ -10,15 +10,9 @@ const Orden = (sequelize, S) => {
                 autoIncrement: true,
             },
             estado: {
-                allowNull: false,
                 type: S.STRING,
-                unique: false,
-            },
-            cantidad: {
-                allowNull: false,
-                type: S.STRING,
-                unique: false,
-            }    
+                defaultValue: 'abierto',              
+            },            
         }
     , { timestamps: false });
 
