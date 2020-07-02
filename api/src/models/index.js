@@ -22,8 +22,8 @@ fs.readdirSync(__dirname)
 const {
     Product = require('./Product.js'),
         Category = require('./Category.js'),
-            User = require ('./User.js'),
-                Orden = require ('./Orden.js')
+        User = require('./User.js'),
+        Orden = require('./Orden.js')
 } = models
 
 // Add model relationships here
@@ -33,5 +33,7 @@ db.Sequelize = Sequelize;
 Product.belongsToMany(Category, { as: "category", through: 'productoxcategorias' });
 Category.belongsToMany(Product, { as: "product", through: 'productoxcategorias' });
 
+Product.belongsToMany(Category, { as: "orden", through: 'productoxorden' });
+Orden.belongsToMany(Category, { as: "product", through: 'productoxorden' });
 
 module.exports = models;

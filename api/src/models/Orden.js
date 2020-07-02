@@ -20,7 +20,7 @@ const Orden = (sequelize, S) => {
                 unique: false,
             }    
         }
-        , { timestamps: false });
+    , { timestamps: false });
 
     return O;
 };
