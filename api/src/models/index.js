@@ -4,6 +4,8 @@ const db = require('../db.js');
 const { Sequelize } = require('sequelize');
 //const Product = require ('./Product.js');
 //const Category = require ('./Category.js');
+//const User = require ('./User.js');
+//const Orden = require ('./Orden.js');
 const basename = path.basename(__filename);
 const models = {};
 
@@ -19,7 +21,9 @@ fs.readdirSync(__dirname)
 
 const {
     Product = require('./Product.js'),
-        Category = require('./Category.js')
+        Category = require('./Category.js'),
+            User = require ('./User.js'),
+                Orden = require ('./Orden.js')
 } = models
 
 // Add model relationships here
