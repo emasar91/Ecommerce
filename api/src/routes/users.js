@@ -60,5 +60,20 @@ server.put('/:id', function(req, res){
 
 });
 
+server.get('/login', function(req, res){
+    User.findOne(
+        {
+            where: {
+                nombreUser: req.body.nombreUser,
+            }
+        }
+    )
+    .then((user)=>{
+       
+        return res.send(user);
+    });
+
+});
+
 
 module.exports = server;
