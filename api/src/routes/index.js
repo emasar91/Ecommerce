@@ -4,7 +4,7 @@ const authRouter = require('./auth.js');
 const productRouter = require ('./products.js');
 const categoryRouter = require ('./categories.js');
 const userRouter = require ('./users.js');
-const ordenRouter = require ('./ordenes.js');
+const ordenRouter = require ('./orden.js');
 
 const router = Router();
 

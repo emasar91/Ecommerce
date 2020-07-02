@@ -1,8 +1,10 @@
+const server = require('express').Router();
 const User = require("../models/User");
+const Orden = require("../models/Orden");
 
 //Ruta que retorna todas las ordenes
 server.get('/', function(req, res) {
-    Product.findAll()
+    Orden.findAll()
         .then(function(products) {
             return res.status(200).send(products);
         });
@@ -73,4 +75,20 @@ server.get('/ordenes/user', function(req, res) {
             });
         })
         .catch(err => res.status(400).send("Sin productos"));
-})
+});
+
+server.post('/agregaritem/:id', function(req,res){     
+    
+    Orden.findOne({
+        where: {
+            idOrden: req.params.id,
+        }
+    })
+    .then(()=>{
+
+    })
+
+});
+
+
+module.exports = server;
