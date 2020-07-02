@@ -3,7 +3,6 @@ import './App.css';
 import BarraNavegacion from './components/BarraNavegacion.jsx'
 import Catalogo from './components/Catalogo.jsx';
 import { Route } from 'react-router-dom';
-
 import DetalleProducto from './components/DetalleProducto.jsx';
 import FormularioModificar from './components/FormularioModificar.jsx';
 import FormularioAgregar from './components/FormularioAgregar.jsx';
@@ -12,6 +11,8 @@ import AgregarProducto from './components/AgregarProducto';
 import AgregarCategoria from './components/AgregarCategoria';
 import Categoria from './components/Categoria.jsx';
 import ProductosPorCategoria from './components/ProductosPorCategoria.jsx'
+import Remover from './components/Remover.jsx'
+import Carrito from './components/Carrito.jsx'
 
 
 
@@ -31,10 +32,20 @@ function App() {
                 () => < Categoria /> }
             />
 
+             <Route path = '/'
+            render = {
+                () => < Carrito /> }
+            />
+
             <Route path = '/categories/:productos'
             render = {
                 () => < Categoria /> }
             />
+
+             <Route exact path = '/products/:id'
+            render = {
+            ({ match }) => < Remover id = { match.params.id }
+            />}/>
 
             <Route exact path = '/'
             render = {
@@ -76,6 +87,8 @@ function App() {
             render = {
                 ({ match }) => < ProductosPorCategoria nombre = { match.params.nombre }
             />}/>
+
+           
 
         </div>
     );

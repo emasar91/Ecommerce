@@ -1,4 +1,4 @@
-import { GET_PRODUCTS, GET_PRODUCT_DETAIL, ADD_PRODUCT, SEARCH_PRODUCT, PRODUCT_BY_CATEGORY, MODIFY_PRODUCT } from '../actions/productoAction'
+import { GET_PRODUCTS, GET_PRODUCT_DETAIL, ADD_PRODUCT, SEARCH_PRODUCT, PRODUCT_BY_CATEGORY, MODIFY_PRODUCT, REMOVE_PRODUCT } from '../actions/productoAction'
 const initialState = {
     productos: [],
     productoDetallado: {}
@@ -38,6 +38,12 @@ export default function producto(state = initialState, action) {
                 ...state,
                 productos: state.productos
             }
+            case REMOVE_PRODUCT:
+                return {
+                    ...state,
+                    productos: state.productos
+                }
+        
 
         default:
             return state
