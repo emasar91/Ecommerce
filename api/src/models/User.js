@@ -24,6 +24,10 @@ const User = (sequelize, S) => {
                 type: S.STRING,
                 unique: true,
             },
+            admin: {
+                type: S.BOOLEAN,
+                defaultValue: false,
+            }
         }
 
         , { timestamps: false });

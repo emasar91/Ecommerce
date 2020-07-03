@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const db = require('../db.js');
 const { Sequelize } = require('sequelize');
+//const Review = require('./Review.js');
 //const Product = require ('./Product.js');
 //const Category = require ('./Category.js');
 //const User = require ('./User.js');
@@ -23,23 +24,23 @@ const {
     Product = require('./Product.js'),
         Category = require('./Category.js'),
         User = require('./User.js'),
-        Orden = require('./Orden.js')
+        Orden = require('./Orden.js'),
+        Review = require('./Review.js')
 } = models
 
 // Add model relationships here
 db.Sequelize = Sequelize;
 
 
-Product.belongsToMany(Category, { as: "category", through: 'productoxcategorias' });
+Product.belongsToMany(Category, { as: "category", through: 'productoxcategorias' }); //sprint1
 Category.belongsToMany(Product, { as: "product", through: 'productoxcategorias' });
 
-Product.belongsToMany(Orden, { as: "orden", through: 'productoxorden' });
+Product.belongsToMany(Orden, { as: "orden", through: 'productoxorden' }); //sprint2
 Orden.belongsToMany(Product, { as: "product", through: 'productoxorden' });
 
-//const User_Profile = sequelize.define('User_Profile', {
-//Review: DataTypes.BOOLEAN
-//}, { timestamps: false });
-//User.belongsToMany(User, { through: User_Product });
-//Product.belongsToMany(Product, { through: User_Product });
+// User.belongsToMany(Orden, {as: "userForOrder", through: 'ordenxuser'});
+
+// Product.belongsToMany(Review, {as: "product", through: 'reviewxproducto'});
+// User.belongsToMany(Review, {as: "userForReview", through: 'reviewxuser' });
 
 module.exports = models;

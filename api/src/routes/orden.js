@@ -1,6 +1,11 @@
+const server = require('express').Router();
+const { Orden, User, Product } = require("../models");
+const Sequelize = require('sequelize');
+
+
 //Ruta que retorna todas las ordenes
 server.get('/', function(req, res) {
-    Product.findAll()
+    Orden.findAll()
         .then(function(products) {
             return res.status(200).send(products);
         });
@@ -13,12 +18,12 @@ server.put('/modificar/:id', function(req, res) {
         return res.status(400).send("faltan parametros")
     }
 
-    Product.findOne({
+    Orden.findOne({
             where: {
                 id: req.params.id,
             }
         }).then(function(product) {
-            orden.update({
+            Orden.update({
                 estado: req.body.estado,
                 cantidad: req.body.cantidad,
             })
@@ -34,7 +39,7 @@ server.put('/modificar/:id', function(req, res) {
 //Ruta que retorna todos los items del carrito.
 server.get('/products/Orden', function(req, res) {
 
-    Category.findByPk(req.params.id)
+    Orden.findByPk(req.params.id)
 
     .then((orden) => {
             orden.getProduct({ orden }).then((productos) => {
@@ -74,26 +79,80 @@ server.get('/ordenes/user', function(req, res) {
 })
 
 server.post("/productId", function(req, res) {
-            var product = function() {
-                return Product.findByPk(req.params.productId);
-            };
-            var orden = function() {
-                return Orden.findOne({
-                    where: {
-                        estado: true,
-                    }
-                });
-            };
-
-            if (req.body.accion === 'add') {
-                Promise.all([product(), orden()]).then((response) => {
-                    if (response[0] && response[1]) {
-                        response[1].addProduct(response[0]);
-                        return res.send("Producto Agregado");
-                    } else {
-                        res.status(404).send("El producto no existe");
-                    };
-                }).catch(() => res.sendStatus(400));
-
+    var product = function() {
+        return Product.findByPk(req.params.productId);
+    };
+    var orden = function() {
+        return Orden.findOne({
+            where: {
+                estado: true,
             }
-            module.exports = server;
+        });
+    };
+
+    if (req.body.accion === 'add') {
+        Promise.all([product(), orden()]).then((response) => {
+            if (response[0] && response[1]) {
+                response[1].addProduct(response[0]);
+                return res.send("Producto Agregado");
+            } else {
+                res.status(404).send("El producto no existe");
+            };
+        }).catch(() => res.sendStatus(400));
+
+    }
+    // module.exports = server;
+});
+
+// server.post('/:productId', function(req,res){     
+
+//     var product = function() {
+//         return Product.findByPk(req.params.productId);
+//     };
+//     var orden = function(){
+//         return Orden.findOrCreate({
+//                 where : {
+//                     estado: 'abierto'   
+//                 }      
+//         }).then((response)=>{
+//             return response;
+//         })
+//     }
+//     Promise.all([product(), orden()]).then((response) => {
+//         if (response[0] && response[1]) {
+//             response[1].addProduct(response[0]);
+//             return res.send("listo");
+//         } else {
+//             res.status(404).send("no funca");
+//         };
+//     })
+// })
+
+
+//     // var user = function() {
+//     //     return User.findByPk(req.params.userId);
+//     // };
+
+
+//     // .then((res)=>{
+//     //     res.addProduct(product);
+//     // }).then(()=>{
+//     //     return res.send('Se ha agregado un producto a la orden');
+//     // })
+
+
+
+
+//         // Promise.all([product(), user()]).then((response) => {
+//         //     if (response[0] && response[1]) {
+//         //         Orden.addProduct(response[0]);
+//         //         return res.send("Item agregado");
+//         //     } else {
+//         //         res.status(404).send("No existe producto ");
+//         //     };
+//         // })
+
+
+
+
+module.exports = server;
