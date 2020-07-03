@@ -37,12 +37,12 @@ server.put('/modificar/:id', function(req, res) {
 });
 
 //Ruta que retorna todos los items del carrito.
-server.get('/products/Orden', function(req, res) {
+server.get('/products/:idOrden', function(req, res) {
 
-    Orden.findByPk(req.params.id)
+    Orden.findByPk(req.params.idOrden)
 
     .then((orden) => {
-            orden.getProduct({ orden }).then((productos) => {
+            orden.getProduct().then((productos) => {
                 if (productos.length === 0)
                     return res.status(200).send(productos)
                 return res.send(productos)
