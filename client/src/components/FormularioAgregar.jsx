@@ -55,13 +55,14 @@ function FormularioAgregar({addProduct}){
             <br/>
             
             
-            <button type="submit" className=" btn-lg btn-primary btn-block"  value="Enviar" onClick={enviarFormulario} >Enviar</button>
-            <button type="submit" className=" btn-lg btn-danger btn-block"  value="Enviar" onClick={cancelar} >Cancelar</button>
+            <button type="submit" className=" btn btn-lg btn-primary btn-block"  value="Enviar" onClick={enviarFormulario} >Enviar</button>
+            <button type="submit" className=" btn btn-lg btn-danger btn-block"  value="Enviar" onClick={cancelar} >Cancelar</button>
 
         </form>
 
     </div>
    )
 }
+
 
 export default connect(null,{addProduct})(FormularioAgregar)

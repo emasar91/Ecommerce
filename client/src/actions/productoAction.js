@@ -4,6 +4,8 @@ export const ADD_PRODUCT = 'ADD_PRODUCT'
 export const SEARCH_PRODUCT = 'SEARCH_PRODUCT'
 export const PRODUCT_BY_CATEGORY = 'PRODUCT_BY_CATEGORY'
 export const MODIFY_PRODUCT = 'MODIFY_PRODUCT'
+export const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
+export const PRODUCT_REVIEW_SAVE_RESET = 'PRODUCT_REVIEW_SAVE_RESET';
 
 export function getProducts() {
     return function(dispatch) {
@@ -37,8 +39,7 @@ export function addProduct(producto) {
 
             })
             .then((res) => {
-                console.log(res.status)
-                if (res.status === 200) {
+                    if (res.status === 200) {
                     return (
                         dispatch({ type: ADD_PRODUCT }),
                         window.location.replace('http://localhost:3000')
@@ -105,3 +106,49 @@ export function modifyProduct(producto, categoria, id) {
             })
     }
 }
+
+
+export function removeProduct(id) {
+    return function(dispatch) {
+        return fetch('http://localhost:3080/products/' + id, {
+                headers: {
+                    'Accept': '*/*',
+                    'Content-Type': 'application/json'
+                },
+                method: 'DELETE'
+           
+            })
+            .then((res) => {
+                    if (res.status === 200) {
+                    return (
+                        dispatch({ type: REMOVE_PRODUCT })
+                       
+                    )
+                } 
+            })
+    }
+}
+
+/* const saveProductReview = (productId, review) => async (dispatch, getState) => {
+    try {
+      const {
+        userSignin: {
+          userInfo: { token },
+        },
+      } = getState();
+      dispatch({ type: PRODUCT_REVIEW_SAVE_REQUEST, payload: review });
+      const { data } = await axios.post(
+        `/api/products/${productId}/reviews`,
+        review,
+        {
+          headers: {
+            Authorization: 'Bearer ' + token,
+          },
+        }
+      );
+      dispatch({ type: PRODUCT_REVIEW_SAVE_SUCCESS, payload: data });
+    } catch (error) {
+      // report error
+      dispatch({ type: PRODUCT_REVIEW_SAVE_FAIL, payload: error.message });
+    }
+  }; */

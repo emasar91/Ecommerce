@@ -1,10 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { MdPerson } from 'react-icons/md';
+import './css/Botonlogin.css';
 
 export default function AgregarProducto(){
     return(
         <Link to={'/login'}>
-            <button type="button" className="btn btn-primary"  value="Login">Login</button>
+            {/* <button type="button" className="btn btn-primary"  value="Login">Login</button> */}
+            <MdPerson className="btn" type="button" value="Login" size={60} margin= {2} color="#007bff" />
               </Link>
     )
     

@@ -54,9 +54,9 @@ function FormularioModificar({id, categorias, getProductDetail, modifyProduct, p
     useEffect(()=>{getProductDetail(id)},[id,getProductDetail])
 
    return (
-    <div>
+    <div className= "container">
         <h1>Modificar el Producto: {producto.titulo}</h1>
-        <form onSubmit={(e)=> e.preventDefault}>
+        <form className= "form-signin" onSubmit={(e)=> e.preventDefault}>
 
             <label htmlFor="nombre">Nombre</label>
             <input type="text" name="titulo" placeholder={producto.titulo } onChange={handleInputChange}/>
@@ -94,15 +94,16 @@ function FormularioModificar({id, categorias, getProductDetail, modifyProduct, p
                 {categorias.map(cat =>
                 <option name = "nombre" key= {cat.idCat} value={cat.nombre} >  {cat.nombre} </option>)}
             </select>
-            
             <br/>
-            <button type="submit" className="btn btn-primary"  value="Enviar" onClick={enviarFormulario} >Enviar</button>
+            <br/>
+            <button type="submit" className="btn btn-primary btn-block"  value="Enviar" onClick={enviarFormulario} >Enviar</button>
             <button type="button" className="btn-lg btn-danger btn-block"  value="Cancelar" onClick={cancelar} >Cancelar</button>
             </form>
 
     </div>
    )
 }
+
 function mapStateToProps(state){
     return {
         categorias :state.categoria.categorias,

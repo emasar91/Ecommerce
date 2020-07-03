@@ -5,6 +5,7 @@ const Sequelize = require('sequelize');
 
 server.post('/', function(req, res) {
     User.create({
+<<<<<<< HEAD
             nombreUser: req.body.nombreUser,
             contraUser: req.body.contraUser,
             emailUser: req.body.emailUser,
@@ -15,6 +16,18 @@ server.post('/', function(req, res) {
         .catch(() => {
             return res.status(400).send('No se agrego el producto')
         })
+=======
+        nombreUser: req.body.nombreUser,
+        contraUser: req.body.contraUser,
+        emailUser: req.body.emailUser,   
+    })
+    .then(()=>{
+        return res.send('Se ha agregado un nuevo usuario')
+    })
+    .catch(() => {
+        return res.status(400).send('No se agrego el usuario')
+    })
+>>>>>>> eeac9096bf64c09fb6c4886541bf3ce0ec3edeb0
 });
 
 server.get('/', function(req, res) {
