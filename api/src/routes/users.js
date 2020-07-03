@@ -13,7 +13,7 @@ server.post('/', function(req, res){
         return res.send('Se ha agregado un nuevo usuario')
     })
     .catch(() => {
-        return res.status(400).send('No se agrego el producto')
+        return res.status(400).send('No se agrego el usuario')
     })
 });
 

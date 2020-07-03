@@ -41,6 +41,12 @@ Orden.belongsToMany(Product, { as: "product", through: 'productoxorden' });
 User.belongsToMany(Orden, { as: "orden", through: 'ordenxuser' }); //sprint2
 Orden.belongsToMany(User, { as: "user", through: 'ordenxuser' });
 
+
+Product.belongsToMany(Review, {as: "productId", through: 'reviewxproducto'});
+Review.belongsToMany(Product, {as: "reviewprod", through: "reviewxproducto"})
+// User.belongsToMany(Review, {as: "user", through: 'reviewxuser' });
+// Review.belongsToMany(User, {as: 'reviewuser', through: 'reviewxuser'})
+
 // const User_Profile = Sequelize.define('Orden', {
 //     cantidad: S.INTEGER
 // }, { timestamps: false });
@@ -48,10 +54,5 @@ Orden.belongsToMany(User, { as: "user", through: 'ordenxuser' });
 // Product.belongsToMany(Product, { through: 'ordenxproduct' });
 
 
-
-// User.belongsToMany(Orden, {as: "userForOrder", through: 'ordenxuser'});
-
-// Product.belongsToMany(Review, {as: "product", through: 'reviewxproducto'});
-// User.belongsToMany(Review, {as: "userForReview", through: 'reviewxuser' });
 
 module.exports = models;
