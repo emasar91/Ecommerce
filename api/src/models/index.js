@@ -35,16 +35,17 @@ db.Sequelize = Sequelize;
 Product.belongsToMany(Category, { as: "category", through: 'productoxcategorias' }); //sprint1
 Category.belongsToMany(Product, { as: "product", through: 'productoxcategorias' });
 
+Product.hasMany(Review);
+User.hasMany(Review);
+
+
+User.hasMany(Orden); //sprint2
+
+
 Product.belongsToMany(Orden, { as: "orden", through: 'productoxorden' }); //sprint2
 Orden.belongsToMany(Product, { as: "product", through: 'productoxorden' });
 
-User.belongsToMany(Orden, { as: "orden", through: 'ordenxuser' }); //sprint2
-Orden.belongsToMany(User, { as: "user", through: 'ordenxuser' });
-
-
-Product.belongsToMany(Review, {as: "productId", through: 'reviewxproducto'});
-Review.belongsToMany(Product, {as: "reviewprod", through: "reviewxproducto"})
-// User.belongsToMany(Review, {as: "user", through: 'reviewxuser' });
+//Review.belongsToMany(Product, {as: "reviewprod"});
 // Review.belongsToMany(User, {as: 'reviewuser', through: 'reviewxuser'})
 
 // const User_Profile = Sequelize.define('Orden', {
