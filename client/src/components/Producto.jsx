@@ -3,11 +3,13 @@ import './css/Producto.css'
 import foto from '../img/sinImagen.png'
 import Modificar from   './Modificar.jsx'
 import { Link } from 'react-router-dom';
+import Remover from './Remover.jsx'
+import Agregarchanguito from './AgregarChanguito.jsx'
 
 
 export default function Producto ({item}){
     
-    let {id,titulo,  precio, imagen} = item;
+    let {id,titulo,  precio, imagen, review} = item;
 
     if(imagen===""){
         imagen=foto;
@@ -21,9 +23,12 @@ export default function Producto ({item}){
                 <Link to={'/products/producto/'+id}>
                     <h3 className='titulo-producto'>{titulo}</h3>
                 </Link>
+                <span className='review-producto'>Aquí va el review {review}</span>
             </div>
                 
-             <Modificar id={id}/>
+             <Modificar id={id} />
+             <Remover  id={id} />
+             <Agregarchanguito id={id} />
         </div>
     )
 }

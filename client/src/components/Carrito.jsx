@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import { MdShoppingBasket } from 'react-icons/md';
-import { Container, Cart } from './stylescarrito';
+import { Container, Cart } from './css/stylescarrito.js';
 import { connect } from 'react-redux';
 import { addCart } from '../actions/cartAction'
 

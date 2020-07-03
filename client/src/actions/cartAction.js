@@ -1,7 +1,7 @@
 export const ADD_TO_CART = 'ADD_TO_CART'
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 
-export function addCart(producto) {
+export function addCart(idOrden) {
     return function(dispatch) {
         return fetch('http://localhost:3080/modificar/', {
                 headers: {
@@ -9,7 +9,7 @@ export function addCart(producto) {
                     'Content-Type': 'application/json'
                 },
                 method: 'POST',
-                body: JSON.stringify(producto)
+                body: JSON.stringify(idOrden)
 
             })
             .then((res) => {

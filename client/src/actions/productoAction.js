@@ -106,35 +106,6 @@ export function modifyProduct(producto, categoria, id) {
     }
 }
 
-/* export function removeProduct(producto, id) {
-    return function(dispatch) {
-        return fetch('http://localhost:3080/products/' + id, {
-                headers: {
-                    'Accept': '*
-                    'Content-Type': 'application/json'
-                },
-                method: 'DELETE',
-                body: JSON.stringify(producto)
-            })
-            .then((res) => {
-                if (res.status === 200) {
-                        fetch('http://localhost:3080/products/' + id, {
-                        headers: {
-                            'Accept': '*',
-                            'Content-Type': 'application/json'
-                        },
-                        method: 'DELETE',
-                        body: JSON.stringify(id)
-                    }).then(res => {
-                        if (res.status === 200) {
-                            return (dispatch({ type: REMOVE_PRODUCT }),
-                                window.location.replace('http://localhost:3000'))
-                        }
-                        })
-                }
-                })
-    }
-} */
 
 export function removeProduct(id) {
     return function(dispatch) {
@@ -143,15 +114,14 @@ export function removeProduct(id) {
                     'Accept': '*/*',
                     'Content-Type': 'application/json'
                 },
-                method: 'DELETE',
-                body: JSON.stringify(id)
-
+                method: 'DELETE'
+           
             })
             .then((res) => {
                     if (res.status === 200) {
                     return (
-                        dispatch({ type: REMOVE_PRODUCT }),
-                        window.location.replace('http://localhost:3000')
+                        dispatch({ type: REMOVE_PRODUCT })
+                       
                     )
                 } 
             })

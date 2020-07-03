@@ -11,7 +11,6 @@ import AgregarProducto from './components/AgregarProducto';
 import AgregarCategoria from './components/AgregarCategoria';
 import Categoria from './components/Categoria.jsx';
 import ProductosPorCategoria from './components/ProductosPorCategoria.jsx'
-import Remover from './components/Remover.jsx'
 import Carrito from './components/Carrito.jsx'
 
 
@@ -41,11 +40,6 @@ function App() {
             render = {
                 () => < Categoria /> }
             />
-
-             <Route exact path = '/products/:id'
-            render = {
-            ({ match }) => < Remover id = { match.params.id }
-            />}/>
 
             <Route exact path = '/'
             render = {
