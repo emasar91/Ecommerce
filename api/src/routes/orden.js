@@ -1,5 +1,5 @@
 const server = require('express').Router();
-const {Orden, User, Product} = require("../models");
+const { Orden, User, Product } = require("../models");
 const Sequelize = require('sequelize');
 
 
@@ -76,56 +76,45 @@ server.get('/ordenes/user', function(req, res) {
             });
         })
         .catch(err => res.status(400).send("Sin productos"));
-});
+})
 
-server.post('/:productId', function(req,res){     
-    
+server.post("/:productId/:userId", function(req, res) {
     var product = function() {
         return Product.findByPk(req.params.productId);
     };
-    var orden = function(){
-        return Orden.findOrCreate({
-                where : {
-                    estado: 'abierto'   
-                }      
-        }).then((response)=>{
-            return response;
-        })
-    }
+    var orden = function() {
+        return Orden.findOne({
+            where: {
+                estado: "true",
+            }
+        });
+    };
+    var user = function() {
+        return User.findByPk(req.params.userId);
+    };
+
     Promise.all([product(), orden()]).then((response) => {
         if (response[0] && response[1]) {
             response[1].addProduct(response[0]);
-            return res.send("listo");
+            return res.send("Producto Agregado");
         } else {
-            res.status(404).send("no funca");
+            res.status(404).send("El producto no existe");
         };
-    })
-})
-    
-    
-    // var user = function() {
-    //     return User.findByPk(req.params.userId);
-    // };
-    
+    }).catch(() => res.sendStatus(400));
+});
 
-    // .then((res)=>{
-    //     res.addProduct(product);
-    // }).then(()=>{
-    //     return res.send('Se ha agregado un producto a la orden');
-    // })
-    
-        
-    
-    
-        // Promise.all([product(), user()]).then((response) => {
-        //     if (response[0] && response[1]) {
-        //         Orden.addProduct(response[0]);
-        //         return res.send("Item agregado");
-        //     } else {
-        //         res.status(404).send("No existe producto ");
-        //     };
-        // })
-    
+server.post('/agregar', function(req, res) {
+    Orden.create({
+            estado: "true",
+        })
+        .then(() => {
+            return res.send('Se creado un nueva orden')
+        })
+        .catch(() => {
+            return res.status(400).send('No se creo la orden')
+        })
+});
+
 
 
 

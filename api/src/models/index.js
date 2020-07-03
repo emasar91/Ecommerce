@@ -32,11 +32,22 @@ const {
 db.Sequelize = Sequelize;
 
 
-Product.belongsToMany(Category, { as: "category", through: 'productoxcategorias' });        //sprint1
+Product.belongsToMany(Category, { as: "category", through: 'productoxcategorias' }); //sprint1
 Category.belongsToMany(Product, { as: "product", through: 'productoxcategorias' });
 
-Product.belongsToMany(Orden, { as: "orden", through: 'productoxorden' });            //sprint2
-Orden.belongsToMany(Product, { as: "product", through: 'productoxorden'});
+Product.belongsToMany(Orden, { as: "orden", through: 'productoxorden' }); //sprint2
+Orden.belongsToMany(Product, { as: "product", through: 'productoxorden' });
+
+User.belongsToMany(Orden, { as: "orden", through: 'ordenxuser' }); //sprint2
+Orden.belongsToMany(User, { as: "user", through: 'ordenxuser' });
+
+// const User_Profile = Sequelize.define('Orden', {
+//     cantidad: S.INTEGER
+// }, { timestamps: false });
+// Orden.belongsToMany(User, { through: 'ordenxproduct' });
+// Product.belongsToMany(Product, { through: 'ordenxproduct' });
+
+
 
 // User.belongsToMany(Orden, {as: "userForOrder", through: 'ordenxuser'});
 
