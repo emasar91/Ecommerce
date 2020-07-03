@@ -1,9 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import  './css/Login.css'
 import { connect } from 'react-redux'
 import AgregarUsuario from './AgregarUsuario'
+import { setUserLoggedIn } from '../actions/usuarioAction'
+import { Link } from 'react-router-dom'
 
-function Login(){
+function Login({usuarioConectado, setUserLoggedIn}){
+
+    useEffect(()=>{
+        console.log(usuarioConectado)
+    },[usuarioConectado])
 
     const [input, setInput] = useState({
         nombreUser : null,
@@ -17,22 +23,22 @@ function Login(){
             ...input,
             [e.target.name] : e.target.value
         })
+        console.log(usuarioConectado)
     }
-
-
+    
+    
     const enviarFormulario = function(e){
-        window.location.replace('http://localhost:3000')
-        //llamada a api
-       
+        e.preventDefault()
+        setUserLoggedIn(input.nombreUser,input.contraUser)
     }
 
     const cancelar = function(e){
-        window.location.replace('http://localhost:3000')       
+        return 
     }
 
     return(
         <div className="container">
-            <form  className="form-signin">
+            <form  className="form-signin" onSubmit={(e)=>e.preventDefault()}>
 
                 <h1>Ingresar </h1>
                 <label htmlFor="nombreUser" className ="sr-only" >Nombre de Usuario*</label>
@@ -43,7 +49,10 @@ function Login(){
                       
                             
                 <button type="submit" className=" btn-lg btn-primary btn-block"  value="Enviar" onClick={enviarFormulario} >Ingresar</button>
-                <button type="button" className=" btn-lg btn-danger btn-block"  value="Cancelar" onClick={cancelar} >Cancelar</button>
+                
+                <Link to ='/'>
+                    <button type="button" className=" btn-lg btn-danger btn-block"  value="Cancelar" onClick={cancelar} >Cancelar</button>
+                </Link>
 
             </form>
             <br/>
@@ -53,4 +62,10 @@ function Login(){
     )
 }
 
-export default connect ()( Login )
+function mapStateToProps(state){
+    return {
+        usuarioConectado : state.usuario.usuarioConectado
+    }
+}
+
+export default connect (mapStateToProps,{setUserLoggedIn})( Login )

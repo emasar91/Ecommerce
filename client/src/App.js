@@ -1,4 +1,5 @@
-import React from 'react';
+import React,{useEffect} from 'react';
+import { connect } from 'react-redux'
 import './App.css';
 import BarraNavegacion from './components/BarraNavegacion.jsx'
 import Catalogo from './components/Catalogo.jsx';
@@ -17,11 +18,13 @@ import Login from './components/Login';
 import AdministrarCuentas from './components/AdministrarCuentas';
 
 
+import {getUserLoggedIn} from './actions/usuarioAction'
 
 
-function App() {
+
+function App(state) {
     
-
+console.log(state)
     return ( <div className = "App" >
 
             <Route path = '/'
@@ -98,4 +101,11 @@ function App() {
     );
 }
 
-export default App;
+
+function mapStateToProps(state){
+    return{
+        state
+    }
+}
+
+export default connect (mapStateToProps,{getUserLoggedIn})( App )

@@ -1,6 +1,8 @@
 export const ADD_USER = 'ADD_USER'
 export const GET_USERS = 'GET_USERS'
 export const DELETE_USER = 'DELETE_USER'
+export const SET_USER_LOGGED = 'SET_USER_LOGGED'
+export const GET_USER_LOGGED = 'GET_USER_LOGGED'
 
 export function addUser(usuario) {
     return function(dispatch) {
@@ -55,5 +57,24 @@ export function getUsers() {
             .then(json => {
                 dispatch({ type: GET_USERS, payload: json })
             })
+    }
+}
+
+export function setUserLoggedIn(nombreUsuario, contraUser) {
+    return function(dispatch) {
+        return fetch('http://localhost:3080/users/login/' + nombreUsuario + "/" + contraUser)
+            .then(response => response.json())
+            .then(json => {
+                dispatch({ type: SET_USER_LOGGED, payload: json })
+            })
+            .catch(() => {
+                console.log("error")
+            })
+    }
+}
+
+export function getUserLoggedIn() {
+    return function(dispatch) {
+        return dispatch({ type: GET_USER_LOGGED })
     }
 }
