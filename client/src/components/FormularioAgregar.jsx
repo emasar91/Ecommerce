@@ -26,33 +26,37 @@ function FormularioAgregar({addProduct}){
 
     const enviarFormulario = function(e){
         e.preventDefault();
-        addProduct(input)
-        
+        addProduct(input) 
+    }
+
+    const cancelar = function(e){
+        window.location.replace('http://localhost:3000')  
     }
          
    return (
-    <div>
-        <h1>Agregar nuevo producto: </h1>
-        <form  onSubmit={(e)=> e.preventDefault} >
-
-            <label htmlFor="nombre">Nombre*</label>
-            <input  required type="text" name="titulo"  onChange={handleInputChange}/>
-            <br/>
-           <label htmlFor="precio">Precio*</label>
-            <input required type='number' name="precio" onChange={handleInputChange} />
-            <br/>
-            <label htmlFor="cantidad">Cantidad*</label>
-            <input required type="number" name="cantidad" onChange={handleInputChange} />
-            <br/>
-            <label htmlFor="descripcion">Descripcion</label>
-            <input type="text" name="descripcion" onChange={handleInputChange} />
-            <br/>
-            <label htmlFor="imagen">imagen</label>
-            <input type="file" name="imagen" onChange={handleInputChange}/>
+    <div className="container">
+        <form className="form-signin" >
+            
+            <h3>Agregar nuevo producto: </h3>
+            <label className ="sr-only" htmlFor="nombre">Nombre*</label>
+            <input className="form-control" required type="text" name="titulo" placeholder="Nombre" onChange={handleInputChange}/>
+            
+            <label className ="sr-only" htmlFor="precio">Precio*</label>
+            <input className="form-control" required type='number' name="precio" placeholder="Precio" onChange={handleInputChange} />
+            
+            <label className ="sr-only" htmlFor="cantidad">Cantidad*</label>
+            <input className="form-control" required type="number" name="cantidad" placeholder="Cantidad" onChange={handleInputChange} />
+            
+            <label className ="sr-only" htmlFor="descripcion">Descripcion</label>
+            <input className="form-control" type="text" name="descripcion" placeholder="Descripcion" onChange={handleInputChange} />
+            
+            <label className ="sr-only" htmlFor="imagen">imagen</label>
+            <input className="form-control" type="file" name="imagen" onChange={handleInputChange}/>
             <br/>
             
             
-            <button type="submit" className="btn btn-primary"  value="Enviar" onClick={enviarFormulario} >Enviar</button>
+            <button type="submit" className=" btn-lg btn-primary btn-block"  value="Enviar" onClick={enviarFormulario} >Enviar</button>
+            <button type="submit" className=" btn-lg btn-danger btn-block"  value="Enviar" onClick={cancelar} >Cancelar</button>
 
         </form>
 

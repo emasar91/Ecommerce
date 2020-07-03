@@ -11,6 +11,7 @@ function FormularioCategoria({addCategory}){
     })
 
     const handleInputChange = function(e){
+        e.preventDefault();
         setInput({
             ...input,
             [e.target.name] : e.target.value
@@ -18,20 +19,24 @@ function FormularioCategoria({addCategory}){
     }
 
     const enviarFormulario = function(e){
-        e.preventDefault();
         addCategory(input)
+    }
+
+    const cancelar = function(){
+        window.location.replace('http://localhost:3000')       
     }
 
 
    return (
-    <div>
-        <h1>Agregar Categoria</h1>
-        <form onSubmit={(e)=> e.preventDefault}>
+    <div className="container">
+        <form className="form-signin">
 
-            <label htmlFor="nombre">Nombre</label>
-            <input type="text" name="nombre" placeholder= "Categoría" onChange={handleInputChange}/>
+            <h3>Agregar Categoria</h3>
+            <label htmlFor="nombre" className ="sr-only">Nombre</label>
+            <input className="form-control" type="text" name="nombre" placeholder= "Categoría" onChange={handleInputChange}/>
             <br/>
-            <button type="submit" className="btn btn-primary"  value="Enviar" onClick={enviarFormulario} >Enviar</button>
+            <button type="submit" className=" btn-lg btn-primary btn-block"  value="Enviar" onClick={enviarFormulario} >Enviar</button>
+            <button type="button" className=" btn-lg btn-danger btn-block"  value="Cancelar" onClick={cancelar} >Cancelar</button>
             </form>
 
     </div>
