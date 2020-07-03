@@ -1,5 +1,3 @@
-const User = require("../models/User");
-
 //Ruta que retorna todas las ordenes
 server.get('/', function(req, res) {
     Product.findAll()
@@ -74,3 +72,28 @@ server.get('/ordenes/user', function(req, res) {
         })
         .catch(err => res.status(400).send("Sin productos"));
 })
+
+server.post("/productId", function(req, res) {
+            var product = function() {
+                return Product.findByPk(req.params.productId);
+            };
+            var orden = function() {
+                return Orden.findOne({
+                    where: {
+                        estado: true,
+                    }
+                });
+            };
+
+            if (req.body.accion === 'add') {
+                Promise.all([product(), orden()]).then((response) => {
+                    if (response[0] && response[1]) {
+                        response[1].addProduct(response[0]);
+                        return res.send("Producto Agregado");
+                    } else {
+                        res.status(404).send("El producto no existe");
+                    };
+                }).catch(() => res.sendStatus(400));
+
+            }
+            module.exports = server;

@@ -33,7 +33,13 @@ db.Sequelize = Sequelize;
 Product.belongsToMany(Category, { as: "category", through: 'productoxcategorias' });
 Category.belongsToMany(Product, { as: "product", through: 'productoxcategorias' });
 
-Product.belongsToMany(Category, { as: "orden", through: 'productoxorden' });
-Orden.belongsToMany(Category, { as: "product", through: 'productoxorden' });
+Product.belongsToMany(Orden, { as: "orden", through: 'productoxorden' });
+Orden.belongsToMany(Product, { as: "product", through: 'productoxorden' });
+
+//const User_Profile = sequelize.define('User_Profile', {
+//Review: DataTypes.BOOLEAN
+//}, { timestamps: false });
+//User.belongsToMany(User, { through: User_Product });
+//Product.belongsToMany(Product, { through: User_Product });
 
 module.exports = models;
