@@ -5,6 +5,7 @@ export const SEARCH_PRODUCT = 'SEARCH_PRODUCT'
 export const PRODUCT_BY_CATEGORY = 'PRODUCT_BY_CATEGORY'
 export const MODIFY_PRODUCT = 'MODIFY_PRODUCT'
 export const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
+export const PRODUCT_REVIEW_SAVE_RESET = 'PRODUCT_REVIEW_SAVE_RESET';
 
 export function getProducts() {
     return function(dispatch) {
@@ -127,3 +128,27 @@ export function removeProduct(id) {
             })
     }
 }
+
+/* const saveProductReview = (productId, review) => async (dispatch, getState) => {
+    try {
+      const {
+        userSignin: {
+          userInfo: { token },
+        },
+      } = getState();
+      dispatch({ type: PRODUCT_REVIEW_SAVE_REQUEST, payload: review });
+      const { data } = await axios.post(
+        `/api/products/${productId}/reviews`,
+        review,
+        {
+          headers: {
+            Authorization: 'Bearer ' + token,
+          },
+        }
+      );
+      dispatch({ type: PRODUCT_REVIEW_SAVE_SUCCESS, payload: data });
+    } catch (error) {
+      // report error
+      dispatch({ type: PRODUCT_REVIEW_SAVE_FAIL, payload: error.message });
+    }
+  }; */

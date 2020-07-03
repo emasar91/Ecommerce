@@ -5,6 +5,7 @@ import Modificar from   './Modificar.jsx'
 import { Link } from 'react-router-dom';
 import Remover from './Remover.jsx'
 import Agregarchanguito from './AgregarChanguito.jsx'
+import Rating from '../components/Rating';
 
 
 export default function Producto ({item}){
@@ -23,12 +24,18 @@ export default function Producto ({item}){
                 <Link to={'/products/producto/'+id}>
                     <h3 className='titulo-producto'>{titulo}</h3>
                 </Link>
-                <span className='review-producto'>Aquí va el review {review}</span>
-            </div>
-                
+                <span className='review-producto'>Aquí va el review {review}
+               
+                 {/*  <Rating
+                    value={review.rating}
+                    text={id.numReviews + ' reviews'} /> */}
+                            
              <Modificar id={id} />
              <Remover  id={id} />
              <Agregarchanguito id={id} />
+             </span>
+        </div> 
         </div>
     )
+  
 }

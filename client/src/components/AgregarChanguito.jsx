@@ -8,7 +8,7 @@ function AgregarChanguito(){
     return(
         <div>
                    {/*  //<button type="button" className="btn btn-primary" value="Agregar Changuito">Agregar Changuito</button> */}
-            <MdAddShoppingCart  value="Agregar Changuito"  size={36} color="#007bff" />
+            <MdAddShoppingCart  value="Agregar Changuito"  size={20} color="#007bff" />
             </div>
     )
     

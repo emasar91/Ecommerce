@@ -12,7 +12,8 @@ function Remover({id,removeProduct}){
        return(
          <div>
          {/* <button type="button" className="btn btn-primary" value="Remover" onClick={quitarproducto}>Remover</button> */}
-           <BsTrash className="btn"type="button" value="Remover" onClick={quitarproducto} size={60} color="#007bff" />
+           <BsTrash className="btn" type="button" value="Remover" onClick={quitarproducto} size={45} color="#007bff" />
+          
        </div>
        
     )

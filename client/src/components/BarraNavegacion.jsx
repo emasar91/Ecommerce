@@ -20,10 +20,12 @@ export default function BarraNavegacion({buscar}){
                 <Link to ='/'>
                     <img className='logo' src={Logo} alt="Logo" onClick={recargar}/>
                 </Link>           
-                
+                <div className="búsqueda-login">
                 <Busqueda className='busqueda' buscar = {buscar}/>
                 <BotonCuentas/>
                 <BotonLogin/>
+                
+                </div>
             
         </div>
            

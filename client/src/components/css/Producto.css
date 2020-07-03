@@ -41,3 +41,13 @@
   margin: 0 auto;
   text-align: left;
 }
+
+.review-producto{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.búsqueda-login {
+
+}
