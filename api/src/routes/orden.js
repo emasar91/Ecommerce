@@ -83,41 +83,32 @@ server.post("/:productId/:userId", function(req, res) {
         return Product.findByPk(req.params.productId);
     };
     var orden = function() {
-         Orden.findOne({
-            where: {             
+        return Orden.findOne({
+            where: {
                 estado: "true",
-                userIdUser: req.params.userId               
-            }
-        }).then((response)=>{
-            if(response.res.status(200)){
-                return response;
-            } else {
-                Orden.create({
-                    estado: "true",
-                }).then((response)=>{
-                    return response;
-                })
+                userIdUser: req.params.userId
             }
         })
-   
+
     };
     var user = function() {
         return User.findByPk(req.params.userId);
     };
 
     Promise.all([product(), orden(), user()]).then((response) => {
+        console.log(response)
         if (response[0] && response[1]) {
             response[1].addProduct(response[0]);
-                       
-            if(response[2]){
+
+            if (response[2]) {
                 response[2].addOrden(response[1]);
                 return res.send('Se ha agregado el producto a su orden')
-            }       
-    }
+            }
+        }
     })
 });
 
-server.post('/agregar', function(req, res) {                //crea carrito
+server.post('/agregar', function(req, res) { //crea carrito
     Orden.create({
             estado: "true",
         })
