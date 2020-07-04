@@ -99,7 +99,6 @@ server.post("/:productId/:userId", function(req, res) {
     };
 
     Promise.all([product(), orden(), user()]).then((response) => {
-
         if (response[0] && response[1]) {
             response[1].addProduct(response[0]);
 
