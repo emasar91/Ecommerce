@@ -90,6 +90,7 @@ server.post("/:productId/:userId", function(req, res) {
             }
         })
 
+
     };
     var user = function() {
         return User.findByPk(req.params.userId);
