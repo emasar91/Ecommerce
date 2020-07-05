@@ -66,18 +66,18 @@ server.delete('/:id', (req, res) => {
 //Ruta que retorne todas las ordenes de usuario
 server.get('/ordenes/user', function(req, res) {
 
-    Users.findByPk(req.params.id)
+        Users.findByPk(req.params.id)
 
-    .then((orden) => {
-            orden.getUser({ orden }).then((productos) => {
-                if (productos.length === 0)
-                    return res.status(200).send(productos)
-                return res.send(productos)
-            });
-        })
-        .catch(err => res.status(400).send("Sin productos"));
-})
-
+        .then((orden) => {
+                orden.getUser({ orden }).then((productos) => {
+                    if (productos.length === 0)
+                        return res.status(200).send(productos)
+                    return res.send(productos)
+                });
+            })
+            .catch(err => res.status(400).send("Sin productos"));
+    })
+    //Agrega producto y usuario a una orden
 server.post("/:productId/:userId", function(req, res) {
     var product = function() {
         return Product.findByPk(req.params.productId);
