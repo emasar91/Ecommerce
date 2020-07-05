@@ -43,9 +43,7 @@ server.get('/products/:idOrden', function(req, res) {
 
     .then((orden) => {
             orden.getProduct().then((productos) => {
-                if (productos.length === 0)
-                    return res.status(200).send(productos)
-                return res.send(productos)
+                return res.status(200).send(productos)
             });
         })
         .catch(err => res.status(400).send("Sin productos"));
@@ -55,7 +53,7 @@ server.get('/products/:idOrden', function(req, res) {
 server.delete('/:id', (req, res) => {
     const id = req.params.id;
     Orden.destroy({
-            where: { id: id },
+            where: { idOrden: id },
         })
         .then(deletedOrden => {
             res.json(deletedOrden);
@@ -94,7 +92,6 @@ server.post("/:productId/:userId", function(req, res) {
     };
 
     Promise.all([carrito(), producto()]).then((response) => {
-        console.log(response)
         var cart = response[0]
         var prod = response[1]
         if (cart !== null) {
@@ -113,9 +110,10 @@ server.post("/:productId/:userId", function(req, res) {
     })
 });
 
-server.post('/agregar', function(req, res) { //crea carrito
+server.post('/agregar/:userId', function(req, res) { //crea carrito
     Orden.create({
-            estado: "true",
+            estado: "cerrado",
+            userIdUser: req.params.userId
         })
         .then(() => {
             return res.send('Se creado un nueva orden')

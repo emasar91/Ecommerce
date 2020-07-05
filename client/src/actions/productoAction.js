@@ -39,7 +39,7 @@ export function addProduct(producto) {
 
             })
             .then((res) => {
-                    if (res.status === 200) {
+                if (res.status === 200) {
                     return (
                         dispatch({ type: ADD_PRODUCT }),
                         window.location.replace('http://localhost:3000')
@@ -116,15 +116,15 @@ export function removeProduct(id) {
                     'Content-Type': 'application/json'
                 },
                 method: 'DELETE'
-           
+
             })
             .then((res) => {
-                    if (res.status === 200) {
+                if (res.status === 200) {
                     return (
                         dispatch({ type: REMOVE_PRODUCT })
-                       
+
                     )
-                } 
+                }
             })
     }
 }
