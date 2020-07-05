@@ -3,18 +3,17 @@ const Orden = (sequelize, S) => {
     // defino el modelo
 
     const O = sequelize.define('orden', {
-            idOrden: {
-                primaryKey: true,
-                type: S.INTEGER,
-                allowNull: false,
-                autoIncrement: true,
-            },
-            estado: {
-                type: S.STRING,
-                defaultValue: 'abierto',              
-            },            
-        }
-    , { timestamps: false });
+        idOrden: {
+            primaryKey: true,
+            type: S.INTEGER,
+            allowNull: false,
+            autoIncrement: true,
+        },
+        estado: {
+            type: S.STRING,
+            defaultValue: 'abierto',
+        },
+    }, { timestamps: false });
 
     return O;
 };
