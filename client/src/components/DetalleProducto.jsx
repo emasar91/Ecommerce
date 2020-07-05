@@ -16,13 +16,19 @@ function DetalleProducto({id, detalleProducto, getProductDetail}){
         imagen = detalleProducto.imagen
     }
     
+    function stock(){
+        if (detalleProducto.cantidad ===0){
+            return <h1>Stock: Sin Stock</h1>
+        }
+        return <h1>Stock: {detalleProducto.cantidad}</h1>
+    }
     
     return(
         <div className="productodetalle">
             <img src={imagen} alt="Imagen Producto"/> 
             <h1>Nombre: {detalleProducto.titulo}</h1>
             <h1>Precio: {detalleProducto.precio}</h1>
-            <h1>Stock: {detalleProducto.cantidad}</h1>
+            {stock()}
             <h1>Descripción:{detalleProducto.descripcion}</h1>
             <h1>Review:{detalleProducto.review}</h1>
             

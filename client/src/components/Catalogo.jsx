@@ -11,9 +11,14 @@ function Catalogo({productos, getProducts}){
     
     return (
         <div className='catalogo'>
-            {productos.map(producto => <Producto key={producto.id+producto.titulo}
-            item={producto} 
-        />
+            {productos.map(producto =>{
+                if (producto.cantidad > 0){
+                   return <Producto key={producto.id+producto.titulo}
+                    item={producto} 
+                    />
+                    
+                }
+            } 
         )}
     </div>
     );

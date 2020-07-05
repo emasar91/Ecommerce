@@ -7,7 +7,6 @@ import {
 } from 'react-icons/md';
 import { bindActionCreators } from 'redux';
 import { Container, ProductTable, Total } from './styles';
-import * as CartActions from './actions/cartAction';
 
 function Cart({ cart, removeFromCart }) {
   return (
@@ -75,7 +74,7 @@ function Cart({ cart, removeFromCart }) {
 }
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators(CartActions, dispatch);
+  bindActionCreators( dispatch);
 
 const mapStateToProps = state => ({
   cart: state.cart,

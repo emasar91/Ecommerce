@@ -18,13 +18,18 @@ import Login from './components/Login';
 import AdministrarCuentas from './components/AdministrarCuentas';
 
 
-import {getUserLoggedIn} from './actions/usuarioAction'
+import {getUserLoggedIn, getUsers} from './actions/usuarioAction'
+import CarritoHome from './components/CarritoHome';
 
 
 
 function App(state) {
+
+    console.log(state)
+
     
-console.log(state)
+    
+    
     return ( <div className = "App" >
 
             <Route path = '/'
@@ -84,6 +89,11 @@ console.log(state)
             render = {
                 () => < FormularioUsuario /> }
             />
+            
+            <Route  exact  path = '/user/cart'
+            render = {
+                () => < CarritoHome /> }
+            />
 
 
 
@@ -115,4 +125,4 @@ function mapStateToProps(state){
     }
 }
 
-export default connect (mapStateToProps,{getUserLoggedIn})( App )
+export default connect (mapStateToProps,{getUserLoggedIn, getUsers})( App )
