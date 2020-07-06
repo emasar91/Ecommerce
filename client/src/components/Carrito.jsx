@@ -1,26 +1,16 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import { MdShoppingBasket } from 'react-icons/md';
 import { Container, Cart } from './css/stylescarrito.js';
-import { connect } from 'react-redux';
-import { addCart } from '../actions/cartAction'
 
-function Carrito({ cartSize }) {
-  useEffect(()=>{addCart()
-  },[addCart])        
-  //no es addCart, sólo para probar, debe ir en el botón de agregar
-  return (
+function Carrito() {
+          
+    return (
     <Container>
-       <Cart to="/products/Orden/">
-        <div >
-          <strong>Mi changuito</strong>
-          <span>{cartSize} items</span>
-        </div>
-        <MdShoppingBasket size={36} color="#FFF" />
+       <Cart to="/user/cart/">
+        <MdShoppingBasket size={36} color="#000" />
       </Cart>
     </Container>
   );
 }
 
-export default connect(state => ({
-  cartSize: state.cart.length,
-}))(Carrito);
+export default Carrito;

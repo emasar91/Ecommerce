@@ -2,11 +2,10 @@ import { GET_PRODUCTS, GET_PRODUCT_DETAIL, ADD_PRODUCT, SEARCH_PRODUCT, PRODUCT_
 const initialState = {
     productos: [],
     productoDetallado: {},
-    review:{}
+    review:[]
 }
 
 export default function producto(state = initialState, action) {
-
 
     switch (action.type) {
         case GET_PRODUCTS:
@@ -47,7 +46,7 @@ export default function producto(state = initialState, action) {
                 case PRODUCT_REVIEW:
                 return {
                     ...state,
-                    review: state.review
+                    review: action.payload
                 }
 
         default:

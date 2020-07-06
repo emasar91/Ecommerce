@@ -35,7 +35,7 @@ function FormularioAgregar({addProduct}){
          
    return (
     <div className="container">
-        <form className="form-signin" >
+        <form className="form-signin" data-toggle="validator" >
             
             <h3>Agregar nuevo producto: </h3>
             <label className ="sr-only" htmlFor="nombre">Nombre*</label>
@@ -48,8 +48,11 @@ function FormularioAgregar({addProduct}){
             <input className="form-control" required type="number" name="cantidad" placeholder="Cantidad" onChange={handleInputChange} />
             
             <label className ="sr-only" htmlFor="descripcion">Descripcion</label>
-            <input className="form-control" type="text" name="descripcion" placeholder="Descripcion" onChange={handleInputChange} />
+            <input className="form-control" required type="text" name="descripcion" placeholder="Descripcion" onChange={handleInputChange} />
             
+           
+  
+
             <label className ="sr-only" htmlFor="imagen">imagen</label>
             <input className="form-control" type="file" name="imagen" onChange={handleInputChange}/>
             <br/>

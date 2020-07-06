@@ -3,51 +3,30 @@ import { getReview} from '../actions/productoAction'
 import { connect } from 'react-redux'
 import './css/Producto.css'
 
+function Review ({Review, getReview, id}){
 
+  useEffect(()=>{getReview(id)},[id])
+ 
 
-/* function TodoReview({idReview, getReview}){
-    
-    useEffect(()=>{getReview(idReview)},[idReview,getReview])
-    
-    
-    return(
-        <div className="review">
-            <h1>Descripción: {TodoReview.descripcion}</h1>
-            <h1>Puntaje: {TodoReview.puntaje}</h1>
-            
-           
-            
-        </div>
-    );
-}
-
-function mapStateToProps(state){
-    return {
-        TodoReview : state.TodoReviews
-    }
-}
-
-export default connect (mapStateToProps,{getReview})(TodoReview) */
-
-export function TodoReview ({item}){
-    
-  let {idReview , descripcion, puntaje, ProductId, userIdUser, getReview} = item;
-
-    return (
+  return (
       <div className="review">
               <div className="container-informacion">
-              <span className='reviewdes'>$ {descripcion}</span>
-              <span className='reviewpun'>$ {puntaje}</span>
-             
-                  </span>
+                {Review.map(R =>{
+                  return <div>
+                    <span>{R.descripcion} </span>
+              <span> {R.puntaje}</span></div>})}
+            {/*   <span className='reviewdes'>$ {Review.descripcion}</span>
+              <span className='reviewpun'>$ {Review.puntaje}</span> */}
+              
       </div> 
-      </div>
+      </div> 
   )
 
 }
 function mapStateToProps(state){
   return {
-      TodoReview : state.TodoReview
+      Review : state.producto.review
+      //   state.reducer.campoquequierotraer
   }
 }
-export default connect (mapStateToProps,{getReview})(TodoReview)
+export default connect (mapStateToProps,{getReview})(Review)

@@ -2,6 +2,7 @@ import { ADD_USER, GET_USERS, DELETE_USER, GET_USER_LOGGED, SET_USER_LOGGED } fr
 const initialState = {
     usuarios: [],
     usuarioConectado: {
+        idUser: 0,
         nombreUser: "Invitado",
         contraUser: "",
         emailUser: "",

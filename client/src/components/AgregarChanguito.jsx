@@ -1,16 +1,22 @@
 import React from 'react'
 import { MdAddShoppingCart } from 'react-icons/md';
 import { connect } from 'react-redux'
-import {addCart} from '../actions/cartAction'
+import { addProduct } from '../actions/carritoAction'
 
-function AgregarChanguito(){
+function AgregarChanguito({id, addProduct}){
+
+    function agregar(){
+        addProduct(id,1)
+    }
+    
+
 
     return(
         <div>
-                   {/*  //<button type="button" className="btn btn-primary" value="Agregar Changuito">Agregar Changuito</button> */}
-            <MdAddShoppingCart  value="Agregar Changuito"  size={20} color="#007bff" />
-            </div>
+           
+            <MdAddShoppingCart onClick={agregar} cursor="pointer" type="button" value="Agregar Changuito"  size={20} color="#007bff" />
+        </div>
     )
     
 } 
-export default connect (null, {addCart})(AgregarChanguito)
+export default connect (null, {addProduct})(AgregarChanguito)

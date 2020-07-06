@@ -43,9 +43,7 @@ server.get('/products/:idOrden', function(req, res) {
 
     .then((orden) => {
             orden.getProduct().then((productos) => {
-                if (productos.length === 0)
-                    return res.status(200).send(productos)
-                return res.send(productos)
+                return res.status(200).send(productos)
             });
         })
         .catch(err => res.status(400).send("Sin productos"));
@@ -55,7 +53,7 @@ server.get('/products/:idOrden', function(req, res) {
 server.delete('/:id', (req, res) => {
     const id = req.params.id;
     Orden.destroy({
-            where: { id: id },
+            where: { idOrden: id },
         })
         .then(deletedOrden => {
             res.json(deletedOrden);
@@ -79,38 +77,43 @@ server.get('/ordenes/user', function(req, res) {
 })
 
 server.post("/:productId/:userId", function(req, res) {
-    var product = function() {
+
+    var producto = function() {
         return Product.findByPk(req.params.productId);
     };
-    var orden = function() {
-        return Orden.findOrCreate({
+
+    var carrito = function() {
+        return Orden.findOne({
             where: {
-                estado: "true",
+                estado: 'abierto',
                 userIdUser: req.params.userId
             }
         })
-
-    };
-    var user = function() {
-        return User.findByPk(req.params.userId);
     };
 
-    Promise.all([product(), orden(), user()]).then((response) => {
-        console.log(response)
-        if (response[0] && response[1]) {
-            response[1].addProduct(response[0]);
-
-            if (response[2]) {
-                response[2].addOrden(response[1]);
+    Promise.all([carrito(), producto()]).then((response) => {
+        var cart = response[0]
+        var prod = response[1]
+        if (cart !== null) {
+            cart.addProduct(prod)
+            return res.send('Se ha agregado el producto a su orden')
+        } else {
+            Orden.create({
+                estado: 'abierto',
+                userIdUser: req.params.userId
+            }).then(response => {
+                response.addProduct(prod)
                 return res.send('Se ha agregado el producto a su orden')
-            }
+            })
         }
+
     })
 });
 
-server.post('/agregar', function(req, res) { //crea carrito
+server.post('/agregar/:userId', function(req, res) { //crea carrito
     Orden.create({
-            estado: "true",
+            estado: "cerrado",
+            userIdUser: req.params.userId
         })
         .then(() => {
             return res.send('Se creado un nueva orden')
