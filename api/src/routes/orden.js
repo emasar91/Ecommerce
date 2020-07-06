@@ -64,18 +64,18 @@ server.delete('/:id', (req, res) => {
 //Ruta que retorne todas las ordenes de usuario
 server.get('/ordenes/user', function(req, res) {
 
-    Users.findByPk(req.params.id)
+        Users.findByPk(req.params.id)
 
-    .then((orden) => {
-            orden.getUser({ orden }).then((productos) => {
-                if (productos.length === 0)
-                    return res.status(200).send(productos)
-                return res.send(productos)
-            });
-        })
-        .catch(err => res.status(400).send("Sin productos"));
-})
-
+        .then((orden) => {
+                orden.getUser({ orden }).then((productos) => {
+                    if (productos.length === 0)
+                        return res.status(200).send(productos)
+                    return res.send(productos)
+                });
+            })
+            .catch(err => res.status(400).send("Sin productos"));
+    })
+    //Agrega producto y usuario a una orden
 server.post("/:productId/:userId", function(req, res) {
 
     var producto = function() {
@@ -123,7 +123,62 @@ server.post('/agregar/:userId', function(req, res) { //crea carrito
         })
 });
 
+//Modificar cantidades de Carrito
+
+// server.put("/modificarOrden/:idOrden", function(req, res) {
+//     var orden = function() {
+//         return Orden.findByPk(req.params.idOrden);
+//     };
+//     var cantidad = function() {
+//         return Cantidad.findOne({
+//             where: {
+//                 nombre: req.body.nombre,
+//             }
+//         });
+//     };
+
+//     if (req.body.accion === 'add') {
+//         Promise.all([orden(), cantidad()]).then((response) => {
+//             if (response[0] && response[1]) {
+//                 response[0].addCantidad(response[1]);
+//                 return res.send("Cantidad Agregada");
+//             } else {
+//                 res.status(404).send("La cantidad o orden no existe");
+//             };
+//         }).catch(() => res.sendStatus(400));
 
 
+
+
+//     } else if (req.body.accion === 'remove') {
+//         Promise.all([product(), cantidad()]).then((response) => {
+//             if (response[0] && response[1]) {
+//                 response[0].removeCantidad(response[1]);
+//                 return res.send("Cantidad Eliminada");
+//             } else {
+//                 res.status(404).send("La cantidad o la orden no existe");
+//             };
+//         }).catch(() => res.sendStatus(400));
+//     } else { res.status(400).send("La accion debe existir y debe ser add o remove") }
+// })
+
+router.put("/agregar/producto/cantidad", (req, res) => {
+    const { cantidad, precioVenta, productoId, carritoId } = req.body;
+    Ordenxproducto.update({
+            cantidad,
+            precioVenta
+        }, {
+            where: {
+                productId,
+                IdOrden
+            }
+        })
+        .then(() => {
+            res.sendStatus(200);
+        })
+        .catch(() => {
+            res.sendStatus(404);
+        });
+});
 
 module.exports = server;

@@ -46,6 +46,7 @@ User.hasMany(Orden); //sprint2
 Product.belongsToMany(Orden, { as: "orden", through: 'productoxorden' }); //sprint2
 Orden.belongsToMany(Product, { as: "product", through: 'productoxorden' });
 
+
 //Review.belongsToMany(Product, {as: "reviewprod"});
 // Review.belongsToMany(User, {as: 'reviewuser', through: 'reviewxuser'})
 
