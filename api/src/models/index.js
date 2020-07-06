@@ -33,7 +33,8 @@ db.Sequelize = Sequelize;
 
 
 Product.belongsToMany(Category, { as: "category", through: 'productoxcategorias' }); //sprint1
-Category.belongsToMany(Product, { as: "product", through: 'productoxcategorias' });
+Category.belongsToMany(Product, { as: "product" , through: 'productoxcategorias' });
+
 
 Product.hasMany(Review);
 User.hasMany(Review);

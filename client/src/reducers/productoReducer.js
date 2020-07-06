@@ -1,7 +1,8 @@
-import { GET_PRODUCTS, GET_PRODUCT_DETAIL, ADD_PRODUCT, SEARCH_PRODUCT, PRODUCT_BY_CATEGORY, MODIFY_PRODUCT, REMOVE_PRODUCT, PRODUCT_REVIEW_SAVE_RESET } from '../actions/productoAction'
+import { GET_PRODUCTS, GET_PRODUCT_DETAIL, ADD_PRODUCT, SEARCH_PRODUCT, PRODUCT_BY_CATEGORY, MODIFY_PRODUCT, REMOVE_PRODUCT, PRODUCT_REVIEW } from '../actions/productoAction'
 const initialState = {
     productos: [],
-    productoDetallado: {}
+    productoDetallado: {},
+    review:{}
 }
 
 export default function producto(state = initialState, action) {
@@ -43,10 +44,10 @@ export default function producto(state = initialState, action) {
                     ...state,
                     productos: state.productos
                 }
-                case PRODUCT_REVIEW_SAVE_RESET:
+                case PRODUCT_REVIEW:
                 return {
                     ...state,
-                    productos: state.productos
+                    review: state.review
                 }
 
         default:

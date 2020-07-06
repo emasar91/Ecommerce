@@ -83,7 +83,7 @@ server.post("/:productId/:userId", function(req, res) {
         return Product.findByPk(req.params.productId);
     };
     var orden = function() {
-        return Orden.findOne({
+        return Orden.findOrCreate({
             where: {
                 estado: "true",
                 userIdUser: req.params.userId
