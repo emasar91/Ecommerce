@@ -3,24 +3,22 @@ const Review = (sequelize, S) => {
     // defino el modelo
 
     const R = sequelize.define('review', {
-            idReview: {
-                primaryKey: true,
-                type: S.INTEGER,
-                allowNull: false,
-                autoIncrement: true,
-            },
-            descripcion: {
-                allowNull: false,
-                type: S.STRING,
-            },
-            puntaje: {
-                allowNull: false,
-                type: S.INTEGER,
-                defaultValue: 1,
-            }
+        idReview: {
+            primaryKey: true,
+            type: S.INTEGER,
+            allowNull: false,
+            autoIncrement: true,
+        },
+        descripcion: {
+            allowNull: false,
+            type: S.STRING,
+        },
+        puntaje: {
+            allowNull: false,
+            type: S.INTEGER,
+            defaultValue: 1,
         }
-
-        , { timestamps: false });
+    }, { timestamps: false });
 
     return R;
 };

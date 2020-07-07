@@ -1,43 +1,111 @@
 const server = require('express').Router();
 const { Orden, User, Product, Productoxorden } = require("../models");
 const Sequelize = require('sequelize');
-/* const { contains } = require('sequelize/types/lib/operators'); */
+const { response } = require('../app');
+const { where } = require('sequelize');
 
 
-//Ruta que retorna todas las ordenes
+//RUTA RETORNA TODAS LAS ORDENES 
+//-FUNCIONANDO Y REVISADO-
 server.get('/', function(req, res) {
     Orden.findAll()
-        .then(function(products) {
-            return res.status(200).send(products);
+        .then(function(ordenes) {
+            return res.send(ordenes);
         });
 });
 
-//Ruta modificar orden
+//RUTA MODIFICA ESTADO DE LA ORDEN  DE UN USUARIO 
+//-FUNCIONANDO y REVISADO-
 server.put('/modificar/:id', function(req, res) {
-
-    if (req.body.estado === "" || req.body.cantidad === "") {
-        return res.status(400).send("faltan parametros")
-    }
 
     Orden.findOne({
             where: {
-                id: req.params.id,
+                idOrden: req.params.id,
             }
-        }).then(function(product) {
-            Orden.update({
-                estado: req.body.estado,
-                cantidad: req.body.cantidad,
+        }).then(function(orden) {
+            orden.update({
+                estado: 'cerrado',
             })
         })
         .then(() => {
-            return res.send('Orden Modificada')
+            return res.send('Orden Cerrada')
         })
         .catch(() => {
             return res.status(400).send('No se modifico');
         })
 });
 
-//Ruta que retorna todos los items del carrito.
+//RUTA AGREGA ITEMS AL CARRITO DE UN USUARIO, SI NO TIENE ORDEN ABIERTA, CREA UNA
+//SI TIENE ORDEN, PERO SIN ESE PRODUCTO, SE LO AGREGA, SI YA TIENE EL PRODUCTO
+//LE AGREGA +1 EN CANTIDAD DE ESE PRODUCTO 
+//-REVISADO Y FUNCIONANDO-
+
+server.post('/agregaritem/:idUsuario/:idProducto', function(req, res) {
+
+    Orden.findOne({
+            where: {
+                userIdUser: req.params.idUsuario,
+                estado: "abierto"
+            }
+        })
+        .then(response => {
+
+            if (response !== null) {
+                return response
+            } else {
+                Orden.create({
+                    estado: "abierto",
+                    userIdUser: req.params.idUsuario
+                }).then(ordenCreada => {
+                    Productoxorden.create({
+                        cantidad: 1,
+                        productId: req.params.idProducto,
+                        ordenIdOrden: ordenCreada.idOrden
+                    }).then(() => {
+                        res.send('Se Agrego producto a Orden Creada')
+                    })
+                })
+            }
+        }).then((response) => {
+            Productoxorden.findOne({
+                where: {
+                    productId: req.params.idProducto,
+                    ordenIdOrden: response.idOrden
+                }
+            }).then((response) => {
+                if (response !== null) {
+                    response.update({
+                        cantidad: response.cantidad + 1
+                    }, {
+                        where: {
+                            productId: req.params.idProducto,
+                            ordenIdOrden: response.idOrden
+                        }
+                    })
+                } else {
+                    Orden.findOne({
+                        where: {
+                            userIdUser: req.params.idUsuario,
+                            estado: "abierto"
+                        }
+                    }).then(response => {
+                        Productoxorden.create({
+                            cantidad: 1,
+                            productId: req.params.idProducto,
+                            ordenIdOrden: response.idOrden
+                        })
+
+                    })
+                }
+                res.send('encontro orden con ese producto')
+            })
+
+        })
+
+})
+
+//RUTA RETORNA TODOS LOS PRODUCTOS DE UNA ORDEN/CARRITO
+//-REVISADO Y FUNCIONANDO-
 server.get('/products/:idOrden', function(req, res) {
 
     Orden.findByPk(req.params.idOrden)
@@ -50,202 +118,106 @@ server.get('/products/:idOrden', function(req, res) {
         .catch(err => res.status(400).send("Sin productos"));
 })
 
-//Ruta para vaciar carrito
+
+
+//ELIMINA TODOS LOS PRODUCTOS DEL CARRITO (ELIMINANDO LA ORDEN)
+//-REVISADO Y FUNCIONANDO-
 server.delete('/:id', (req, res) => {
     const id = req.params.id;
     Orden.destroy({
             where: { idOrden: id },
         })
-        .then(deletedOrden => {
-            res.json(deletedOrden);
+        .then(() => {
+            res.send("Orden eliminada");
         })
         .catch(res.send);
 });
 
-//Ruta que retorne todas las ordenes de usuario
-server.get('/ordenes/user', function(req, res) {
 
-        Users.findByPk(req.params.id)
+//RUTA RETORNA TODAS LAS ORDENES DE UN USUARIO 
+//-REVISADO y FUNCIONANDO-
+server.get('/:user', function(req, res) {
 
-        .then((orden) => {
-                orden.getUser({ orden }).then((productos) => {
-                    if (productos.length === 0)
-                        return res.status(200).send(productos)
-                    return res.send(productos)
-                });
-            })
-            .catch(err => res.status(400).send("Sin productos"));
-    })
-    //Agrega producto y usuario a una orden
-/* server.post("/:productId/:userId", function(req, res) {
+    Orden.findAll({ where: { userIdUser: req.params.user } })
 
-    var producto = function() {
-        return Product.findByPk(req.params.productId);
-    };
-
-    var carrito = function() {
-        return Orden.findOne({
-            where: {
-                estado: 'abierto',
-                userIdUser: req.params.userId
-            }
-        })
-    };
-        .then((orden) => {
-                orden.getProduct().then((productos) => {
-                    return res.status(200).send(productos)
-                });
-            })
-            .catch(err => res.status(400).send("Sin productos"));
-    }) */
-
-    Promise.all([carrito(), producto(), cantidad()]).then((response) => {
-        var cart = response[0]
-        var prod = response[1]
-       
-        if (cart !== null) {
-            cart.addProduct(prod)
-            return res.send('Se ha agregado el producto a su orden')
-        } else {
-            Orden.create({
-                estado: 'abierto',
-                userIdUser: req.params.userId
-            }).then(response => {
-                response.addProduct(prod)
-                return res.send('Se ha agregado el producto a su orden')
-            })
-        }
+    .then((ordenes) => {
+        return res.send(ordenes)
 
     })
-}); */
+})
 
-server.post("/crear", (req, res) => {
-    const {estado, idUsuario} = req.body;
-      Orden.create({
-      estado,
-      idUsuario
-      })
-      .then(() => {
-        res.sendStatus(200);
-      })
-      .catch(() => {
-        res.sendStatus(404);
-      });
-  });
 
-server.post("/crear/update", (req, res) => {
-  
-    const {idOrden, productId} = req.body; 
-    
-      var product = Product.findByPk(productId)
-    
-      var orden = Orden.findByPk(idOrden)
-    
-  Promise.all([ 
-    product, orden
-  ])  
-      .then((values) => {
-          var [product, orden] = values
-        orden.addProduct(product)
-       
-      })
-      
-          .then(() => {
-        res.sendStatus(200);
-      })
-      .catch(() => {
-        res.sendStatus(404);
-      });
-  });
+//SE CREA ORDEN AL USUARIO 
+//-REVISADO Y FUNCIONANDO-
+server.post("/crear/:idUser", (req, res) => {
 
-  server.put("/crear/agregarcantidad", (req, res) => {
-    const {cantidad, precioVenta, productId, ordenIdOrden} = req.body;
-    Productoxorden.update({
-    cantidad,
-    precioVenta
-        },{
-      where: {
-        productId,
-       ordenIdOrden
-      }
-    })
-        .then(() => {
-        res.sendStatus(200);
-      })
-      .catch(() => {
-        res.sendStatus(404);
-      });
-  });
-
-server.post('/agregar/:userId', function(req, res) { //crea carrito
     Orden.create({
-            estado: "cerrado",
-            userIdUser: req.params.userId
+            estado: "abierto",
+            userIdUser: req.params.idUser
         })
         .then(() => {
-            return res.send('Se creado un nueva orden')
+            res.send("Se Creo Orden");
         })
-        .catch(() => {
-            return res.status(400).send('No se creo la orden')
-        })
+
 });
 
-//Modificar cantidades de Carrito
-
-// server.put("/modificarOrden/:idOrden", function(req, res) {
-//     var orden = function() {
-//         return Orden.findByPk(req.params.idOrden);
-//     };
-//     var cantidad = function() {
-//         return Cantidad.findOne({
-//             where: {
-//                 nombre: req.body.nombre,
-//             }
-//         });
-//     };
-
-//     if (req.body.accion === 'add') {
-//         Promise.all([orden(), cantidad()]).then((response) => {
-//             if (response[0] && response[1]) {
-//                 response[0].addCantidad(response[1]);
-//                 return res.send("Cantidad Agregada");
-//             } else {
-//                 res.status(404).send("La cantidad o orden no existe");
-//             };
-//         }).catch(() => res.sendStatus(400));
-
-
-
-
-//     } else if (req.body.accion === 'remove') {
-//         Promise.all([product(), cantidad()]).then((response) => {
-//             if (response[0] && response[1]) {
-//                 response[0].removeCantidad(response[1]);
-//                 return res.send("Cantidad Eliminada");
-//             } else {
-//                 res.status(404).send("La cantidad o la orden no existe");
-//             };
-//         }).catch(() => res.sendStatus(400));
-//     } else { res.status(400).send("La accion debe existir y debe ser add o remove") }
-// })
-
-server.put("/agregar/producto/cantidad", (req, res) => {
-    const { cantidad, precioVenta, productoId, carritoId } = req.body;
-    Productoxorden.update({
-            cantidad,
-            precioVenta
-        }, {
+//SUMA 1 o RESTA 1 AL PRODUCTO DE LA ORDEN
+server.put("/modificarcantidad/:idOrden/:idProducto", (req, res) => {
+    const { accion } = req.body;
+    Productoxorden.findOne({
             where: {
-                productId,
-                IdOrden
+                productId: req.params.idProducto,
+                ordenIdOrden: req.params.idOrden
             }
         })
-        .then(() => {
-            res.sendStatus(200);
+        .then(response => {
+
+            if (accion === "sumar") {
+                response.update({
+                    cantidad: response.cantidad + 1
+                }, {
+                    where: {
+                        productId: req.params.idProducto,
+                        ordenIdOrden: req.params.idOrden
+                    }
+                })
+                return res.send("Se agrego uno al producto")
+            }
+            if (accion === "restar") {
+                response.update({
+                    cantidad: response.cantidad - 1
+                }, {
+                    where: {
+                        productId: req.params.idProducto,
+                        ordenIdOrden: req.params.idOrden
+                    }
+                })
+                if (response.cantidad <= 0) {
+                    Productoxorden.destroy({
+                        where: {
+                            productId: req.params.idProducto,
+                            ordenIdOrden: req.params.idOrden
+                        }
+                    })
+                }
+                return res.send("Se resto uno al producto")
+            }
         })
-        .catch(() => {
-            res.sendStatus(404);
-        });
 });
+
+//ELIMINA PRODUCTO DE UNA ORDEN
+//-REVISADO Y FUNCIONANDO-
+server.delete('/producto/:idProducto/:idOrden', (req, res) => {
+    Productoxorden.destroy({
+        where: {
+            productId: req.params.idProducto,
+            ordenIdOrden: req.params.idOrden
+        }
+    }).then(() => {
+        return res.send('Producto Eliminado')
+
+    })
+})
+
 
 module.exports = server;
