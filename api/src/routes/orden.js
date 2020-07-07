@@ -1,6 +1,7 @@
 const server = require('express').Router();
-const { Orden, User, Product } = require("../models");
+const { Orden, User, Product, Productoxorden } = require("../models");
 const Sequelize = require('sequelize');
+/* const { contains } = require('sequelize/types/lib/operators'); */
 
 
 //Ruta que retorna todas las ordenes
@@ -76,7 +77,7 @@ server.get('/ordenes/user', function(req, res) {
             .catch(err => res.status(400).send("Sin productos"));
     })
     //Agrega producto y usuario a una orden
-server.post("/:productId/:userId", function(req, res) {
+/* server.post("/:productId/:userId", function(req, res) {
 
     var producto = function() {
         return Product.findByPk(req.params.productId);
@@ -90,10 +91,18 @@ server.post("/:productId/:userId", function(req, res) {
             }
         })
     };
+        .then((orden) => {
+                orden.getProduct().then((productos) => {
+                    return res.status(200).send(productos)
+                });
+            })
+            .catch(err => res.status(400).send("Sin productos"));
+    }) */
 
-    Promise.all([carrito(), producto()]).then((response) => {
+    Promise.all([carrito(), producto(), cantidad()]).then((response) => {
         var cart = response[0]
         var prod = response[1]
+       
         if (cart !== null) {
             cart.addProduct(prod)
             return res.send('Se ha agregado el producto a su orden')
@@ -108,7 +117,65 @@ server.post("/:productId/:userId", function(req, res) {
         }
 
     })
-});
+}); */
+
+server.post("/crear", (req, res) => {
+    const {estado, idUsuario} = req.body;
+      Orden.create({
+      estado,
+      idUsuario
+      })
+      .then(() => {
+        res.sendStatus(200);
+      })
+      .catch(() => {
+        res.sendStatus(404);
+      });
+  });
+
+server.post("/crear/update", (req, res) => {
+  
+    const {idOrden, productId} = req.body; 
+    
+      var product = Product.findByPk(productId)
+    
+      var orden = Orden.findByPk(idOrden)
+    
+  Promise.all([ 
+    product, orden
+  ])  
+      .then((values) => {
+          var [product, orden] = values
+        orden.addProduct(product)
+       
+      })
+      
+          .then(() => {
+        res.sendStatus(200);
+      })
+      .catch(() => {
+        res.sendStatus(404);
+      });
+  });
+
+  server.put("/crear/agregarcantidad", (req, res) => {
+    const {cantidad, precioVenta, productId, ordenIdOrden} = req.body;
+    Productoxorden.update({
+    cantidad,
+    precioVenta
+        },{
+      where: {
+        productId,
+       ordenIdOrden
+      }
+    })
+        .then(() => {
+        res.sendStatus(200);
+      })
+      .catch(() => {
+        res.sendStatus(404);
+      });
+  });
 
 server.post('/agregar/:userId', function(req, res) { //crea carrito
     Orden.create({
@@ -162,9 +229,9 @@ server.post('/agregar/:userId', function(req, res) { //crea carrito
 //     } else { res.status(400).send("La accion debe existir y debe ser add o remove") }
 // })
 
-router.put("/agregar/producto/cantidad", (req, res) => {
+server.put("/agregar/producto/cantidad", (req, res) => {
     const { cantidad, precioVenta, productoId, carritoId } = req.body;
-    Ordenxproducto.update({
+    Productoxorden.update({
             cantidad,
             precioVenta
         }, {

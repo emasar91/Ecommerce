@@ -34,26 +34,8 @@ const Productoxorden = (sequelize, S) => {
             type: S.INTEGER,
             allowNull: true
         }
-    });
+    },{ timestamps: false });
+
     return C;
 };
 module.exports = Productoxorden;
-
-const Orden = (sequelize, S) => {
-    const O = sequelize.define("orden", {
-        idOrden: {
-            type: S.INTEGER,
-            allowNull: false,
-            autoIncrement: true,
-            unique: true,
-            primaryKey: true,
-        },
-        estado: {
-            type: S.STRING,
-            allowNull: false
-        }
-    });
-    return O;
-};
-
-module.exports = Orden;

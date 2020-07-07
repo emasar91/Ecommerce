@@ -25,7 +25,8 @@ const {
         Category = require('./Category.js'),
         User = require('./User.js'),
         Orden = require('./Orden.js'),
-        Review = require('./Review.js')
+        Review = require('./Review.js'),
+        Productoxorden = require('./Productoxorden.js')
 } = models
 
 // Add model relationships here
@@ -43,8 +44,8 @@ User.hasMany(Review);
 User.hasMany(Orden); //sprint2
 
 
-Product.belongsToMany(Orden, { as: "orden", through: 'productoxorden' }); //sprint2
-Orden.belongsToMany(Product, { as: "product", through: 'productoxorden' });
+Product.belongsToMany(Orden, { as: "orden", through: Productoxorden }); //sprint2
+Orden.belongsToMany(Product, { as: "product", through: Productoxorden }); 
 
 
 //Review.belongsToMany(Product, {as: "reviewprod"});
