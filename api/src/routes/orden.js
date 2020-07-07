@@ -106,16 +106,22 @@ server.post('/agregaritem/:idUsuario/:idProducto', function(req, res) {
 
 //RUTA RETORNA TODOS LOS PRODUCTOS DE UNA ORDEN/CARRITO
 //-REVISADO Y FUNCIONANDO-
-server.get('/products/:idOrden', function(req, res) {
+server.get('/products/:iduser', function(req, res) {
 
-    Orden.findByPk(req.params.idOrden)
-
-    .then((orden) => {
-            orden.getProduct().then((productos) => {
-                return res.status(200).send(productos)
-            });
-        })
-        .catch(err => res.status(400).send("Sin productos"));
+    Orden.findOne({
+        where: {
+            userIdUser: req.params.iduser
+        }
+    }).then(response => {
+        Productoxorden.findAll({
+                where: {
+                    ordenIdOrden: response.idOrden
+                }
+            })
+            .then(productos => {
+                return res.send(productos)
+            })
+    })
 })
 
 
