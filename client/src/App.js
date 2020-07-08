@@ -20,6 +20,7 @@ import AdministrarCuentas from './components/AdministrarCuentas';
 
 import {getUserLoggedIn, getUsers} from './actions/usuarioAction'
 import CarritoHome from './components/CarritoHome';
+import AdministrarOrdenes from './components/AdministrarOrdenes';
 
 
 
@@ -54,6 +55,11 @@ function App(state) {
             <Route exact path = '/administrarCuentas'
             render = {
                 () => < AdministrarCuentas /> }
+            />
+
+            <Route exact path = '/administrarOrdenes'
+            render = {
+                () => < AdministrarOrdenes /> }
             />
 
             <Route path = '/categories/:productos'

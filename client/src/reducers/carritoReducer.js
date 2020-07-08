@@ -1,6 +1,7 @@
-import { ADD_CARRITO, GET_CARRITO, ADD_CANT, SUB_CANT } from '../actions/carritoAction'
+import { ADD_CARRITO, GET_CARRITO, ADD_CANT, SUB_CANT, ALL_CARRITOS } from '../actions/carritoAction'
 const initialState = {
-    carrito: []
+    carrito: [],
+    todosCarritos: []
 }
 
 export default function carrito(state = initialState, action) {
@@ -24,6 +25,11 @@ export default function carrito(state = initialState, action) {
             return {
                 ...state,
                 carrito: state.carrito
+            }
+        case ALL_CARRITOS:
+            return {
+                ...state,
+                todosCarritos: action.payload
             }
         default:
             return state;

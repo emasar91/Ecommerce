@@ -2,6 +2,7 @@ export const ADD_CARRITO = 'ADD_CARRITO'
 export const GET_CARRITO = 'GET_CARRITO'
 export const ADD_CANT = 'ADD_CANT'
 export const SUB_CANT = 'SUB_CANT'
+export const ALL_CARRITOS = 'ALL_CARRITOS'
 
 
 export function addCarrito(producto, usuario) {
@@ -32,6 +33,16 @@ export function getCarrito(idUser) {
             .then(response => response.json())
             .then(json => {
                 return dispatch({ type: GET_CARRITO, payload: json })
+            })
+    }
+}
+
+export function allCarritos() {
+    return function(dispatch) {
+        return fetch('http://localhost:3080/ordenes/')
+            .then(response => response.json())
+            .then(json => {
+                return dispatch({ type: ALL_CARRITOS, payload: json })
             })
     }
 }
