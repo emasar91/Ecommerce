@@ -1,14 +1,15 @@
 import React, {useEffect} from 'react'
 import './css/Catalogo.css';
 import { connect } from 'react-redux'
-import { getProducts } from '../actions/carritoAction'
+import { getCarrito } from '../actions/carritoAction'
+import BotonMas from './BotonMas'
+import BotonMenos from './BotonMenos'
 
-function CarritoHome({productosCarrito, getProducts}){
+function CarritoHome({productosCarrito,getCarrito}){
 
     useEffect(()=>{
-        getProducts()
-    },[getProducts])        
-    
+        getCarrito(1)
+    },[getCarrito])        
     return (
 
         <div className="container">
@@ -18,14 +19,21 @@ function CarritoHome({productosCarrito, getProducts}){
                     <th scope="col">Id Producto</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Precio</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Sumar</th>
                     </tr>
                 </thead>
                 <tbody>
                     {productosCarrito.map(prod=>
-                        <tr key={prod.id + prod.titulo}>
-                            <td>{prod.id}</td>
+                        <tr key={prod.productId}>
+                            <td>{prod.productId}</td>
                             <td>{prod.titulo}</td>
                             <td>${prod.precio}</td>
+                            <td>{prod.cantidad}</td>
+                            <td><BotonMas id ={prod.productId} />
+                                <BotonMenos id ={prod.productId} />
+                            
+                            </td>
                         </tr>
                     )}
                 </tbody>
@@ -37,7 +45,7 @@ function CarritoHome({productosCarrito, getProducts}){
 
 function mapStateToProps(state){
     return{
-       productosCarrito : state.carrito.productos    }
+       productosCarrito : state.carrito.carrito    }
 }
 
-export default connect (mapStateToProps, {getProducts})(CarritoHome)
+export default connect (mapStateToProps, {getCarrito})(CarritoHome)

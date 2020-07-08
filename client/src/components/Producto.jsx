@@ -5,7 +5,7 @@ import Modificar from   './Modificar.jsx'
 import { Link } from 'react-router-dom';
 import Remover from './Remover.jsx'
 import Agregarchanguito from './AgregarChanguito.jsx'
-import Rating from '../components/Rating';
+// import Rating from '../components/Rating';
 
 
 export default function Producto ({item}){

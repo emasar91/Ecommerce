@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React from 'react';
 import { connect } from 'react-redux'
 import './App.css';
 import BarraNavegacion from './components/BarraNavegacion.jsx'
@@ -25,7 +25,6 @@ import CarritoHome from './components/CarritoHome';
 
 function App(state) {
 
-    console.log(state)
 
     
     

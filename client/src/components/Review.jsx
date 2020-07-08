@@ -5,7 +5,7 @@ import './css/Producto.css'
 
 function Review ({Review, getReview, id}){
 
-  useEffect(()=>{getReview(id)},[id])
+  useEffect(()=>{getReview(id)},[getReview,id])
  
 
   return (

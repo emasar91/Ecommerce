@@ -110,17 +110,22 @@ server.get('/products/:iduser', function(req, res) {
 
     Orden.findOne({
         where: {
-            userIdUser: req.params.iduser
+            userIdUser: req.params.iduser,
+            estado: "abierto"
         }
     }).then(response => {
-        Productoxorden.findAll({
-                where: {
-                    ordenIdOrden: response.idOrden
-                }
-            })
-            .then(productos => {
-                return res.send(productos)
-            })
+        if (response !== null) {
+            Productoxorden.findAll({
+                    where: {
+                        ordenIdOrden: response.idOrden
+                    }
+                })
+                .then(productos => {
+                    return res.send(productos)
+                })
+        } else {
+            return res.send([])
+        }
     })
 })
 
@@ -168,47 +173,55 @@ server.post("/crear/:idUser", (req, res) => {
 });
 
 //SUMA 1 o RESTA 1 AL PRODUCTO DE LA ORDEN
-server.put("/modificarcantidad/:idOrden/:idProducto", (req, res) => {
+server.put("/modificarcantidad/:iduser/:idProducto", (req, res) => {
     const { accion } = req.body;
-    Productoxorden.findOne({
-            where: {
-                productId: req.params.idProducto,
-                ordenIdOrden: req.params.idOrden
-            }
-        })
-        .then(response => {
 
-            if (accion === "sumar") {
-                response.update({
-                    cantidad: response.cantidad + 1
-                }, {
-                    where: {
-                        productId: req.params.idProducto,
-                        ordenIdOrden: req.params.idOrden
-                    }
-                })
-                return res.send("Se agrego uno al producto")
-            }
-            if (accion === "restar") {
-                response.update({
-                    cantidad: response.cantidad - 1
-                }, {
-                    where: {
-                        productId: req.params.idProducto,
-                        ordenIdOrden: req.params.idOrden
-                    }
-                })
-                if (response.cantidad <= 0) {
-                    Productoxorden.destroy({
+    Orden.findOne({
+        where: {
+            userIdUser: req.params.iduser,
+            estado: "abierto"
+        }
+    }).then(response => {
+        Productoxorden.findOne({
+                where: {
+                    productId: req.params.idProducto,
+                    ordenIdOrden: response.idOrden
+                }
+            })
+            .then(response => {
+
+                if (accion === "sumar") {
+                    response.update({
+                        cantidad: response.cantidad + 1
+                    }, {
                         where: {
                             productId: req.params.idProducto,
-                            ordenIdOrden: req.params.idOrden
                         }
                     })
+                    return res.send("Se agrego uno al producto")
                 }
-                return res.send("Se resto uno al producto")
-            }
-        })
+                if (accion === "restar") {
+                    response.update({
+                        cantidad: response.cantidad - 1
+                    }, {
+                        where: {
+                            productId: req.params.idProducto,
+                        }
+                    })
+                    if (response.cantidad === 0) {
+                        Productoxorden.destroy({
+                            where: {
+                                productId: req.params.idProducto,
+                            }
+                        })
+                    }
+                    return res.send("Se resto uno al producto")
+                }
+            })
+
+    })
+
+
 });
 
 //ELIMINA PRODUCTO DE UNA ORDEN
