@@ -1,24 +1,35 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import './App.css';
 import BarraNavegacion from './components/BarraNavegacion.jsx'
 import Catalogo from './components/Catalogo.jsx';
 import { Route } from 'react-router-dom';
-
 import DetalleProducto from './components/DetalleProducto.jsx';
 import FormularioModificar from './components/FormularioModificar.jsx';
 import FormularioAgregar from './components/FormularioAgregar.jsx';
 import FormularioCategoria from './components/FormularioCategoria.jsx';
 import AgregarProducto from './components/AgregarProducto';
 import AgregarCategoria from './components/AgregarCategoria';
+import FormularioUsuario from './components/FormularioUsuario';
 import Categoria from './components/Categoria.jsx';
 import ProductosPorCategoria from './components/ProductosPorCategoria.jsx'
+import Carrito from './components/Carrito.jsx'
+import Login from './components/Login';
+import AdministrarCuentas from './components/AdministrarCuentas';
+
+
+import {getUserLoggedIn, getUsers} from './actions/usuarioAction'
+import CarritoHome from './components/CarritoHome';
+import AdministrarOrdenes from './components/AdministrarOrdenes';
 
 
 
+function App(state) {
 
-function App() {
+
     
-
+    
+    
     return ( <div className = "App" >
 
             <Route path = '/'
@@ -29,6 +40,26 @@ function App() {
             <Route exact path = '/'
             render = {
                 () => < Categoria /> }
+            />
+
+             <Route path = '/'
+            render = {
+                () => < Carrito /> }
+            />
+                
+            <Route exact path = '/login'
+            render = {
+                () => < Login /> }
+            />
+
+            <Route exact path = '/administrarCuentas'
+            render = {
+                () => < AdministrarCuentas /> }
+            />
+
+            <Route exact path = '/administrarOrdenes'
+            render = {
+                () => < AdministrarOrdenes /> }
             />
 
             <Route path = '/categories/:productos'
@@ -59,6 +90,15 @@ function App() {
             render = {
                 () => < FormularioCategoria /> }
             />
+            <Route  exact  path = '/user/crearUsuario'
+            render = {
+                () => < FormularioUsuario /> }
+            />
+            
+            <Route  exact  path = '/user/cart'
+            render = {
+                () => < CarritoHome /> }
+            />
 
 
 
@@ -77,8 +117,17 @@ function App() {
                 ({ match }) => < ProductosPorCategoria nombre = { match.params.nombre }
             />}/>
 
+           
+
         </div>
     );
 }
 
-export default App;
+
+function mapStateToProps(state){
+    return{
+        state
+    }
+}
+
+export default connect (mapStateToProps,{getUserLoggedIn, getUsers})( App )

@@ -7,8 +7,8 @@ function ProductosPorCategoria({nombre, categorias,  productByCategory, producto
     
     useEffect(()=>{
         
-        categorias.map(c=>{
-            if(c.nombre === nombre && c.nombre!==0){
+        categorias.forEach(c=>{
+            if(c.nombre === nombre){
                 productByCategory(c.idCat)
             }      
         })    

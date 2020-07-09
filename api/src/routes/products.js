@@ -1,5 +1,5 @@
 const server = require('express').Router();
-const { Product } = require('../models');
+const { Product, Review, User } = require('../models');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
@@ -94,6 +94,63 @@ server.delete('/:id', (req, res) => {
         })
         .catch(res.send);
 });
+
+server.post('/reviews/:idProduct/:idUser', function(req, res){
+
+    var producto = function(){
+        return Product.findOne({
+                    where :{
+                        id : req.params.idProduct,
+                    }
+    })}
+
+    var review = function(){
+        return Review.create({
+            descripcion: req.body.descripcion,
+            puntaje: req.body.puntaje,
+        });
+    }
+
+      var user = function(){
+          return User.findOne({
+              where: {
+                  idUser: req.params.idUser,
+              }
+          });
+      }
+         Promise.all([producto(), review(), user()]).then((response)=>{
+                 
+             if(response[0] && response[1]){
+                 response[0].addReview(response[1]); 
+                     if(response[1] && response[2]){
+                        response[2].addReview(response[1]); 
+                     }
+                 return res.send('Se ha agregado tu review');
+             } else {
+                 return res.send('No se agrego tu review')
+             }
+         });
+  });
+
+  server.get('/reviews/products/:idProduct', function(req, res){
+    Review.findAll({
+        where: {
+            productId: req.params.idProduct
+        }
+    }).then((reviews)=>{
+        return res.send(reviews);
+    })
+  });
+
+  server.get('/reviews/users/:idUser', function(req, res){
+    Review.findAll({
+        where: {
+            userIdUser: req.params.idUser
+        }
+    }).then((reviews)=>{
+        return res.send(reviews);
+    })
+  });
 
 
 

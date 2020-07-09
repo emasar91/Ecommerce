@@ -4,6 +4,8 @@ export const ADD_PRODUCT = 'ADD_PRODUCT'
 export const SEARCH_PRODUCT = 'SEARCH_PRODUCT'
 export const PRODUCT_BY_CATEGORY = 'PRODUCT_BY_CATEGORY'
 export const MODIFY_PRODUCT = 'MODIFY_PRODUCT'
+export const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
+export const PRODUCT_REVIEW = 'PRODUCT_REVIEW';
 
 export function getProducts() {
     return function(dispatch) {
@@ -24,7 +26,6 @@ export function getProductDetail(id) {
             })
     }
 }
-
 export function addProduct(producto) {
     return function(dispatch) {
         return fetch('http://localhost:3080/products/agregar', {
@@ -37,7 +38,6 @@ export function addProduct(producto) {
 
             })
             .then((res) => {
-                console.log(res.status)
                 if (res.status === 200) {
                     return (
                         dispatch({ type: ADD_PRODUCT }),
@@ -102,6 +102,38 @@ export function modifyProduct(producto, categoria, id) {
                 }
                 if (res.status !== 200)
                     alert("No se pudo modificar el producto")
+            })
+    }
+}
+
+
+export function removeProduct(id) {
+    return function(dispatch) {
+        return fetch('http://localhost:3080/products/' + id, {
+                headers: {
+                    'Accept': '*/*',
+                    'Content-Type': 'application/json'
+                },
+                method: 'DELETE'
+
+            })
+            .then((res) => {
+                if (res.status === 200) {
+                    return (
+                        dispatch({ type: REMOVE_PRODUCT })
+
+                    )
+                }
+            })
+    }
+}
+
+export function getReview(idProduct) {
+    return function(dispatch) {
+        return fetch('http://localhost:3080/products/reviews/products/' + idProduct)
+            .then(response => response.json())
+            .then(json => {
+                dispatch({ type: PRODUCT_REVIEW, payload: json })
             })
     }
 }
