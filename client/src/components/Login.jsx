@@ -2,14 +2,13 @@ import React, { useState,useEffect } from 'react'
 import  './css/Login.css'
 import { connect } from 'react-redux'
 import AgregarUsuario from './AgregarUsuario'
-import { setUserLoggedIn } from '../actions/usuarioAction'
+import { loggin } from '../actions/usuarioAction'
 import { Link } from 'react-router-dom'
 
-function Login({usuarioConectado, setUserLoggedIn}){
+function Login({usuarioConectado, loggin}){
 
-    useEffect(()=>{
-        console.log(usuarioConectado)
-    },[usuarioConectado])
+    // useEffect(()=>{
+    // },[usuarioConectado])
 
     const [input, setInput] = useState({
         nombreUser : null,
@@ -23,13 +22,16 @@ function Login({usuarioConectado, setUserLoggedIn}){
             ...input,
             [e.target.name] : e.target.value
         })
-        console.log(usuarioConectado)
     }
     
     
     const enviarFormulario = function(e){
         e.preventDefault()
-        setUserLoggedIn(input.nombreUser,input.contraUser)
+        const user= {
+            nombreUser: input.nombreUser,
+            contraUser: input.contraUser
+        }
+        loggin(user)
     }
 
     const cancelar = function(e){
@@ -68,4 +70,4 @@ function mapStateToProps(state){
     }
 }
 
-export default connect (mapStateToProps,{setUserLoggedIn})( Login )
+export default connect (mapStateToProps,{loggin})( Login )

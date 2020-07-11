@@ -4,6 +4,10 @@ const bodyParser = require('body-parser');
 const routes = require('./routes/index.js');
 const morgan = require('morgan');
 const cors = require('cors')
+const { User } = require('./models');
+const passport = require('passport');
+const session = require('express-session');
+const PassportLocal = require('passport-local').Strategy;
 
 
 require('./models');
@@ -12,6 +16,74 @@ const server = express();
 
 server.name = 'API';
 server.use(cors())
+
+server.use(express.urlencoded({ extended: true }));
+
+server.use(cookieParser('mi ultra secreto'));
+
+server.use(session({
+    name: "usuarioCreado",
+    secret: 'mi ultra secreto',
+    resave: true,
+    saveUninitialized: true,
+    cookie: {}
+
+}));
+
+server.use(passport.initialize());
+server.use(passport.session());
+
+/* passport.use(new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'passwd'
+  },
+  function(username, password, done) {
+    // ...
+  }
+)); */
+
+passport.use(new PassportLocal({
+        usernameField: 'nombreUser',
+        passwordField: 'contraUser'
+    },
+    function(username, password, done) {
+        User.findOne({
+                where: {
+                    nombreUser: username,
+                }
+            })
+            .then((user) => {
+                if (!user) {
+                    done(null, false, { message: "El usuario no existe" })
+                }
+                if (user.contraUser !== password) {
+                    done(null, false, { message: "Contraseña incorrecta" })
+                }
+                return done(null, user);
+            })
+            .catch(err => {
+                done(err);
+            })
+    }
+));
+
+passport.serializeUser(function(user, done) {
+    done(null, user.idUser);
+    /* done(null, nombreUser.id); */
+});
+
+passport.deserializeUser(function(id, done) {
+    User.findByPk(id)
+        .then(user => {
+            done(null, user)
+
+        })
+        .catch(err => {
+            done(err);
+        })
+
+});
+
 
 server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 server.use(bodyParser.json({ limit: '50mb' }));

@@ -1,6 +1,19 @@
 const server = require('express').Router();
 const { User } = require('../models');
 const Sequelize = require('sequelize');
+const passport = require('passport');
+const { session } = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+
+
+
+function loggedIn(req, res, next) {
+    if (req.user) {
+        next();
+    } else {
+        res.redirect('/login');
+    }
+}
 //const Op = Sequelize.Op;
 
 server.post('/', function(req, res) {
@@ -60,19 +73,18 @@ server.put('/:id', function(req, res) {
 
 });
 
-server.get('/login/:nombreUser/:contraUser', function(req, res) {
-    User.findOne({
-            where: {
-                nombreUser: req.params.nombreUser,
-                contraUser: req.params.contraUser,
-            }
-        })
-        .then((user) => {
-
-            return res.send(user);
+server.post('/login',
+    passport.authenticate('local', { session: true }),
+    function(req, res) {
+        req.login(req.user, function(err) {
+            console.log(req.session.passport)
+            res.send(req.session.passport)
         });
 
-});
+
+    });
+
+
 
 
 module.exports = server;
