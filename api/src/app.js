@@ -16,31 +16,15 @@ const server = express();
 
 server.name = 'API';
 server.use(cors())
-
 server.use(express.urlencoded({ extended: true }));
-
-server.use(cookieParser('mi ultra secreto'));
-
+server.use(cookieParser());
 server.use(session({
-    name: "usuarioCreado",
-    secret: 'mi ultra secreto',
-    resave: true,
-    saveUninitialized: true,
-    cookie: {}
-
+    secret: 'mi ultra secreto'
 }));
 
 server.use(passport.initialize());
 server.use(passport.session());
 
-/* passport.use(new LocalStrategy({
-    usernameField: 'email',
-    passwordField: 'passwd'
-  },
-  function(username, password, done) {
-    // ...
-  }
-)); */
 
 passport.use(new PassportLocal({
         usernameField: 'nombreUser',
@@ -53,11 +37,11 @@ passport.use(new PassportLocal({
                 }
             })
             .then((user) => {
-                if (!user) {
-                    done(null, false, { message: "El usuario no existe" })
+                if (user === null) {
+                    return done(null, false, { message: "El usuario no existe" })
                 }
                 if (user.contraUser !== password) {
-                    done(null, false, { message: "Contraseña incorrecta" })
+                    return done(null, false, { message: "Contraseña incorrecta" })
                 }
                 return done(null, user);
             })
@@ -69,7 +53,6 @@ passport.use(new PassportLocal({
 
 passport.serializeUser(function(user, done) {
     done(null, user.idUser);
-    /* done(null, nombreUser.id); */
 });
 
 passport.deserializeUser(function(id, done) {

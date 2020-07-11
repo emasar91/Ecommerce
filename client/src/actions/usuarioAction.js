@@ -95,9 +95,10 @@ export function loggin(user) {
                     return (
                         dispatch({ type: LOGGIN, payload: res.json() })
                     )
-                } else {
-                    alert("Error en campos")
                 }
+                // else {
+                //     alert("Error en campos")
+                // }
             })
     }
 }

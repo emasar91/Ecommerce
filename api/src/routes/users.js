@@ -77,8 +77,8 @@ server.post('/login',
     passport.authenticate('local', { session: true }),
     function(req, res) {
         req.login(req.user, function(err) {
-            console.log(req.session.passport)
-            res.send(req.session.passport)
+            console.log(req.user)
+            res.send(req.user)
         });
 
 
