@@ -13,6 +13,7 @@ export function addCarrito(producto, usuario) {
                     'Content-Type': 'application/json'
                 },
                 method: 'POST',
+                credentials: 'include'
             })
             .then((res) => {
                 if (res.status === 200) {
@@ -39,7 +40,9 @@ export function getCarrito(idUser) {
 
 export function allCarritos() {
     return function(dispatch) {
-        return fetch('http://localhost:3080/ordenes/')
+        return fetch('http://localhost:3080/ordenes/', {
+                credentials: 'include'
+            })
             .then(response => response.json())
             .then(json => {
                 return dispatch({ type: ALL_CARRITOS, payload: json })

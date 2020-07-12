@@ -2,6 +2,14 @@
  const { Category, Product } = require('../models');
 
 
+ function loggedIn(req, res, next) {
+     if (req.isAuthenticated()) {
+         return next();
+     }
+     return res.redirect("http://localhost:3000/");
+
+ }
+
  server.get('/', function(req, res) {
      Category.findAll()
          .then(function(category) {
@@ -24,7 +32,7 @@
  })
 
 
- server.post('/agregar', function(req, res) {
+ server.post('/agregar', loggedIn, function(req, res) {
      Category.create({
              nombre: req.body.nombre,
          })
@@ -36,7 +44,7 @@
          })
  });
 
- server.put('/modificar/:id', (req, res) => {
+ server.put('/modificar/:id', loggedIn, (req, res) => {
      const id = req.params.id;
 
      Category.update(req.body, {
@@ -56,7 +64,7 @@
  });
 
 
- server.delete('/delete/:id', (req, res) => {
+ server.delete('/delete/:id', loggedIn, (req, res) => {
      const id = req.params.id;
      Category.destroy({
              where: { idCat: id },
@@ -67,7 +75,7 @@
 
  });
 
- server.put("/adddelete/:productId", function(req, res) {
+ server.put("/adddelete/:productId", loggedIn, function(req, res) {
      var product = function() {
          return Product.findByPk(req.params.productId);
      };

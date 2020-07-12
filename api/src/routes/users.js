@@ -1,20 +1,14 @@
 const server = require('express').Router();
 const { User } = require('../models');
-const Sequelize = require('sequelize');
 const passport = require('passport');
-const { session } = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-
 
 
 function loggedIn(req, res, next) {
-    if (req.user) {
-        next();
-    } else {
-        res.redirect('/login');
+    if (req.isAuthenticated()) {
+        return next();
     }
+    return res.redirect("http://localhost:3000/");
 }
-//const Op = Sequelize.Op;
 
 server.post('/', function(req, res) {
     User.create({
@@ -30,7 +24,7 @@ server.post('/', function(req, res) {
         })
 });
 
-server.get('/', function(req, res) {
+server.get('/', loggedIn, function(req, res) {
     User.findAll()
         .then((users) => {
             res.send(users);
@@ -38,7 +32,7 @@ server.get('/', function(req, res) {
 
 });
 
-server.delete('/:id', function(req, res) {
+server.delete('/:id', loggedIn, function(req, res) {
     User.destroy({
         where: {
             idUser: req.params.id,
@@ -48,7 +42,7 @@ server.delete('/:id', function(req, res) {
     });
 });
 
-server.put('/:id', function(req, res) {
+server.put('/:id', loggedIn, function(req, res) {
     if (req.body.nombreUser === "" || req.body.contraUser === "" || req.body.emailUser === "") {
         return res.status(400).send("faltan parametros")
     }
@@ -74,17 +68,11 @@ server.put('/:id', function(req, res) {
 });
 
 server.post('/login',
-    passport.authenticate('local', { session: true }),
+    passport.authenticate('local'),
     function(req, res) {
-        req.login(req.user, function(err) {
-            console.log(req.user)
-            res.send(req.user)
-        });
 
-
+        res.send(req.user)
     });
-
-
 
 
 module.exports = server;

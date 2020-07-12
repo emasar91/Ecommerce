@@ -3,10 +3,18 @@ const { Product, Review, User } = require('../models');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
+function loggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    return res.redirect("http://localhost:3000/");
+
+}
+
 server.get('/', function(req, res) {
     Product.findAll()
         .then(function(products) {
-            return res.status(200).send(products);      // despeus quitar
+            return res.status(200).send(products); // despeus quitar
         });
 });
 
@@ -22,7 +30,7 @@ server.get('/search/:search', function(req, res) {
 
     }).then(function(products) {
         console.log(products);
-        return res.status(200).send(products)           // despeus quitar
+        return res.status(200).send(products) // despeus quitar
     })
 })
 
@@ -40,7 +48,7 @@ server.get('/:id', function(req, res) {
 
 
 
-server.post('/agregar', function(req, res) {
+server.post('/agregar', loggedIn, function(req, res) {
     Product.create({
             titulo: req.body.titulo,
             precio: req.body.precio,
@@ -57,7 +65,7 @@ server.post('/agregar', function(req, res) {
         })
 });
 
-server.put('/modificar/:id', function(req, res) {
+server.put('/modificar/:id', loggedIn, function(req, res) {
 
     if (req.body.titulo === "" || req.body.precio === "" || req.body.cantidad === "") {
         return res.status(400).send("faltan parametros")
@@ -84,7 +92,7 @@ server.put('/modificar/:id', function(req, res) {
         })
 });
 
-server.delete('/:id', (req, res) => {
+server.delete('/:id', loggedIn, (req, res) => {
     const id = req.params.id;
     Product.destroy({
             where: { id: id },
@@ -95,62 +103,63 @@ server.delete('/:id', (req, res) => {
         .catch(res.send);
 });
 
-server.post('/reviews/:idProduct/:idUser', function(req, res){
+server.post('/reviews/:idProduct/:idUser', loggedIn, function(req, res) {
 
-    var producto = function(){
+    var producto = function() {
         return Product.findOne({
-                    where :{
-                        id : req.params.idProduct,
-                    }
-    })}
+            where: {
+                id: req.params.idProduct,
+            }
+        })
+    }
 
-    var review = function(){
+    var review = function() {
         return Review.create({
             descripcion: req.body.descripcion,
             puntaje: req.body.puntaje,
         });
     }
 
-      var user = function(){
-          return User.findOne({
-              where: {
-                  idUser: req.params.idUser,
-              }
-          });
-      }
-         Promise.all([producto(), review(), user()]).then((response)=>{
-                 
-             if(response[0] && response[1]){
-                 response[0].addReview(response[1]); 
-                     if(response[1] && response[2]){
-                        response[2].addReview(response[1]); 
-                     }
-                 return res.send('Se ha agregado tu review');
-             } else {
-                 return res.send('No se agrego tu review')
-             }
-         });
-  });
+    var user = function() {
+        return User.findOne({
+            where: {
+                idUser: req.params.idUser,
+            }
+        });
+    }
+    Promise.all([producto(), review(), user()]).then((response) => {
 
-  server.get('/reviews/products/:idProduct', function(req, res){
+        if (response[0] && response[1]) {
+            response[0].addReview(response[1]);
+            if (response[1] && response[2]) {
+                response[2].addReview(response[1]);
+            }
+            return res.send('Se ha agregado tu review');
+        } else {
+            return res.send('No se agrego tu review')
+        }
+    });
+});
+
+server.get('/reviews/products/:idProduct', function(req, res) {
     Review.findAll({
         where: {
             productId: req.params.idProduct
         }
-    }).then((reviews)=>{
+    }).then((reviews) => {
         return res.send(reviews);
     })
-  });
+});
 
-  server.get('/reviews/users/:idUser', function(req, res){
+server.get('/reviews/users/:idUser', loggedIn, function(req, res) {
     Review.findAll({
         where: {
             userIdUser: req.params.idUser
         }
-    }).then((reviews)=>{
+    }).then((reviews) => {
         return res.send(reviews);
     })
-  });
+});
 
 
 

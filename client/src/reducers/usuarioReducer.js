@@ -1,7 +1,7 @@
 import { ADD_USER, GET_USERS, DELETE_USER, GET_USER_LOGGED, LOGGIN } from '../actions/usuarioAction'
 const initialState = {
     usuarios: [],
-    usuarioConectado: []
+    usuarioConectado: {}
 }
 
 export default function usuario(state = initialState, action) {

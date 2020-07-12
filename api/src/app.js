@@ -15,11 +15,14 @@ require('./models');
 const server = express();
 
 server.name = 'API';
-server.use(cors())
+// server.use(cors())
 server.use(express.urlencoded({ extended: true }));
 server.use(cookieParser());
 server.use(session({
-    secret: 'mi ultra secreto'
+    name: "Conectado",
+    secret: 'mi ultra secreto',
+    resave: false,
+    saveUninitialized: false
 }));
 
 server.use(passport.initialize());
@@ -76,6 +79,7 @@ server.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); // update to match the domain you will make the request from
     res.header('Access-Control-Allow-Credentials', 'true');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
     next();
 });
 

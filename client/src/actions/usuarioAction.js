@@ -12,7 +12,8 @@ export function addUser(usuario) {
                     'Content-Type': 'application/json'
                 },
                 method: 'POST',
-                body: JSON.stringify(usuario)
+                body: JSON.stringify(usuario),
+                credentials: 'include'
 
             })
             .then((res) => {
@@ -36,6 +37,7 @@ export function deleteUser(id) {
                     'Content-Type': 'application/json'
                 },
                 method: 'DELETE',
+                credentials: 'include'
 
             })
             .then((res) => {
@@ -52,7 +54,9 @@ export function deleteUser(id) {
 
 export function getUsers() {
     return function(dispatch) {
-        return fetch('http://localhost:3080/users')
+        return fetch('http://localhost:3080/users', {
+                credentials: 'include'
+            })
             .then(response => response.json())
             .then(json => {
                 dispatch({ type: GET_USERS, payload: json })
@@ -87,7 +91,8 @@ export function loggin(user) {
                     'Content-Type': 'application/json'
                 },
                 method: 'POST',
-                body: JSON.stringify(user)
+                body: JSON.stringify(user),
+                credentials: 'include'
 
             })
             .then((res) => {
@@ -95,10 +100,9 @@ export function loggin(user) {
                     return (
                         dispatch({ type: LOGGIN, payload: res.json() })
                     )
+                } else {
+                    alert("Error en datos ingresados")
                 }
-                // else {
-                //     alert("Error en campos")
-                // }
             })
     }
 }
