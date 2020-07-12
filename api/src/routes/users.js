@@ -10,6 +10,18 @@ function loggedIn(req, res, next) {
     return res.redirect("http://localhost:3000/");
 }
 
+function isAdmin(req, res, next) {
+    if (req.isAuthenticated()) {
+        if (req.user.admin === true) {
+            return next()
+        }
+    }
+    return res.redirect("http://localhost:3000/");
+}
+
+
+
+
 server.post('/', function(req, res) {
     User.create({
             nombreUser: req.body.nombreUser,
@@ -24,7 +36,7 @@ server.post('/', function(req, res) {
         })
 });
 
-server.get('/', loggedIn, function(req, res) {
+server.get('/', loggedIn, isAdmin, function(req, res) {
     User.findAll()
         .then((users) => {
             res.send(users);
@@ -73,6 +85,10 @@ server.post('/login',
 
         res.send(req.user)
     });
+
+server.get('/usuarioConectado', function(req, res) {
+    return res.send(req)
+})
 
 
 module.exports = server;

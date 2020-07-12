@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { connect } from 'react-redux'
 import './App.css';
 import BarraNavegacion from './components/BarraNavegacion.jsx'
@@ -24,10 +24,18 @@ import AdministrarOrdenes from './components/AdministrarOrdenes';
 
 
 
-function App(state) {
+function App() {
 
 
-    
+        const admin ={
+            name:'admin',
+            admin: true
+        }
+        const usuario ={
+            name:'usuario',
+            admin: false
+        }
+
     
     
     return ( <div className = "App" >
@@ -68,8 +76,8 @@ function App(state) {
             />
 
             <Route exact path = '/'
-            render = {
-                () => < AgregarProducto /> }
+            render = {() => admin.admin === true  && < AgregarProducto /> 
+            }
             />
 
 
@@ -126,7 +134,7 @@ function App(state) {
 
 function mapStateToProps(state){
     return{
-        state
+        usuario : state.usuario.usuarios
     }
 }
 
