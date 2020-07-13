@@ -2,11 +2,11 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { subCant } from '../actions/carritoAction'
 
-function BotonMenos({id, subCant}){
+function BotonMenos({id, subCant,usuario}){
 
     
     function restar(){
-        subCant(1,id)
+        subCant(usuario.idUser,id)
     }
 
 
@@ -17,4 +17,11 @@ function BotonMenos({id, subCant}){
     )
     
 } 
-export default connect (null, {subCant})(BotonMenos)
+
+function mapStateToProps(state){
+    return{
+        usuario: state.usuario.usuarioConectado 
+   }
+}
+
+export default connect (mapStateToProps, {subCant})(BotonMenos)

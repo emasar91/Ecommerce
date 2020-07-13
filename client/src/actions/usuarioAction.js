@@ -59,29 +59,34 @@ export function getUsers() {
             })
             .then(response => response.json())
             .then(json => {
-                dispatch({ type: GET_USERS, payload: json })
+                return dispatch({ type: GET_USERS, payload: json })
             })
     }
 }
 
-// export function setUserLoggedIn(nombreUsuario, contraUser) {
-//     return function(dispatch) {
-//         return fetch('http://localhost:3080/users/login/' + nombreUsuario + "/" + contraUser)
-//             .then(response => response.json())
-//             .then(json => {
-//                 dispatch({ type: SET_USER_LOGGED, payload: json })
-//             })
-//             .catch(() => {
-//                 console.log("error")
-//             })
-//     }
-// }
-
 export function getUserLoggedIn() {
     return function(dispatch) {
-        return dispatch({ type: GET_USER_LOGGED })
+        return fetch('http://localhost:3080/users/login', {
+                headers: {
+                    'Accept': '*/*',
+                    'Content-Type': 'application/json'
+                },
+                method: 'GET',
+                credentials: 'include'
+
+            })
+            .then((res) => res.json())
+            .then((json) => {
+                return dispatch({ type: GET_USER_LOGGED, payload: json })
+            })
+            .catch(() => {
+                console.log("error")
+            })
+
     }
 }
+
+
 
 export function loggin(user) {
     return function(dispatch) {
@@ -98,7 +103,8 @@ export function loggin(user) {
             .then((res) => {
                 if (res.status === 200) {
                     return (
-                        dispatch({ type: LOGGIN, payload: res.json() })
+                        dispatch({ type: LOGGIN, payload: res.json() }),
+                        window.location.replace('http://localhost:3000')
                     )
                 } else {
                     alert("Error en datos ingresados")

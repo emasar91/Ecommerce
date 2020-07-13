@@ -7,8 +7,22 @@ function loggedIn(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     }
-    return res.redirect("http://localhost:3000/");
+    return res.send({
+        idUser: 0,
+        nombreUser: "Invitado",
+        contraUser: "",
+        emailUser: "",
+        admin: false
+    });
+}
 
+function isAdmin(req, res, next) {
+    if (req.isAuthenticated()) {
+        if (req.user.admin === true) {
+            return next()
+        }
+    }
+    return res.redirect("http://localhost:3000/");
 }
 
 server.get('/', function(req, res) {
@@ -48,7 +62,7 @@ server.get('/:id', function(req, res) {
 
 
 
-server.post('/agregar', loggedIn, function(req, res) {
+server.post('/agregar', loggedIn, isAdmin, function(req, res) {
     Product.create({
             titulo: req.body.titulo,
             precio: req.body.precio,
@@ -65,7 +79,7 @@ server.post('/agregar', loggedIn, function(req, res) {
         })
 });
 
-server.put('/modificar/:id', loggedIn, function(req, res) {
+server.put('/modificar/:id', loggedIn, isAdmin, function(req, res) {
 
     if (req.body.titulo === "" || req.body.precio === "" || req.body.cantidad === "") {
         return res.status(400).send("faltan parametros")
@@ -92,7 +106,7 @@ server.put('/modificar/:id', loggedIn, function(req, res) {
         })
 });
 
-server.delete('/:id', loggedIn, (req, res) => {
+server.delete('/:id', loggedIn, isAdmin, (req, res) => {
     const id = req.params.id;
     Product.destroy({
             where: { id: id },

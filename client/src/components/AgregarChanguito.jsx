@@ -3,11 +3,13 @@ import { MdAddShoppingCart } from 'react-icons/md';
 import { connect } from 'react-redux'
 import { addCarrito } from '../actions/carritoAction'
 
-function AgregarChanguito({id, addCarrito}){
+function AgregarChanguito({id, addCarrito,usuario}){
 
     function agregar(){
-        addCarrito(1,id)
+        addCarrito(usuario.idUser,id)
     }
+    
+
     
 
 
@@ -19,4 +21,11 @@ function AgregarChanguito({id, addCarrito}){
     )
     
 } 
-export default connect (null, {addCarrito})(AgregarChanguito)
+
+function mapStateToProps(state){
+    return{
+        usuario: state.usuario.usuarioConectado 
+   }
+}
+
+export default connect (mapStateToProps, {addCarrito})(AgregarChanguito)

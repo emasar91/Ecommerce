@@ -1,13 +1,33 @@
 const server = require('express').Router();
 const { Orden, User, Product, Productoxorden } = require("../models");
-const Sequelize = require('sequelize');
-const { response } = require('../app');
-const { where } = require('sequelize');
 
+
+
+function loggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    return res.send({
+        idUser: 0,
+        nombreUser: "Invitado",
+        contraUser: "",
+        emailUser: "",
+        admin: false
+    });
+}
+
+function isAdmin(req, res, next) {
+    if (req.isAuthenticated()) {
+        if (req.user.admin === true) {
+            return next()
+        }
+    }
+    return res.redirect("http://localhost:3000/");
+}
 
 //RUTA RETORNA TODAS LAS ORDENES 
 //-FUNCIONANDO Y REVISADO-
-server.get('/', function(req, res) {
+server.get('/', loggedIn, isAdmin, function(req, res) {
     Orden.findAll()
         .then(function(ordenes) {
             return res.send(ordenes);
@@ -107,22 +127,18 @@ server.post('/agregaritem/:idUsuario/:idProducto', function(req, res) {
 //RUTA RETORNA TODOS LOS PRODUCTOS DE UNA ORDEN/CARRITO
 //-REVISADO Y FUNCIONANDO-
 server.get('/products/:iduser', function(req, res) {
-
     Orden.findOne({
         where: {
             userIdUser: req.params.iduser,
             estado: "abierto"
+        },
+        include: {
+            model: Product,
+            as: "product"
         }
     }).then(response => {
         if (response !== null) {
-            Productoxorden.findAll({
-                    where: {
-                        ordenIdOrden: response.idOrden
-                    }
-                })
-                .then(productos => {
-                    return res.send(productos)
-                })
+            return res.send(response.product);
         } else {
             return res.send([])
         }
@@ -147,7 +163,7 @@ server.delete('/:id', (req, res) => {
 
 //RUTA RETORNA TODAS LAS ORDENES DE UN USUARIO 
 //-REVISADO y FUNCIONANDO-
-server.get('/:user', function(req, res) {
+server.get('/:user', loggedIn, function(req, res) {
 
     Orden.findAll({ where: { userIdUser: req.params.user } })
 

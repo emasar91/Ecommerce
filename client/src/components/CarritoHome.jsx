@@ -5,11 +5,12 @@ import { getCarrito } from '../actions/carritoAction'
 import BotonMas from './BotonMas'
 import BotonMenos from './BotonMenos'
 
-function CarritoHome({productosCarrito,getCarrito}){
+function CarritoHome({productosCarrito,getCarrito,usuario}){
 
     useEffect(()=>{
-        getCarrito(1)
-    },[getCarrito])        
+        getCarrito(usuario.idUser)
+    },[getCarrito,usuario])        
+    console.log(usuario.idUser)
     return (
 
         <div className="container">
@@ -25,14 +26,14 @@ function CarritoHome({productosCarrito,getCarrito}){
                 </thead>
                 <tbody>
                     {productosCarrito.map(prod=>
-                        <tr key={prod.productId}>
-                            <td>{prod.productId}</td>
+                        <tr key={prod.productoxorden.productId}>
+                            <td>{prod.productoxorden.productId}</td>
                             <td>{prod.titulo}</td>
                             <td>${prod.precio}</td>
-                            <td>{prod.cantidad}</td>
-                            <td><BotonMas id ={prod.productId} />
-                                <BotonMenos id ={prod.productId} />
-                            
+                            <td>{prod.productoxorden.cantidad}</td>
+                            <td><BotonMas id ={prod.productoxorden.productId} />
+                                <BotonMenos id ={prod.productoxorden.productId} />
+                    ​
                             </td>
                         </tr>
                     )}
@@ -45,7 +46,9 @@ function CarritoHome({productosCarrito,getCarrito}){
 
 function mapStateToProps(state){
     return{
-       productosCarrito : state.carrito.carrito    }
+        productosCarrito : state.carrito.carrito,
+        usuario: state.usuario.usuarioConectado 
+   }
 }
 
 export default connect (mapStateToProps, {getCarrito})(CarritoHome)

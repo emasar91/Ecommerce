@@ -7,7 +7,13 @@ function loggedIn(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     }
-    return res.redirect("http://localhost:3000/");
+    return res.send({
+        idUser: 0,
+        nombreUser: "Invitado",
+        contraUser: "",
+        emailUser: "",
+        admin: false
+    });
 }
 
 function isAdmin(req, res, next) {
@@ -83,12 +89,14 @@ server.post('/login',
     passport.authenticate('local'),
     function(req, res) {
 
-        res.send(req.user)
+        res.json(req.user)
+
     });
 
-server.get('/usuarioConectado', function(req, res) {
-    return res.send(req)
-})
+server.get('/login', loggedIn,
+    function(req, res) {
+        res.json(req.user)
 
+    });
 
 module.exports = server;

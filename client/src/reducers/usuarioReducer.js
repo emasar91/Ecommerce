@@ -30,7 +30,7 @@ export default function usuario(state = initialState, action) {
         case GET_USER_LOGGED:
             return {
                 ...state,
-                usuarioConectado: state.usuarioConectado
+                usuarioConectado: action.payload
             }
 
         default:

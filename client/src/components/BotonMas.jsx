@@ -2,10 +2,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { addCant } from '../actions/carritoAction'
 
-function BotonMas({id, addCant}){
+function BotonMas({id, addCant,usuario}){
 
     function sumar(){
-        addCant(1,id)
+        addCant(usuario.idUser,id)
     }
     
 
@@ -17,4 +17,11 @@ function BotonMas({id, addCant}){
     )
     
 } 
-export default connect (null, {addCant})(BotonMas)
+
+function mapStateToProps(state){
+    return{
+        usuario: state.usuario.usuarioConectado 
+   }
+}
+
+export default connect (mapStateToProps, {addCant})(BotonMas)

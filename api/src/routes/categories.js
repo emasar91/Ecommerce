@@ -6,8 +6,22 @@
      if (req.isAuthenticated()) {
          return next();
      }
-     return res.redirect("http://localhost:3000/");
+     return res.send({
+         idUser: 0,
+         nombreUser: "Invitado",
+         contraUser: "",
+         emailUser: "",
+         admin: false
+     });
+ }
 
+ function isAdmin(req, res, next) {
+     if (req.isAuthenticated()) {
+         if (req.user.admin === true) {
+             return next()
+         }
+     }
+     return res.redirect("http://localhost:3000/");
  }
 
  server.get('/', function(req, res) {
@@ -32,7 +46,7 @@
  })
 
 
- server.post('/agregar', loggedIn, function(req, res) {
+ server.post('/agregar', loggedIn, isAdmin, function(req, res) {
      Category.create({
              nombre: req.body.nombre,
          })
@@ -44,7 +58,7 @@
          })
  });
 
- server.put('/modificar/:id', loggedIn, (req, res) => {
+ server.put('/modificar/:id', loggedIn, isAdmin, (req, res) => {
      const id = req.params.id;
 
      Category.update(req.body, {
@@ -64,7 +78,7 @@
  });
 
 
- server.delete('/delete/:id', loggedIn, (req, res) => {
+ server.delete('/delete/:id', loggedIn, isAdmin, (req, res) => {
      const id = req.params.id;
      Category.destroy({
              where: { idCat: id },
@@ -75,7 +89,7 @@
 
  });
 
- server.put("/adddelete/:productId", loggedIn, function(req, res) {
+ server.put("/adddelete/:productId", loggedIn, isAdmin, function(req, res) {
      var product = function() {
          return Product.findByPk(req.params.productId);
      };
