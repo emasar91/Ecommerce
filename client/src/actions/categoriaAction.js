@@ -19,7 +19,8 @@ export function addCategory(categoria) {
                     'Content-Type': 'application/json'
                 },
                 method: 'POST',
-                body: JSON.stringify(categoria)
+                body: JSON.stringify(categoria),
+                credentials: 'include'
 
             })
             .then((res) => {

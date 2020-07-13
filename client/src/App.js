@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React, {useEffect} from 'react';
 import { connect } from 'react-redux'
 import './App.css';
 import BarraNavegacion from './components/BarraNavegacion.jsx'
@@ -18,16 +18,19 @@ import Login from './components/Login';
 import AdministrarCuentas from './components/AdministrarCuentas';
 
 
-import {getUserLoggedIn, getUsers} from './actions/usuarioAction'
+import { getUserLoggedIn ,getUsers} from './actions/usuarioAction'
 import CarritoHome from './components/CarritoHome';
+import AdministrarOrdenes from './components/AdministrarOrdenes';
 
 
 
-function App(state) {
+function App({getUserLoggedIn, usuario }) {
 
-    console.log(state)
+useEffect(()=>{
+    getUserLoggedIn()
+},[getUserLoggedIn])
+console.log("asd",usuario)
 
-    
     
     
     return ( <div className = "App" >
@@ -54,23 +57,28 @@ function App(state) {
 
             <Route exact path = '/administrarCuentas'
             render = {
-                () => < AdministrarCuentas /> }
+                () => usuario.admin === true && < AdministrarCuentas /> }
+            />
+
+            <Route exact path = '/administrarOrdenes'
+            render = {
+                () => usuario.admin === true && < AdministrarOrdenes /> }
             />
 
             <Route path = '/categories/:productos'
             render = {
-                () => < Categoria /> }
+                () => usuario.admin === true && < Categoria /> }
             />
 
             <Route exact path = '/'
-            render = {
-                () => < AgregarProducto /> }
+            render = {() => usuario.admin === true  && < AgregarProducto /> 
+            }
             />
 
 
             <Route exact path = '/'
             render = {
-                () => < AgregarCategoria /> }
+                () => usuario.admin === true && < AgregarCategoria /> }
             />
 
             <Route exact path = '/'
@@ -78,12 +86,12 @@ function App(state) {
 
             <Route exact path = '/products/agregar'
             render = {
-                () => < FormularioAgregar /> }
+                () => usuario.admin === true && < FormularioAgregar /> }
             />
 
             <Route  exact  path = '/categories/agregar'
             render = {
-                () => < FormularioCategoria /> }
+                () => usuario.admin === true && < FormularioCategoria /> }
             />
             <Route  exact  path = '/user/crearUsuario'
             render = {
@@ -104,7 +112,7 @@ function App(state) {
 
             <Route exact path = '/products/modificar/:id'
             render = {
-            ({ match }) => < FormularioModificar id = { match.params.id }
+            ({ match }) => usuario.admin === true && < FormularioModificar id = { match.params.id }
             />}/>
 
             <Route exact path = '/categories/productporcategory/:nombre'
@@ -121,8 +129,8 @@ function App(state) {
 
 function mapStateToProps(state){
     return{
-        state
+        usuario : state.usuario.usuarioConectado
     }
 }
 
-export default connect (mapStateToProps,{getUserLoggedIn, getUsers})( App )
+export default connect (mapStateToProps,{ getUserLoggedIn,getUsers})( App )

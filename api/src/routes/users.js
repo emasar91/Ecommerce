@@ -1,7 +1,32 @@
 const server = require('express').Router();
 const { User } = require('../models');
-const Sequelize = require('sequelize');
-//const Op = Sequelize.Op;
+const passport = require('passport');
+
+
+function loggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    return res.send({
+        idUser: 0,
+        nombreUser: "Invitado",
+        contraUser: "",
+        emailUser: "",
+        admin: false
+    });
+}
+
+function isAdmin(req, res, next) {
+    if (req.isAuthenticated()) {
+        if (req.user.admin === true) {
+            return next()
+        }
+    }
+    return res.redirect("http://localhost:3000/");
+}
+
+
+
 
 server.post('/', function(req, res) {
     User.create({
@@ -17,7 +42,7 @@ server.post('/', function(req, res) {
         })
 });
 
-server.get('/', function(req, res) {
+server.get('/', loggedIn, isAdmin, function(req, res) {
     User.findAll()
         .then((users) => {
             res.send(users);
@@ -25,7 +50,7 @@ server.get('/', function(req, res) {
 
 });
 
-server.delete('/:id', function(req, res) {
+server.delete('/:id', loggedIn, function(req, res) {
     User.destroy({
         where: {
             idUser: req.params.id,
@@ -35,7 +60,7 @@ server.delete('/:id', function(req, res) {
     });
 });
 
-server.put('/:id', function(req, res) {
+server.put('/:id', loggedIn, function(req, res) {
     if (req.body.nombreUser === "" || req.body.contraUser === "" || req.body.emailUser === "") {
         return res.status(400).send("faltan parametros")
     }
@@ -60,19 +85,18 @@ server.put('/:id', function(req, res) {
 
 });
 
-server.get('/login/:nombreUser/:contraUser', function(req, res) {
-    User.findOne({
-            where: {
-                nombreUser: req.params.nombreUser,
-                contraUser: req.params.contraUser,
-            }
-        })
-        .then((user) => {
+server.post('/login',
+    passport.authenticate('local'),
+    function(req, res) {
 
-            return res.send(user);
-        });
+        res.json(req.user)
 
-});
+    });
 
+server.get('/login', loggedIn,
+    function(req, res) {
+        res.json(req.user)
+
+    });
 
 module.exports = server;

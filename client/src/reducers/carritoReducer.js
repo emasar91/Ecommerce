@@ -1,19 +1,35 @@
-import { ADD_PRODUCT, GET_PRODUCTS } from '../actions/carritoAction'
+import { ADD_CARRITO, GET_CARRITO, ADD_CANT, SUB_CANT, ALL_CARRITOS } from '../actions/carritoAction'
 const initialState = {
-    productos: []
+    carrito: [],
+    todosCarritos: []
 }
 
 export default function carrito(state = initialState, action) {
     switch (action.type) {
-        case ADD_PRODUCT:
+        case ADD_CARRITO:
             return {
                 ...state,
-                productos: state.productos
+                carrito: state.carrito
             }
-        case GET_PRODUCTS:
+        case GET_CARRITO:
             return {
                 ...state,
-                productos: action.payload
+                carrito: action.payload
+            }
+        case ADD_CANT:
+            return {
+                ...state,
+                carrito: state.carrito
+            }
+        case SUB_CANT:
+            return {
+                ...state,
+                carrito: state.carrito
+            }
+        case ALL_CARRITOS:
+            return {
+                ...state,
+                todosCarritos: action.payload
             }
         default:
             return state;

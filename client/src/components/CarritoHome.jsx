@@ -1,14 +1,16 @@
 import React, {useEffect} from 'react'
 import './css/Catalogo.css';
 import { connect } from 'react-redux'
-import { getProducts } from '../actions/carritoAction'
+import { getCarrito } from '../actions/carritoAction'
+import BotonMas from './BotonMas'
+import BotonMenos from './BotonMenos'
 
-function CarritoHome({productosCarrito, getProducts}){
+function CarritoHome({productosCarrito,getCarrito,usuario}){
 
     useEffect(()=>{
-        getProducts()
-    },[getProducts])        
-    
+        getCarrito(usuario.idUser)
+    },[getCarrito,usuario])        
+    console.log(usuario.idUser)
     return (
 
         <div className="container">
@@ -18,14 +20,21 @@ function CarritoHome({productosCarrito, getProducts}){
                     <th scope="col">Id Producto</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Precio</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Sumar</th>
                     </tr>
                 </thead>
                 <tbody>
                     {productosCarrito.map(prod=>
-                        <tr key={prod.id + prod.titulo}>
-                            <td>{prod.id}</td>
+                        <tr key={prod.productoxorden.productId}>
+                            <td>{prod.productoxorden.productId}</td>
                             <td>{prod.titulo}</td>
                             <td>${prod.precio}</td>
+                            <td>{prod.productoxorden.cantidad}</td>
+                            <td><BotonMas id ={prod.productoxorden.productId} />
+                                <BotonMenos id ={prod.productoxorden.productId} />
+                    ​
+                            </td>
                         </tr>
                     )}
                 </tbody>
@@ -37,7 +46,9 @@ function CarritoHome({productosCarrito, getProducts}){
 
 function mapStateToProps(state){
     return{
-       productosCarrito : state.carrito.productos    }
+        productosCarrito : state.carrito.carrito,
+        usuario: state.usuario.usuarioConectado 
+   }
 }
 
-export default connect (mapStateToProps, {getProducts})(CarritoHome)
+export default connect (mapStateToProps, {getCarrito})(CarritoHome)

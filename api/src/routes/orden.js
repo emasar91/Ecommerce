@@ -1,13 +1,33 @@
 const server = require('express').Router();
 const { Orden, User, Product, Productoxorden } = require("../models");
-const Sequelize = require('sequelize');
-const { response } = require('../app');
-const { where } = require('sequelize');
 
+
+
+function loggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    return res.send({
+        idUser: 0,
+        nombreUser: "Invitado",
+        contraUser: "",
+        emailUser: "",
+        admin: false
+    });
+}
+
+function isAdmin(req, res, next) {
+    if (req.isAuthenticated()) {
+        if (req.user.admin === true) {
+            return next()
+        }
+    }
+    return res.redirect("http://localhost:3000/");
+}
 
 //RUTA RETORNA TODAS LAS ORDENES 
 //-FUNCIONANDO Y REVISADO-
-server.get('/', function(req, res) {
+server.get('/', loggedIn, isAdmin, function(req, res) {
     Orden.findAll()
         .then(function(ordenes) {
             return res.send(ordenes);
@@ -106,16 +126,23 @@ server.post('/agregaritem/:idUsuario/:idProducto', function(req, res) {
 
 //RUTA RETORNA TODOS LOS PRODUCTOS DE UNA ORDEN/CARRITO
 //-REVISADO Y FUNCIONANDO-
-server.get('/products/:idOrden', function(req, res) {
-
-    Orden.findByPk(req.params.idOrden)
-
-    .then((orden) => {
-            orden.getProduct().then((productos) => {
-                return res.status(200).send(productos)
-            });
-        })
-        .catch(err => res.status(400).send("Sin productos"));
+server.get('/products/:iduser', function(req, res) {
+    Orden.findOne({
+        where: {
+            userIdUser: req.params.iduser,
+            estado: "abierto"
+        },
+        include: {
+            model: Product,
+            as: "product"
+        }
+    }).then(response => {
+        if (response !== null) {
+            return res.send(response.product);
+        } else {
+            return res.send([])
+        }
+    })
 })
 
 
@@ -136,7 +163,7 @@ server.delete('/:id', (req, res) => {
 
 //RUTA RETORNA TODAS LAS ORDENES DE UN USUARIO 
 //-REVISADO y FUNCIONANDO-
-server.get('/:user', function(req, res) {
+server.get('/:user', loggedIn, function(req, res) {
 
     Orden.findAll({ where: { userIdUser: req.params.user } })
 
@@ -162,47 +189,55 @@ server.post("/crear/:idUser", (req, res) => {
 });
 
 //SUMA 1 o RESTA 1 AL PRODUCTO DE LA ORDEN
-server.put("/modificarcantidad/:idOrden/:idProducto", (req, res) => {
+server.put("/modificarcantidad/:iduser/:idProducto", (req, res) => {
     const { accion } = req.body;
-    Productoxorden.findOne({
-            where: {
-                productId: req.params.idProducto,
-                ordenIdOrden: req.params.idOrden
-            }
-        })
-        .then(response => {
 
-            if (accion === "sumar") {
-                response.update({
-                    cantidad: response.cantidad + 1
-                }, {
-                    where: {
-                        productId: req.params.idProducto,
-                        ordenIdOrden: req.params.idOrden
-                    }
-                })
-                return res.send("Se agrego uno al producto")
-            }
-            if (accion === "restar") {
-                response.update({
-                    cantidad: response.cantidad - 1
-                }, {
-                    where: {
-                        productId: req.params.idProducto,
-                        ordenIdOrden: req.params.idOrden
-                    }
-                })
-                if (response.cantidad <= 0) {
-                    Productoxorden.destroy({
+    Orden.findOne({
+        where: {
+            userIdUser: req.params.iduser,
+            estado: "abierto"
+        }
+    }).then(response => {
+        Productoxorden.findOne({
+                where: {
+                    productId: req.params.idProducto,
+                    ordenIdOrden: response.idOrden
+                }
+            })
+            .then(response => {
+
+                if (accion === "sumar") {
+                    response.update({
+                        cantidad: response.cantidad + 1
+                    }, {
                         where: {
                             productId: req.params.idProducto,
-                            ordenIdOrden: req.params.idOrden
                         }
                     })
+                    return res.send("Se agrego uno al producto")
                 }
-                return res.send("Se resto uno al producto")
-            }
-        })
+                if (accion === "restar") {
+                    response.update({
+                        cantidad: response.cantidad - 1
+                    }, {
+                        where: {
+                            productId: req.params.idProducto,
+                        }
+                    })
+                    if (response.cantidad === 0) {
+                        Productoxorden.destroy({
+                            where: {
+                                productId: req.params.idProducto,
+                            }
+                        })
+                    }
+                    return res.send("Se resto uno al producto")
+                }
+            })
+
+    })
+
+
 });
 
 //ELIMINA PRODUCTO DE UNA ORDEN

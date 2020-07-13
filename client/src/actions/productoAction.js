@@ -34,7 +34,8 @@ export function addProduct(producto) {
                     'Content-Type': 'application/json'
                 },
                 method: 'POST',
-                body: JSON.stringify(producto)
+                body: JSON.stringify(producto),
+                credentials: 'include'
 
             })
             .then((res) => {
@@ -79,7 +80,8 @@ export function modifyProduct(producto, categoria, id) {
                     'Content-Type': 'application/json'
                 },
                 method: 'PUT',
-                body: JSON.stringify(producto)
+                body: JSON.stringify(producto),
+                credentials: 'include'
             })
             .then((res) => {
                 if (res.status === 200) {
@@ -90,7 +92,8 @@ export function modifyProduct(producto, categoria, id) {
                             'Content-Type': 'application/json'
                         },
                         method: 'PUT',
-                        body: JSON.stringify(categoria)
+                        body: JSON.stringify(categoria),
+                        credentials: 'include'
                     }).then(res => {
                         if (res.status === 200) {
                             return (dispatch({ type: MODIFY_PRODUCT }),
@@ -114,7 +117,8 @@ export function removeProduct(id) {
                     'Accept': '*/*',
                     'Content-Type': 'application/json'
                 },
-                method: 'DELETE'
+                method: 'DELETE',
+                credentials: 'include'
 
             })
             .then((res) => {
