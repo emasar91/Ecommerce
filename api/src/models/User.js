@@ -27,6 +27,10 @@ const User = (sequelize, S) => {
             admin: {
                 type: S.BOOLEAN,
                 defaultValue: false,
+            },
+            reset: {
+                type: S.BOOLEAN,
+                defaultValue: false,
             }
         }
 

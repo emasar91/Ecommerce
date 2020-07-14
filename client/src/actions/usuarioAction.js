@@ -1,8 +1,11 @@
 export const ADD_USER = 'ADD_USER'
 export const GET_USERS = 'GET_USERS'
+export const GET_USER = 'GET_USER'
 export const DELETE_USER = 'DELETE_USER'
 export const LOGGIN = 'LOGGIN'
 export const GET_USER_LOGGED = 'GET_USER_LOGGED'
+export const RESET_PASS = 'RESET_PASS'
+export const RESET_PASS_USER = 'RESET_PASS_USER'
 
 export function addUser(usuario) {
     return function(dispatch) {
@@ -109,6 +112,77 @@ export function loggin(user) {
                 } else {
                     alert("Error en datos ingresados")
                 }
+            })
+    }
+}
+
+export function getUser(user) {
+    return function(dispatch) {
+        return fetch('http://localhost:3080/users/user/' + user, {
+                headers: {
+                    'Accept': '*/*',
+                    'Content-Type': 'application/json'
+                },
+                method: 'GET',
+                credentials: 'include',
+
+            })
+            .then((res) => res.json())
+            .then((json) => {
+                return dispatch({ type: GET_USER, payload: json })
+            })
+            .catch(() => {
+                console.log("erroasdasdr")
+            })
+    }
+}
+
+//Action pide al usuario que cambia la contraseña al iniciar
+export function resetPass(idUser) {
+    return function(dispatch) {
+        return fetch('http://localhost:3080/users/user/resetpass/' + idUser, {
+                headers: {
+                    'Accept': '*/*',
+                    'Content-Type': 'application/json'
+                },
+                method: 'PUT',
+                credentials: 'include',
+
+            })
+            .then((res) => {
+
+                return (dispatch({ type: RESET_PASS }),
+                    alert("El usuario " + idUser + " debe cambiar la contraseña")
+
+                )
+            })
+            .catch(() => {
+                console.log("Error")
+            })
+    }
+}
+
+//Action que actualiza la contrasela despues de resetearla
+export function resetPassUser(user) {
+    return function(dispatch) {
+        return fetch('http://localhost:3080/users/user/resetpass/', {
+                headers: {
+                    'Accept': '*/*',
+                    'Content-Type': 'application/json'
+                },
+                method: 'PUT',
+                body: JSON.stringify(user)
+
+            })
+            .then((res) => {
+
+                return (dispatch({ type: RESET_PASS_USER }),
+                    window.location.replace('http://localhost:3000')
+
+                )
+            })
+            .catch(() => {
+                console.log("Error")
             })
     }
 }

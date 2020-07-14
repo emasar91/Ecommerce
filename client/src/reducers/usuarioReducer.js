@@ -1,4 +1,4 @@
-import { ADD_USER, GET_USERS, DELETE_USER, GET_USER_LOGGED, LOGGIN } from '../actions/usuarioAction'
+import { ADD_USER, GET_USERS, GET_USER, DELETE_USER, GET_USER_LOGGED, LOGGIN, RESET_PASS, RESET_PASS_USER } from '../actions/usuarioAction'
 const initialState = {
     usuarios: [],
     usuarioConectado: {}
@@ -17,6 +17,11 @@ export default function usuario(state = initialState, action) {
                 ...state,
                 usuarios: action.payload
             }
+        case GET_USER:
+            return {
+                ...state,
+                usuarios: state.usuarios
+            }
         case DELETE_USER:
             return {
                 ...state,
@@ -31,6 +36,16 @@ export default function usuario(state = initialState, action) {
             return {
                 ...state,
                 usuarioConectado: action.payload
+            }
+        case RESET_PASS:
+            return {
+                ...state,
+                usuarios: state.usuarios
+            }
+        case RESET_PASS_USER:
+            return {
+                ...state,
+                usuarios: state.usuarios
             }
 
         default:

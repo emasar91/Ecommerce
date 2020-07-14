@@ -1,14 +1,10 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState } from 'react'
 import  './css/Login.css'
 import { connect } from 'react-redux'
 import AgregarUsuario from './AgregarUsuario'
-import { loggin } from '../actions/usuarioAction'
-import { Link } from 'react-router-dom'
+import { loggin, getUser  } from '../actions/usuarioAction'
+function Login({ loggin,getUser}){
 
-function Login({usuarioConectado, loggin}){
-
-    // useEffect(()=>{
-    // },[usuarioConectado])
 
     const [input, setInput] = useState({
         nombreUser : null,
@@ -31,11 +27,26 @@ function Login({usuarioConectado, loggin}){
             nombreUser: input.nombreUser,
             contraUser: input.contraUser
         }
-        loggin(user)
+        getUser(user.nombreUser)
+        .then(datos=>{
+            if(datos===undefined){
+                alert("el Usuario no existe")
+            }
+            if (datos!==undefined){
+                if(datos.payload.reset === true)
+                window.location.replace('http://localhost:3000/login/resetpass/'+datos.payload.idUser)
+                else{
+                    loggin(user)
+                }
+            }
+
+        })
+
+
     }
 
     const cancelar = function(e){
-        return 
+        window.location.replace('http://localhost:3000')  
     }
 
     return(
@@ -52,9 +63,9 @@ function Login({usuarioConectado, loggin}){
                             
                 <button type="submit" className=" btn-lg btn-primary btn-block"  value="Enviar" onClick={enviarFormulario} >Ingresar</button>
                 
-                <Link to ='/'>
-                    <button type="button" className=" btn-lg btn-danger btn-block"  value="Cancelar" onClick={cancelar} >Cancelar</button>
-                </Link>
+                
+                <button type="button" className=" btn-lg btn-danger btn-block"  value="Cancelar" onClick={cancelar} >Cancelar</button>
+                
 
             </form>
             <br/>
@@ -70,4 +81,4 @@ function mapStateToProps(state){
     }
 }
 
-export default connect (mapStateToProps,{loggin})( Login )
+export default connect (mapStateToProps,{loggin,getUser})( Login )

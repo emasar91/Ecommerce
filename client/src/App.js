@@ -16,7 +16,7 @@ import ProductosPorCategoria from './components/ProductosPorCategoria.jsx'
 import Carrito from './components/Carrito.jsx'
 import Login from './components/Login';
 import AdministrarCuentas from './components/AdministrarCuentas';
-
+import ResetearContrasena from './components/ResetearContrasena'
 
 import { getUserLoggedIn ,getUsers} from './actions/usuarioAction'
 import CarritoHome from './components/CarritoHome';
@@ -29,7 +29,7 @@ function App({getUserLoggedIn, usuario }) {
 useEffect(()=>{
     getUserLoggedIn()
 },[getUserLoggedIn])
-console.log("asd",usuario)
+console.log("usuarioConectado",usuario)
 
     
     
@@ -113,6 +113,11 @@ console.log("asd",usuario)
             <Route exact path = '/products/modificar/:id'
             render = {
             ({ match }) => usuario.admin === true && < FormularioModificar id = { match.params.id }
+            />}/>
+
+            <Route exact path = '/login/resetpass/:id'
+            render = {
+            ({ match }) =>  < ResetearContrasena id = { match.params.id }
             />}/>
 
             <Route exact path = '/categories/productporcategory/:nombre'

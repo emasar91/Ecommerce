@@ -50,6 +50,52 @@ server.get('/', loggedIn, isAdmin, function(req, res) {
 
 });
 
+//loggedIn, isAdmin,
+//TRAE LA INFORMACION DE UN USUARIO
+server.get('/user/:nombreUser', function(req, res) {
+    User.findOne({
+            where: {
+                nombreUser: req.params.nombreUser
+            }
+        })
+        .then((user) => {
+            res.send(user);
+        });
+
+});
+//PIDE QUE EL USUARIO CAMBIE LA CONTRASEÑA
+server.put('/user/resetpass/:idUser', function(req, res) {
+    User.findByPk(req.params.idUser)
+        .then((user) => {
+            user.update({
+                reset: true
+            });
+        }).then(() => {
+            return res.send('Se ha modificado el usuario');
+        })
+        .catch(() => {
+            return res.send('No se ha podido modificar el usuario');
+        })
+});
+
+
+server.put('/user/resetpass/', function(req, res) {
+    User.findByPk(req.body.idUser)
+        .then((user) => {
+            user.update({
+                contraUser: req.body.contraUser,
+                reset: false
+            });
+        })
+        .then(() => {
+            return res.send('Se ha modificado el usuario');
+        })
+        .catch(() => {
+            return res.send('No se ha podido modificar el usuario');
+        })
+});
+
+
 server.delete('/:id', loggedIn, function(req, res) {
     User.destroy({
         where: {
@@ -85,18 +131,22 @@ server.put('/:id', loggedIn, function(req, res) {
 
 });
 
+
+
 server.post('/login',
     passport.authenticate('local'),
     function(req, res) {
 
         res.json(req.user)
 
-    });
+    }
+);
 
 server.get('/login', loggedIn,
     function(req, res) {
         res.json(req.user)
 
-    });
+    }
+);
 
 module.exports = server;

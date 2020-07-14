@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux'
 import { getUsers } from '../actions/usuarioAction'
 import BorrarUsuario from './BorrarUsuario';
+import BotonResetPass from './BotonResetPass';
 
 function AdministrarCuentas({usuarios,getUsers}){
     
@@ -18,6 +19,8 @@ function AdministrarCuentas({usuarios,getUsers}){
                 <th scope="col">Usuario</th>
                 <th scope="col">Email</th>
                 <th scope="col">Modificar</th>
+                <th scope="col">Eliminar</th>
+                <th scope="col">Resetear Contraseña</th>
                 </tr>
             </thead>
             <tbody>
@@ -30,6 +33,7 @@ function AdministrarCuentas({usuarios,getUsers}){
                     <td>{user.emailUser}</td>
                     <td>Modificar</td>
                     <td ><BorrarUsuario id={user.idUser}/></td>
+                    <td ><BotonResetPass id={user.idUser}/></td>
                 </tr>
             )}
             </tbody>
