@@ -141,6 +141,15 @@ server.post('/login',
 
     }
 );
+server.post('/logout',
+    passport.authenticate('local'),
+    function(req, res) {
+
+        req.logOut(req.user)
+        res.send("usuario Deslogueado")
+
+    }
+);
 
 server.get('/login', loggedIn,
     function(req, res) {
