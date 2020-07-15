@@ -1,4 +1,4 @@
-import { ADD_USER, GET_USERS, GET_USER, DELETE_USER, GET_USER_LOGGED, LOGGIN, RESET_PASS, RESET_PASS_USER } from '../actions/usuarioAction'
+import { ADD_USER, GET_USERS, GET_USER, DELETE_USER, GET_USER_LOGGED, LOGGIN, RESET_PASS, RESET_PASS_USER, CONVERTIR_USUARIO } from '../actions/usuarioAction'
 const initialState = {
     usuarios: [],
     usuarioConectado: {}
@@ -38,6 +38,11 @@ export default function usuario(state = initialState, action) {
                 usuarioConectado: action.payload
             }
         case RESET_PASS:
+            return {
+                ...state,
+                usuarios: state.usuarios
+            }
+        case CONVERTIR_USUARIO:
             return {
                 ...state,
                 usuarios: state.usuarios

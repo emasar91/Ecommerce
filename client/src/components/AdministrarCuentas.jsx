@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { getUsers } from '../actions/usuarioAction'
 import BorrarUsuario from './BorrarUsuario';
 import BotonResetPass from './BotonResetPass';
+import BotonConvertirUsuario from './BotonConvertirUsuario';
 
 function AdministrarCuentas({usuarios,getUsers}){
     
@@ -32,6 +33,7 @@ function AdministrarCuentas({usuarios,getUsers}){
                     <td>{user.nombreUser}</td>
                     <td>{user.emailUser}</td>
                     <td>Modificar</td>
+                    <td ><BotonConvertirUsuario id={user.idUser}/></td>
                     <td ><BorrarUsuario id={user.idUser}/></td>
                     <td ><BotonResetPass id={user.idUser}/></td>
                 </tr>

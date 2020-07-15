@@ -23,6 +23,7 @@ const User = (sequelize, S) => {
                 allowNull: false,
                 type: S.STRING,
                 unique: true,
+                isEmail: true,
             },
             admin: {
                 type: S.BOOLEAN,
