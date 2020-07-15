@@ -3,6 +3,7 @@ export const GET_USERS = 'GET_USERS'
 export const DELETE_USER = 'DELETE_USER'
 export const LOGGIN = 'LOGGIN'
 export const GET_USER_LOGGED = 'GET_USER_LOGGED'
+export const CONVERTIR_USUARIO = 'CONVERTIR_USUARIO'
 
 export function addUser(usuario) {
     return function(dispatch) {
@@ -108,6 +109,30 @@ export function loggin(user) {
                     )
                 } else {
                     alert("Error en datos ingresados")
+                }
+            })
+    }
+}
+
+export function convertirUser(id) {
+    return function(dispatch) {
+        return fetch('http://localhost:3080/users/convertiradmin/' + id, {
+                headers: {
+                    'Accept': '*/*',
+                    'Content-Type': 'application/json'
+                },
+                method: 'PUT',
+                credentials: 'include'
+
+            })
+            .then((res) => {
+                if (res.status === 200) {
+                    return (
+                        dispatch({ type: CONVERTIR_USUARIO }),
+                        alert('convertido a admin')
+                    )
+                } else {
+                    alert("Error en campos")
                 }
             })
     }

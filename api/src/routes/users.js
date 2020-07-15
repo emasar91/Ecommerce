@@ -99,4 +99,25 @@ server.get('/login', loggedIn,
 
     });
 
+server.put('/convertiradmin/:id', loggedIn, isAdmin, function(req, res) {
+    User.findOne({
+            where: {
+                idUser: req.params.id,
+            },
+        })
+        .then((user) => {
+            user.update({
+                admin: true,
+            })
+        })
+        .then(() => {
+            return res.send('Se ha modificado el usuario');
+        })
+        .catch(() => {
+            return res.send('No se ha podido modificar el usuario');
+        })
+
+});
+
+
 module.exports = server;
