@@ -23,7 +23,10 @@ const User = (sequelize, S) => {
                 allowNull: false,
                 type: S.STRING,
                 unique: true,
-                isEmail: true,
+                validate: {
+                    isEmail: true,
+                    notEmpty: true
+                }
             },
             admin: {
                 type: S.BOOLEAN,

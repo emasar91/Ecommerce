@@ -19,9 +19,9 @@ function AdministrarCuentas({usuarios,getUsers}){
                 <th scope="col">ID</th>
                 <th scope="col">Usuario</th>
                 <th scope="col">Email</th>
-                <th scope="col">Modificar</th>
+                <th scope="col">Convertir <br/> Admin</th>
+                <th scope="col">Resetear <br/> Contraseña</th>
                 <th scope="col">Eliminar</th>
-                <th scope="col">Resetear Contraseña</th>
                 </tr>
             </thead>
             <tbody>
@@ -32,10 +32,9 @@ function AdministrarCuentas({usuarios,getUsers}){
                     <td>{user.idUser}</td>
                     <td>{user.nombreUser}</td>
                     <td>{user.emailUser}</td>
-                    <td>Modificar</td>
                     <td ><BotonConvertirUsuario id={user.idUser}/></td>
-                    <td ><BorrarUsuario id={user.idUser}/></td>
                     <td ><BotonResetPass id={user.idUser}/></td>
+                    <td ><BorrarUsuario id={user.idUser}/></td>
                 </tr>
             )}
             </tbody>

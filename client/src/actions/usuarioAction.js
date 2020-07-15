@@ -189,7 +189,13 @@ export function resetPassUser(user) {
 export function convertirUser(id) {
     return function(dispatch) {
         return fetch('http://localhost:3080/users/convertiradmin/' + id, {
+                headers: {
+                    'Accept': '*/*',
+                    'Content-Type': 'application/json'
+                },
+                method: 'PUT',
                 credentials: 'include'
+
             })
             .then((res) => {
                 if (res.status === 200) {
