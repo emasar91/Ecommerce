@@ -1,7 +1,8 @@
-import { ADD_USER, GET_USERS, DELETE_USER, GET_USER_LOGGED, LOGGIN, CONVERTIR_USUARIO } from '../actions/usuarioAction'
+import { ADD_USER, GET_USERS, DELETE_USER, GET_USER_LOGGED, LOGGIN, CONVERTIR_USUARIO, GET_ORDEN_USER } from '../actions/usuarioAction'
 const initialState = {
     usuarios: [],
-    usuarioConectado: {}
+    usuarioConectado: {},
+    ordenesUsuario: []
 }
 
 export default function usuario(state = initialState, action) {
@@ -36,6 +37,11 @@ export default function usuario(state = initialState, action) {
             return {
                 ...state,
                 usuarios: state.usuarios
+            }
+        case GET_ORDEN_USER:
+            return {
+                ...state,
+                ordenesUsuario: action.payload
             }
         default:
             return state

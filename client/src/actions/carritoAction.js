@@ -3,6 +3,7 @@ export const GET_CARRITO = 'GET_CARRITO'
 export const ADD_CANT = 'ADD_CANT'
 export const SUB_CANT = 'SUB_CANT'
 export const ALL_CARRITOS = 'ALL_CARRITOS'
+export const ORDEN_ESPECIFICA = 'ORDEN_ESPECIFICA'
 
 
 export function addCarrito(producto, usuario) {
@@ -95,3 +96,13 @@ export function subCant(idUser, idProducto) {
             })
     }
 }
+
+export function detalle(idUser, idOrden) {
+    return function(dispatch) {
+        return fetch('http://localhost:3080/ordenes/products/' + idUser + '/' + idOrden + '/detalleorden')
+            .then(response => response.json())
+            .then(json => {
+                return dispatch({ type: ORDEN_ESPECIFICA, payload: json })
+            })
+        }
+    }

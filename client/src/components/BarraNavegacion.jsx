@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import BotonLogin from './BotonLogin';
 import BotonCuentas from './BotonCuentas';
 import BotonOrdenes from './BotonOrdenes';
+import BotonOrdenUser from './BotonOrdenUser';
 
 
 export default function BarraNavegacion({buscar}){
@@ -26,7 +27,7 @@ export default function BarraNavegacion({buscar}){
                     <BotonOrdenes/>
                     <BotonCuentas/>
                     <BotonLogin/>
-                
+                    <BotonOrdenUser/>
                 </div>
             
         </div>
