@@ -1,10 +1,12 @@
-import { ADD_CARRITO, GET_CARRITO, ADD_CANT, SUB_CANT, ALL_CARRITOS } from '../actions/carritoAction'
+import { ADD_CARRITO, GET_CARRITO, ADD_CANT, SUB_CANT, ALL_CARRITOS, ORDEN_ESPECIFICA } from '../actions/carritoAction'
+import { GET_ORDEN_USER } from '../actions/usuarioAction'
 const initialState = {
     carrito: [],
     todosCarritos: []
 }
 
 export default function carrito(state = initialState, action) {
+    console.log('accion', action)
     switch (action.type) {
         case ADD_CARRITO:
             return {
@@ -30,6 +32,11 @@ export default function carrito(state = initialState, action) {
             return {
                 ...state,
                 todosCarritos: action.payload
+            }
+        case ORDEN_ESPECIFICA:
+            return {
+                ...state,
+                carrito: action.payload
             }
         default:
             return state;

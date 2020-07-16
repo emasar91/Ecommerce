@@ -17,10 +17,13 @@ import Carrito from './components/Carrito.jsx'
 import Login from './components/Login';
 import AdministrarCuentas from './components/AdministrarCuentas';
 import ResetearContrasena from './components/ResetearContrasena'
+import MisCompras from './components/MisCompras';
+
 
 import { getUserLoggedIn ,getUsers} from './actions/usuarioAction'
 import CarritoHome from './components/CarritoHome';
 import AdministrarOrdenes from './components/AdministrarOrdenes';
+import DetalleOrdenUsuario from './components/DetalleOrdenUsuario';
 
 
 
@@ -123,6 +126,16 @@ console.log("usuarioConectado",usuario)
             <Route exact path = '/categories/productporcategory/:nombre'
             render = {
                 ({ match }) => < ProductosPorCategoria nombre = { match.params.nombre }
+            />}/>
+
+            <Route exact path = '/ordenes/user'
+            render = {
+                () => < MisCompras
+            />}/>
+
+            <Route exact path = '/ordenes/detalleproductos/:idOrden'
+            render = {
+                ({ match }) => < DetalleOrdenUsuario idOrden = { match.params.idOrden }
             />}/>
 
            

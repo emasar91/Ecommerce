@@ -145,7 +145,25 @@ server.get('/products/:iduser', function(req, res) {
     })
 })
 
-
+//TRAE TODOS LOS PRODUCTOS DE UNA ORDEN(CERRADA O ABIERTA)
+server.get('/products/:idUser/:idOrden/detalleorden', function(req, res) {
+    Orden.findOne({
+        where: {
+            userIdUser: req.params.idUser,
+            idOrden: req.params.idOrden,
+        },
+        include: {
+            model: Product,
+            as: "product"
+        }
+    }).then(response => {
+        if (response !== null) {
+            return res.send(response.product);
+        } else {
+            return res.send([])
+        }
+    })
+})
 
 //ELIMINA TODOS LOS PRODUCTOS DEL CARRITO (ELIMINANDO LA ORDEN)
 //-REVISADO Y FUNCIONANDO-
@@ -163,7 +181,7 @@ server.delete('/:id', (req, res) => {
 
 //RUTA RETORNA TODAS LAS ORDENES DE UN USUARIO 
 //-REVISADO y FUNCIONANDO-
-server.get('/:user', loggedIn, function(req, res) {
+server.get('/:user', function(req, res) {
 
     Orden.findAll({ where: { userIdUser: req.params.user } })
 

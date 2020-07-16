@@ -7,6 +7,7 @@ export const GET_USER_LOGGED = 'GET_USER_LOGGED'
 export const RESET_PASS = 'RESET_PASS'
 export const RESET_PASS_USER = 'RESET_PASS_USER'
 export const CONVERTIR_USUARIO = 'CONVERTIR_USUARIO'
+export const GET_ORDEN_USER = 'GET_ORDEN_USER'
 
 export function addUser(usuario) {
     return function(dispatch) {
@@ -206,6 +207,16 @@ export function convertirUser(id) {
                 } else {
                     alert("Error en campos")
                 }
+            })
+    }
+}
+
+export function getOrdenUser(idUser) {
+    return function(dispatch) {
+        return fetch('http://localhost:3080/ordenes/' + idUser)
+            .then(response => response.json())
+            .then(json => {
+                return dispatch({ type: GET_ORDEN_USER, payload: json })
             })
     }
 }
