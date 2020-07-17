@@ -1,5 +1,4 @@
 import { ADD_CARRITO, GET_CARRITO, ADD_CANT, SUB_CANT, ALL_CARRITOS, ORDEN_ESPECIFICA } from '../actions/carritoAction'
-import { GET_ORDEN_USER } from '../actions/usuarioAction'
 const initialState = {
     carrito: [],
     todosCarritos: []

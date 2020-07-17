@@ -8,6 +8,7 @@ export const RESET_PASS = 'RESET_PASS'
 export const RESET_PASS_USER = 'RESET_PASS_USER'
 export const CONVERTIR_USUARIO = 'CONVERTIR_USUARIO'
 export const GET_ORDEN_USER = 'GET_ORDEN_USER'
+export const LOGOUT = 'LOGOUT'
 
 export function addUser(usuario) {
     return function(dispatch) {
@@ -217,6 +218,30 @@ export function getOrdenUser(idUser) {
             .then(response => response.json())
             .then(json => {
                 return dispatch({ type: GET_ORDEN_USER, payload: json })
+            })
+    }
+}
+
+export function logout(user) {
+    return function(dispatch) {
+        return fetch('http://localhost:3080/users/logout', {
+                headers: {
+                    'Accept': '*/*',
+                    'Content-Type': 'application/json'
+                },
+                method: 'POST',
+                body: JSON.stringify(user),
+                credentials: 'include'
+            })
+            .then((res) => {
+                if (res.status === 200) {
+                    return (
+                        dispatch({ type: LOGOUT }),
+                        window.location.reload()
+                    )
+                } else {
+                    alert("Error en datos ingresados")
+                }
             })
     }
 }

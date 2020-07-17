@@ -10,8 +10,7 @@ function DetalleOrdenUsuario({productosCarrito,detalle,usuario,idOrden}){
 
     useEffect(()=>{
         detalle(usuario.idUser,idOrden)
-    },[detalle,usuario])        
-    console.log('productos', productosCarrito)
+    },[detalle,usuario,idOrden])        
     return (
 
         <div className="container">

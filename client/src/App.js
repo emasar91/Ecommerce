@@ -24,6 +24,7 @@ import { getUserLoggedIn ,getUsers} from './actions/usuarioAction'
 import CarritoHome from './components/CarritoHome';
 import AdministrarOrdenes from './components/AdministrarOrdenes';
 import DetalleOrdenUsuario from './components/DetalleOrdenUsuario';
+import BotonLogout from './components/BotonLogout';
 
 
 
@@ -46,6 +47,11 @@ console.log("usuarioConectado",usuario)
             <Route exact path = '/'
             render = {
                 () => < Categoria /> }
+            />
+            
+            <Route exact path = '/'
+            render = {
+                () => < BotonLogout /> }
             />
 
              <Route path = '/'

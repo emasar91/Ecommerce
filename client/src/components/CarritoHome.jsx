@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react'
 import './css/Catalogo.css';
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { getCarrito } from '../actions/carritoAction'
 import BotonMas from './BotonMas'
 import BotonMenos from './BotonMenos'
@@ -28,12 +29,14 @@ function CarritoHome({productosCarrito,getCarrito,usuario}){
                     {productosCarrito.map(prod=>
                         <tr key={prod.productoxorden.productId}>
                             <td>{prod.productoxorden.productId}</td>
-                            <td>{prod.titulo}</td>
+                            <td>
+                                <Link to={'/products/producto/'+prod.id}>{prod.titulo}</Link>
+                            </td>                            
                             <td>${prod.precio}</td>
                             <td>{prod.productoxorden.cantidad}</td>
-                            <td><BotonMas id ={prod.productoxorden.productId} />
+                            <td>
+                                <BotonMas id ={prod.productoxorden.productId} />
                                 <BotonMenos id ={prod.productoxorden.productId} />
-                    ​
                             </td>
                         </tr>
                     )}

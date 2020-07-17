@@ -7,7 +7,7 @@ function MisCompras({ordenes , usuario, getOrdenUser}){
 
     useEffect(()=>{
         getOrdenUser(usuario.idUser)
-    },[getOrdenUser])
+    },[getOrdenUser,usuario])
     
     return(
         <div className="container">
