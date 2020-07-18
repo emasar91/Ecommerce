@@ -41,6 +41,14 @@ function CarritoHome({productosCarrito,getCarrito,usuario,modifyCant,closeCart})
         });
     }
 
+    function total(){
+        let total = 0;
+        productosCarrito.forEach(producto => {
+            total += producto.precio * producto.productoxorden.cantidad
+        })
+        return <h1> Total {total}</h1>
+    }
+
     return (
 
         <div className="container">
@@ -48,6 +56,7 @@ function CarritoHome({productosCarrito,getCarrito,usuario,modifyCant,closeCart})
                 <thead>
                     <tr key="0">
                     <th scope="col">Id Producto</th>
+                    <th scope="col">Imagen</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Precio</th>
                     <th scope="col">Cantidad</th>
@@ -58,6 +67,7 @@ function CarritoHome({productosCarrito,getCarrito,usuario,modifyCant,closeCart})
                     {productosCarrito.map(prod=>
                         <tr key={prod.productoxorden.productId}>
                             <td>{prod.productoxorden.productId}</td>
+                            <td><img src={prod.imagen} alt={prod.imagen}/></td>
                             <td>
                                 <Link to={'/products/producto/'+prod.id}>{prod.titulo}</Link>
                             </td>                            
@@ -71,6 +81,7 @@ function CarritoHome({productosCarrito,getCarrito,usuario,modifyCant,closeCart})
                     )}
                 </tbody>
             </table>
+            {total()}
             <button className="btn btn-primary" onClick={comprar}>Comprar</button>
         </div>
     );

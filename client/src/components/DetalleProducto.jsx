@@ -5,6 +5,7 @@ import AgregarReview from './components/AgregarReview.jsx' */
 import Review from './Review'
 import { connect } from 'react-redux'
 import './css/Producto.css'
+import Modificar from './Modificar'
 
 
 function DetalleProducto({id, detalleProducto, getProductDetail}){
@@ -28,6 +29,7 @@ function DetalleProducto({id, detalleProducto, getProductDetail}){
     return(
         <div className="productodetalle">
             <img src={imagen} alt="Imagen Producto"/> 
+            <Modificar id={detalleProducto.id}/>
             <h1>Nombre: {detalleProducto.titulo}</h1>
             <h1>Precio: {detalleProducto.precio}</h1>
             {stock()}

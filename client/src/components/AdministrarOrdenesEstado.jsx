@@ -1,20 +1,20 @@
 import React,{ useEffect } from 'react'
 import { connect } from 'react-redux'
-import { allCarritos } from '../actions/carritoAction'
+import { allCarritosEstado } from '../actions/carritoAction'
 import BotonCancelarOrden from './BotonCancelarOrden'
 import BotonCerrarOrden from './BotonCerrarOrden'
 import FiltrarOrdenes from './FiltrarOrdenes'
 
-function AdministrarOrdenes({ordenes , allCarritos}){
-
+function AdministrarOrdenesEstado({estado,ordenes , allCarritosEstado}){
+    
     useEffect(()=>{
-        allCarritos()
-    },[allCarritos])
+        allCarritosEstado(estado)
+    },[allCarritosEstado,estado])
     
 
     return(
         <div className="container">
-            <FiltrarOrdenes ordenes/>
+            <FiltrarOrdenes/>
             <table className= "table table-dark">
                 <thead>
                     <tr key="0">
@@ -51,4 +51,4 @@ function mapStateToProps(state){
         ordenes : state.carrito.todosCarritos    }
 }
 
-export default connect (mapStateToProps,{allCarritos})(AdministrarOrdenes)
+export default connect (mapStateToProps,{allCarritosEstado})(AdministrarOrdenesEstado)

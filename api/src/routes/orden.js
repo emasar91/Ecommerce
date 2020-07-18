@@ -34,6 +34,19 @@ server.get('/', loggedIn, isAdmin, function(req, res) {
         });
 });
 
+//RUTA RETORNA TODAS LAS ORDENES 
+//-FUNCIONANDO Y REVISADO-
+server.get('/estado/:estado', function(req, res) {
+    Orden.findAll({
+            where: {
+                estado: req.params.estado
+            }
+        })
+        .then(function(ordenes) {
+            return res.send(ordenes);
+        });
+});
+
 //RUTA MODIFICA ESTADO DE LA ORDEN  DE UN USUARIO A PROCESANDO
 //-FUNCIONANDO y REVISADO-
 server.put('/modificar/:id', function(req, res) {

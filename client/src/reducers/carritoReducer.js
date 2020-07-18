@@ -1,4 +1,4 @@
-import { ADD_CARRITO, GET_CARRITO, ADD_CANT, SUB_CANT, ALL_CARRITOS, ORDEN_ESPECIFICA, CLOSE_CART, ADD_ENVIO, CANCEL_ORDEN, COMPLETE_ORDEN } from '../actions/carritoAction'
+import { ADD_CARRITO, GET_CARRITO, ADD_CANT, SUB_CANT, ALL_CARRITOS, ORDEN_ESPECIFICA, CLOSE_CART, ADD_ENVIO, CANCEL_ORDEN, COMPLETE_ORDEN, ALL_CARRITOS_ESTADO } from '../actions/carritoAction'
 const initialState = {
     carrito: [],
     todosCarritos: []
@@ -56,6 +56,11 @@ export default function carrito(state = initialState, action) {
             return {
                 ...state,
                 carrito: state.carrito
+            }
+        case ALL_CARRITOS_ESTADO:
+            return {
+                ...state,
+                todosCarritos: action.payload
             }
         default:
             return state;

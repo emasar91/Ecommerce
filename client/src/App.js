@@ -26,6 +26,7 @@ import AdministrarOrdenes from './components/AdministrarOrdenes';
 import DetalleOrdenUsuario from './components/DetalleOrdenUsuario';
 import BotonLogout from './components/BotonLogout';
 import FormularioEnvio from './components/FormularioEnvio';
+import AdministrarOrdenesEstado from './components/AdministrarOrdenesEstado';
 
 
 
@@ -147,6 +148,11 @@ console.log("usuarioConectado",usuario)
             <Route exact path = '/ordenes/detalleproductos/:idOrden'
             render = {
                 ({ match }) => < DetalleOrdenUsuario idOrden = { match.params.idOrden }
+            />}/>
+            
+            <Route exact path = '/administrarOrdenes/estado/:estado'
+            render = {
+                ({ match }) => < AdministrarOrdenesEstado estado = { match.params.estado }
             />}/>
 
            

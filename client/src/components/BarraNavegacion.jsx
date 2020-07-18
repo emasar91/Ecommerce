@@ -7,9 +7,11 @@ import BotonLogin from './BotonLogin';
 import BotonCuentas from './BotonCuentas';
 import BotonOrdenes from './BotonOrdenes';
 import BotonOrdenUser from './BotonOrdenUser';
+import { connect } from 'react-redux'
 
 
-export default function BarraNavegacion({buscar}){
+
+function BarraNavegacion({usuario,buscar}){
 
     function recargar(){
         window.location.replace('http://localhost:3000')
@@ -19,7 +21,8 @@ export default function BarraNavegacion({buscar}){
         <div className="barra-navegacion">
                 <Link to ='/'>
                     <img className='logo' src={Logo} alt="Logo" onClick={recargar}/>
-                </Link>           
+                </Link>  
+                <h1 style={{color:"black"}}>Hola!: {usuario.nombreUser}</h1>         
                 <div className="búsqueda-login">
                     <Busqueda className='busqueda' buscar = {buscar}/>
                     <BotonOrdenes/>
@@ -31,3 +34,10 @@ export default function BarraNavegacion({buscar}){
     )
 }
 
+function mapStateToProps(state){
+    return{
+        usuario: state.usuario.usuarioConectado,
+   }
+}
+
+export default connect (mapStateToProps, {})(BarraNavegacion)

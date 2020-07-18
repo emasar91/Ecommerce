@@ -8,6 +8,7 @@ export const CLOSE_CART = 'CLOSE_CART'
 export const ADD_ENVIO = 'ADD_ENVIO'
 export const CANCEL_ORDEN = 'CANCEL_ORDEN'
 export const COMPLETE_ORDEN = 'COMPLETE_ORDEN'
+export const ALL_CARRITOS_ESTADO = 'ALL_CARRITOS_ESTADO'
 
 
 export function addCarrito(producto, usuario) {
@@ -51,6 +52,18 @@ export function allCarritos() {
             .then(response => response.json())
             .then(json => {
                 return dispatch({ type: ALL_CARRITOS, payload: json })
+            })
+    }
+}
+
+export function allCarritosEstado(estado) {
+    return function(dispatch) {
+        return fetch('http://localhost:3080/ordenes/estado/' + estado, {
+                credentials: 'include'
+            })
+            .then(response => response.json())
+            .then(json => {
+                return dispatch({ type: ALL_CARRITOS_ESTADO, payload: json })
             })
     }
 }
