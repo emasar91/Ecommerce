@@ -26,11 +26,9 @@ function FormularioCategoria({addCategory}){
         window.location.replace('http://localhost:3000')       
     }
 
-
    return (
     <div className="container">
         <form className="form-signin">
-
             <h3>Agregar Categoria</h3>
             <label htmlFor="nombre" className ="sr-only">Nombre</label>
             <input className="form-control" type="text" name="nombre" placeholder= "Categoría" onChange={handleInputChange}/>
@@ -38,7 +36,6 @@ function FormularioCategoria({addCategory}){
             <button type="submit" className=" btn btn-lg btn-primary btn-block"  value="Enviar" onClick={enviarFormulario} >Enviar</button>
             <button type="button" className=" btn btn-lg btn-danger btn-block"  value="Cancelar" onClick={cancelar} >Cancelar</button>
             </form>
-
     </div>
    )
 }

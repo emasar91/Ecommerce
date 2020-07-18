@@ -8,7 +8,6 @@ function BorrarUsuario({id, resetPass}){
         resetPass(id)
     }
 
-
     return (
         <button type="button" className="close" aria-label="Close"
         onClick={resetearContrasena}>

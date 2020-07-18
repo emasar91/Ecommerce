@@ -14,30 +14,28 @@ function AdministrarCuentas({usuarios,getUsers}){
     return(
         <div className="container">
             <table className= "table table-dark">
-            <thead>
-                <tr key="0">
-                <th scope="col">ID</th>
-                <th scope="col">Usuario</th>
-                <th scope="col">Email</th>
-                <th scope="col">Convertir <br/> Admin</th>
-                <th scope="col">Resetear <br/> Contraseña</th>
-                <th scope="col">Eliminar</th>
-                </tr>
-            </thead>
-            <tbody>
-
-
-            {usuarios.map(user=>
-                <tr key={user.idUser + user.nombreUser}>
-                    <td>{user.idUser}</td>
-                    <td>{user.nombreUser}</td>
-                    <td>{user.emailUser}</td>
-                    <td ><BotonConvertirUsuario id={user.idUser}/></td>
-                    <td ><BotonResetPass id={user.idUser}/></td>
-                    <td ><BorrarUsuario id={user.idUser}/></td>
-                </tr>
-            )}
-            </tbody>
+                <thead>
+                    <tr key="0">
+                    <th scope="col">ID</th>
+                    <th scope="col">Usuario</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Convertir <br/> Admin</th>
+                    <th scope="col">Resetear <br/> Contraseña</th>
+                    <th scope="col">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {usuarios.map(user=>
+                        <tr key={user.idUser + user.nombreUser}>
+                            <td>{user.idUser}</td>
+                            <td>{user.nombreUser}</td>
+                            <td>{user.emailUser}</td>
+                            <td ><BotonConvertirUsuario id={user.idUser}/></td>
+                            <td ><BotonResetPass id={user.idUser}/></td>
+                            <td ><BorrarUsuario id={user.idUser}/></td>
+                        </tr>
+                    )}
+                </tbody>
 
 
             </table>

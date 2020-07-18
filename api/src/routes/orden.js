@@ -34,7 +34,7 @@ server.get('/', loggedIn, isAdmin, function(req, res) {
         });
 });
 
-//RUTA MODIFICA ESTADO DE LA ORDEN  DE UN USUARIO 
+//RUTA MODIFICA ESTADO DE LA ORDEN  DE UN USUARIO A PROCESANDO
 //-FUNCIONANDO y REVISADO-
 server.put('/modificar/:id', function(req, res) {
 
@@ -44,11 +44,53 @@ server.put('/modificar/:id', function(req, res) {
             }
         }).then(function(orden) {
             orden.update({
-                estado: 'cerrado',
+                estado: 'Procesando',
             })
         })
         .then(() => {
             return res.send('Orden Cerrada')
+        })
+        .catch(() => {
+            return res.status(400).send('No se modifico');
+        })
+});
+
+//RUTA MODIFICA ESTADO DE LA ORDEN  DE UN USUARIO A COMPLETO
+//-FUNCIONANDO y REVISADO-
+server.put('/completar/:id', function(req, res) {
+
+    Orden.findOne({
+            where: {
+                idOrden: req.params.id,
+            }
+        }).then(function(orden) {
+            orden.update({
+                estado: 'Completa',
+            })
+        })
+        .then(() => {
+            return res.send('Orden Completa')
+        })
+        .catch(() => {
+            return res.status(400).send('No se modifico');
+        })
+});
+
+//RUTA MODIFICA ESTADO DE LA ORDEN  DE UN USUARIO A CANCELADA
+//-FUNCIONANDO y REVISADO-
+server.put('/cancelar/:id', function(req, res) {
+
+    Orden.findOne({
+            where: {
+                idOrden: req.params.id,
+            }
+        }).then(function(orden) {
+            orden.update({
+                estado: 'Cancelada',
+            })
+        })
+        .then(() => {
+            return res.send('Orden Cancelada')
         })
         .catch(() => {
             return res.status(400).send('No se modifico');
@@ -271,6 +313,26 @@ server.delete('/producto/:idProducto/:idOrden', (req, res) => {
 
     })
 })
+
+//AGREAGA DIRECCION DE ENVIO A LA ORDEN
+server.put('/envio/:id', function(req, res) {
+    console.log(req.body.direccionEnvio)
+    Orden.findOne({
+            where: {
+                idOrden: req.params.id,
+            }
+        }).then(function(orden) {
+            orden.update({
+                direccionEnvio: req.body.direccionEnvio,
+            })
+        })
+        .then(() => {
+            return res.send('Direccion agregada')
+        })
+        .catch(() => {
+            return res.status(400).send('No se modifico');
+        })
+});
 
 
 module.exports = server;

@@ -10,15 +10,12 @@ function Review ({Review, getReview, id}){
 
   return (
       <div className="review">
-              <div className="container-informacion">
-                {Review.map(R =>{
-                  return <div>
-                    <span>{R.descripcion} </span>
+          <div className="container-informacion">
+              {Review.map(R =>{
+                return <div>
+                  <span>{R.descripcion} </span>
               <span> {R.puntaje}</span></div>})}
-            {/*   <span className='reviewdes'>$ {Review.descripcion}</span>
-              <span className='reviewpun'>$ {Review.puntaje}</span> */}
-              
-      </div> 
+          </div> 
       </div> 
   )
 

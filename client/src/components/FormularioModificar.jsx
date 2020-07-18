@@ -18,14 +18,12 @@ function FormularioModificar({id, categorias, getProductDetail, modifyProduct, p
         imagen:'',
         categoryIdCat:''
     })
-    //input que modifica el producto
     const handleInputChange = function(e){
         setInput({
             ...input,
             [e.target.name] : e.target.value
         })
     }
-    //input para agregar o quitar la categoria
     const handleCategoryChange = function(e){
         setCategoria({
             ...categoria,
@@ -38,18 +36,11 @@ function FormularioModificar({id, categorias, getProductDetail, modifyProduct, p
         return window.location.replace('http://localhost:3000')
     }
 
-   
-
-
     const enviarFormulario = function(e){
         e.preventDefault();
          modifyProduct( input,categoria, id)      
        
     }
-
-
-
-//Trae la informacion del producto que fue clickeado
     
     useEffect(()=>{getProductDetail(id)},[id,getProductDetail])
 
@@ -73,20 +64,14 @@ function FormularioModificar({id, categorias, getProductDetail, modifyProduct, p
             <label htmlFor="imagen">imagen</label>
             <input type="file" name="imagen" onChange={handleInputChange}/>
             <br/>
-
-
             <label htmlFor="accion"> Añadir / Eliminar</label>
             <br/>
-            
             <select required name="accion" onChange={handleCategoryChange}>
                 <option value=""> Seleccionar Accion</option>
                 <option value="add"> Añadir Categoria</option>
                 <option value="remove"> Eliminar Categoria</option>
-
             </select>
             <br/>
-
-
             <label htmlFor="nombre"> Categorias</label>
             <br/>
             <select  required  name="nombre" onChange={handleCategoryChange}>

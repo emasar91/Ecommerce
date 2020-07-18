@@ -20,7 +20,6 @@ function Catalogo({productos, getProducts}){
     );
 }
 
-
 function mapStateToProps(state){
     return{
         productos: state.producto.productos

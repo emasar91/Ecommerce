@@ -15,10 +15,8 @@ export default function BarraNavegacion({buscar}){
         window.location.replace('http://localhost:3000')
     }
 
-
     return(
         <div className="barra-navegacion">
-                
                 <Link to ='/'>
                     <img className='logo' src={Logo} alt="Logo" onClick={recargar}/>
                 </Link>           
@@ -29,12 +27,7 @@ export default function BarraNavegacion({buscar}){
                     <BotonLogin/>
                     <BotonOrdenUser/>
                 </div>
-            
         </div>
-           
-
-
-
     )
 }
 

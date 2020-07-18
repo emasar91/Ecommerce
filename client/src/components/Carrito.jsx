@@ -5,11 +5,11 @@ import { Container, Cart } from './css/stylescarrito.js';
 function Carrito() {
           
     return (
-    <Container>
-       <Cart to="/user/cart/">
-        <MdShoppingBasket size={36} color="#000" />
-      </Cart>
-    </Container>
+        <Container>
+            <Cart to="/user/cart/">
+                <MdShoppingBasket size={36} color="#000" />
+            </Cart>
+        </Container>
   );
 }
 

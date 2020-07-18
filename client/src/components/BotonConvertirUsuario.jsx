@@ -9,7 +9,6 @@ function BotonConvertirUsuario({id, convertirUser}){
         
     }
 
-
     return (
         <button type="button" className="close" aria-label="Close" onClick={convertir}>
             <span> 

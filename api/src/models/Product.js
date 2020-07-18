@@ -8,26 +8,21 @@ const Product = (sequelize, S) => {
             allowNull: false,
             autoIncrement: true,
         },
-
         titulo: {
             allowNull: false,
             type: S.STRING,
         },
-
         descripcion: {
             type: S.STRING,
         },
-
         precio: {
             type: S.REAL,
             allowNull: false,
         },
-
         cantidad: {
             type: S.INTEGER,
             allowNull: false,
         },
-
         imagen: {
             type: S.STRING,
         }

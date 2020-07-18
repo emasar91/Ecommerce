@@ -23,20 +23,16 @@ function ResetearContrasena({id,resetPassUser}){
             contraUser: input.contraUser
         }
         resetPassUser(user)
-
     }
 
     return(
         <div className="container">
             <form  className="form-signin" onSubmit={(e)=>e.preventDefault()}>
-
                 <h1>Nueva Contraseña </h1>
-                      
                 <label  htmlFor="contraUser" className="sr-only">Constraseña*</label>
                 <input  className="form-control" required type="password" placeholder="Contraseña" name="contraUser"  onChange={handleInputChange}/>
                            
                 <button type="submit" className=" btn-lg btn-primary btn-block"  value="Enviar" onClick={cambiarPass} >Cambiar Contraseña</button>
-
             </form>
             <br/>
         </div>

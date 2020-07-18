@@ -2,20 +2,49 @@ import React, {useEffect} from 'react'
 import './css/Catalogo.css';
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { getCarrito } from '../actions/carritoAction'
+import { getCarrito, closeCart } from '../actions/carritoAction'
+import { modifyCant } from '../actions/productoAction'
 import BotonMas from './BotonMas'
 import BotonMenos from './BotonMenos'
 
-function CarritoHome({productosCarrito,getCarrito,usuario}){
+function CarritoHome({productosCarrito,getCarrito,usuario,modifyCant,closeCart}){
 
+    let error = false
+    
     useEffect(()=>{
-        getCarrito(usuario.idUser)
-    },[getCarrito,usuario])        
-    console.log(usuario.idUser)
+        getCarrito(usuario.idUser)  
+    },[getCarrito,usuario])    
+    
+    function comprar(){
+        verificarStock()   
+        if(error===true){
+            return console.log("no se pudo comprar")
+        }
+        restarCantidades()  
+        closeCart(productosCarrito[0].productoxorden.ordenIdOrden)  
+        window.location.replace('http://localhost:3000/user/cart/envio/'+productosCarrito[0].productoxorden.ordenIdOrden)
+    }
+
+    function verificarStock(){
+        productosCarrito.forEach(producto => {
+            if (producto.cantidad< producto.productoxorden.cantidad){
+                error =true 
+                alert("No hay suficiente Stock de: "+producto.titulo)
+            }
+        });
+    }
+
+    function restarCantidades(){
+        productosCarrito.forEach(producto => {
+            let P = {cantidad:producto.cantidad- producto.productoxorden.cantidad, id:producto.id}
+            modifyCant(P)
+        });
+    }
+
     return (
 
         <div className="container">
-            <table className= "table table-dark">
+            <table className= "table table-dark" >
                 <thead>
                     <tr key="0">
                     <th scope="col">Id Producto</th>
@@ -25,7 +54,7 @@ function CarritoHome({productosCarrito,getCarrito,usuario}){
                     <th scope="col">Sumar</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody >
                     {productosCarrito.map(prod=>
                         <tr key={prod.productoxorden.productId}>
                             <td>{prod.productoxorden.productId}</td>
@@ -42,6 +71,7 @@ function CarritoHome({productosCarrito,getCarrito,usuario}){
                     )}
                 </tbody>
             </table>
+            <button className="btn btn-primary" onClick={comprar}>Comprar</button>
         </div>
     );
 }
@@ -50,8 +80,8 @@ function CarritoHome({productosCarrito,getCarrito,usuario}){
 function mapStateToProps(state){
     return{
         productosCarrito : state.carrito.carrito,
-        usuario: state.usuario.usuarioConectado 
+        usuario: state.usuario.usuarioConectado,
    }
 }
 
-export default connect (mapStateToProps, {getCarrito})(CarritoHome)
+export default connect (mapStateToProps, {getCarrito,modifyCant,closeCart})(CarritoHome)

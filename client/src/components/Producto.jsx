@@ -7,9 +7,6 @@ import Remover from './Remover.jsx'
 import Agregarchanguito from './AgregarChanguito.jsx'
 import { connect } from 'react-redux'
 
-// import Rating from '../components/Rating';
-
-
 function Producto ({item,usuario}){
     
     let {id,titulo,  precio, imagen, review} = item;
@@ -27,22 +24,13 @@ function Producto ({item,usuario}){
                     <h3 className='titulo-producto'>{titulo}</h3>
                 </Link>
                 <span className='review-producto'>Aquí va el review {review}
-               
-                 {/*  <Rating
-                    value={review.rating}
-                    text={id.numReviews + ' reviews'} /> */}
-                            
-             {usuario.admin===true && <Modificar id={id} />}
-             {usuario.admin===true && <Remover  id={id} />}
-             
-             
-             
-             <Agregarchanguito id={id} />
-             </span>
-        </div> 
+                {usuario.admin===true && <Modificar id={id} />}
+                {usuario.admin===true && <Remover  id={id} />}
+                <Agregarchanguito id={id} />
+                </span>
+            </div> 
         </div>
     )
-  
 }
 function mapStateToProps(state){
     return{

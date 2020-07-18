@@ -3,9 +3,6 @@ import { addUser } from '../actions/usuarioAction'
 import './css/AgregarUsuario.css'
 import { connect } from 'react-redux'
 
-// nombreUser: req.body.nombreUser,
-//         contraUser: req.body.contraUser,
-//         emailUser: req.body.emailUser,
 function FormularioUsuario({addUser}){
 
 const [input, setInput] = useState({
@@ -33,7 +30,6 @@ const cancelar = function(e){
     return(
         <div className="container">
             <form className="form-signin" >
-
                 <h1>Crear Usuario </h1>
                 <label htmlFor="nombreUser" className ="sr-only">Nombre de Usuario*</label>
                 <input className="form-control" required type="text" name="nombreUser" placeholder="Nombre de Usuario" onChange={handleInputChange}/>
@@ -44,10 +40,8 @@ const cancelar = function(e){
                 <label htmlFor="contraUser" className ="sr-only">Constraseña*</label>
                 <input className="form-control" required type="password" name="contraUser" placeholder="Contraseña" onChange={handleInputChange}/>
                            
-                
                 <button type="submit" className=" btn-lg btn-primary btn-block"  value="Enviar" onClick={enviarFormulario} >Crear</button>
                 <button type="button" className=" btn-lg btn-danger btn-block"  value="Cancelar" onClick={cancelar} >Cancelar</button>
-
             </form>
         </div>
     )

@@ -2,11 +2,6 @@ const fs = require('fs');
 const path = require('path');
 const db = require('../db.js');
 const { Sequelize } = require('sequelize');
-//const Review = require('./Review.js');
-//const Product = require ('./Product.js');
-//const Category = require ('./Category.js');
-//const User = require ('./User.js');
-//const Orden = require ('./Orden.js');
 const basename = path.basename(__filename);
 const models = {};
 
@@ -34,29 +29,14 @@ db.Sequelize = Sequelize;
 
 
 Product.belongsToMany(Category, { as: "category", through: 'productoxcategorias' }); //sprint1
-Category.belongsToMany(Product, { as: "product" , through: 'productoxcategorias' });
-
+Category.belongsToMany(Product, { as: "product", through: 'productoxcategorias' });
 
 Product.hasMany(Review);
 User.hasMany(Review);
 
-
 User.hasMany(Orden); //sprint2
 
-
 Product.belongsToMany(Orden, { as: "orden", through: Productoxorden }); //sprint2
-Orden.belongsToMany(Product, { as: "product", through: Productoxorden }); 
-
-
-//Review.belongsToMany(Product, {as: "reviewprod"});
-// Review.belongsToMany(User, {as: 'reviewuser', through: 'reviewxuser'})
-
-// const User_Profile = Sequelize.define('Orden', {
-//     cantidad: S.INTEGER
-// }, { timestamps: false });
-// Orden.belongsToMany(User, { through: 'ordenxproduct' });
-// Product.belongsToMany(Product, { through: 'ordenxproduct' });
-
-
+Orden.belongsToMany(Product, { as: "product", through: Productoxorden });
 
 module.exports = models;

@@ -16,8 +16,6 @@ function MisCompras({ordenes , usuario, getOrdenUser}){
                     <tr key="0">
                     <th scope="col">Id Orden</th>
                     <th scope="col">Estado</th>
-                   
-                    
                     </tr>
                 </thead>
                 <tbody>
@@ -26,7 +24,6 @@ function MisCompras({ordenes , usuario, getOrdenUser}){
                             <td>{orden.idOrden}</td>
                             <td>{orden.estado}</td>
                             <td><BotonDetalleOrden idOrden={orden.idOrden}></BotonDetalleOrden></td>
-                            
                         </tr>
                     )}
                 </tbody>

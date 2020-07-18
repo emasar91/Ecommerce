@@ -33,7 +33,6 @@ function DetalleProducto({id, detalleProducto, getProductDetail}){
             {stock()}
             <h1>Descripción:{detalleProducto.descripcion}</h1>
             Review:<Review id={detalleProducto.id} />
-           {/*  <AgregarReview id={id} /> */}
         </div>
     );
 }

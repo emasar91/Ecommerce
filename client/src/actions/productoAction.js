@@ -4,6 +4,7 @@ export const ADD_PRODUCT = 'ADD_PRODUCT'
 export const SEARCH_PRODUCT = 'SEARCH_PRODUCT'
 export const PRODUCT_BY_CATEGORY = 'PRODUCT_BY_CATEGORY'
 export const MODIFY_PRODUCT = 'MODIFY_PRODUCT'
+export const MODIFY_CANT = 'MODIFY_CANT'
 export const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
 export const PRODUCT_REVIEW = 'PRODUCT_REVIEW';
 
@@ -138,6 +139,28 @@ export function getReview(idProduct) {
             .then(response => response.json())
             .then(json => {
                 dispatch({ type: PRODUCT_REVIEW, payload: json })
+            })
+    }
+}
+
+export function modifyCant(producto) {
+    return function(dispatch) {
+        return fetch('http://localhost:3080/products/modificarcantidad', {
+                headers: {
+                    'Accept': '*/*',
+                    'Content-Type': 'application/json'
+                },
+                method: 'PUT',
+                credentials: 'include',
+                body: JSON.stringify(producto)
+
+            })
+            .then((res) => {
+                if (res.status === 200) {
+                    return (
+                        dispatch({ type: MODIFY_CANT })
+                    )
+                }
             })
     }
 }

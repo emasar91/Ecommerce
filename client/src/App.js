@@ -25,6 +25,7 @@ import CarritoHome from './components/CarritoHome';
 import AdministrarOrdenes from './components/AdministrarOrdenes';
 import DetalleOrdenUsuario from './components/DetalleOrdenUsuario';
 import BotonLogout from './components/BotonLogout';
+import FormularioEnvio from './components/FormularioEnvio';
 
 
 
@@ -110,6 +111,10 @@ console.log("usuarioConectado",usuario)
             <Route  exact  path = '/user/cart'
             render = {
                 () => < CarritoHome /> }
+            />
+            <Route  exact  path = '/user/cart/envio/:id'
+            render = {
+                ({ match }) => < FormularioEnvio id = { match.params.id }/> }
             />
 
 

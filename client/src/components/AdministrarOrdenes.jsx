@@ -1,6 +1,8 @@
 import React,{ useEffect } from 'react'
 import { connect } from 'react-redux'
 import { allCarritos } from '../actions/carritoAction'
+import BotonCancelarOrden from './BotonCancelarOrden'
+import BotonCerrarOrden from './BotonCerrarOrden'
 
 function AdministrarOrdenes({ordenes , allCarritos}){
 
@@ -16,15 +18,22 @@ function AdministrarOrdenes({ordenes , allCarritos}){
                     <th scope="col">Id Orden</th>
                     <th scope="col">Estado</th>
                     <th scope="col">Usuario</th>
-                    
+                    <th scope="col">Direccion Envio</th>
                     </tr>
                 </thead>
                 <tbody>
                     {ordenes.map(orden=>
                         <tr key={orden.idOrden}>
                             <td>{orden.idOrden}</td>
-                            <td>{orden.estado}</td>
                             <td>{orden.userIdUser}</td>
+                            <td>{orden.direccionEnvio}</td>
+                            <td>{orden.estado}</td>
+                            <td>
+                                <BotonCerrarOrden id={orden.idOrden}/>
+                            </td>
+                            <td>
+                                <BotonCancelarOrden id={orden.idOrden}/>
+                            </td>
                             
                         </tr>
                     )}

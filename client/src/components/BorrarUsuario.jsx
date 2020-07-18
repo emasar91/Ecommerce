@@ -9,7 +9,6 @@ function BorrarUsuario({id, deleteUser}){
         window.location.reload()
     }
 
-
     return (
         <button type="button" className="close" aria-label="Close"
         onClick={borrar}>

@@ -7,15 +7,12 @@ function BotonMas({id, addCant,usuario}){
     function sumar(){
         addCant(usuario.idUser,id)
     }
-    
-
 
     return(
         <div>
            <button onClick={sumar} >+</button>
         </div>
     )
-    
 } 
 
 function mapStateToProps(state){

@@ -1,6 +1,7 @@
 const server = require('express').Router();
 const { Product, Review, User } = require('../models');
 const Sequelize = require('sequelize');
+const { where } = require('sequelize');
 const Op = Sequelize.Op;
 
 function loggedIn(req, res, next) {
@@ -174,6 +175,22 @@ server.get('/reviews/users/:idUser', loggedIn, function(req, res) {
         return res.send(reviews);
     })
 });
+
+
+
+server.put('/modificarcantidad/', function(req, res) {
+    Product.update({
+            cantidad: req.body.cantidad,
+        }, {
+            where: { id: req.body.id }
+        })
+        .then(() => {
+            return res.send("Cantidad modificada")
+        })
+        .catch(() => {
+            return res.send("No se pudo modificar")
+        })
+})
 
 
 
