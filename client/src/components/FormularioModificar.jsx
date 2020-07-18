@@ -1,9 +1,10 @@
 import React ,{useEffect,useState}from 'react';
 import { connect } from 'react-redux'
 import {modifyProduct, getProductDetail} from '../actions/productoAction'
+import { getCategories } from '../actions/categoriaAction'
  
 
-function FormularioModificar({id, categorias, getProductDetail, modifyProduct, producto}){
+function FormularioModificar({id, categorias, getProductDetail, modifyProduct, producto,getCategories}){
     
    
     const[categoria, setCategoria] = useState({
@@ -42,7 +43,10 @@ function FormularioModificar({id, categorias, getProductDetail, modifyProduct, p
        
     }
     
-    useEffect(()=>{getProductDetail(id)},[id,getProductDetail])
+    useEffect(()=>{
+        getProductDetail(id)
+        getCategories()
+    },[id,getProductDetail,getCategories])
 
    return (
     <div className= "container">
@@ -96,4 +100,4 @@ function mapStateToProps(state){
     }
 }
 
-export default connect(mapStateToProps,{getProductDetail, modifyProduct})(FormularioModificar)
+export default connect(mapStateToProps,{getProductDetail, modifyProduct,getCategories})(FormularioModificar)
