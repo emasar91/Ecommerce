@@ -120,7 +120,7 @@ server.post('/agregaritem/:idUsuario/:idProducto', function(req, res) {
     Orden.findOne({
             where: {
                 userIdUser: req.params.idUsuario,
-                estado: "abierto"
+                estado: "Abierta"
             }
         })
         .then(response => {
@@ -129,7 +129,7 @@ server.post('/agregaritem/:idUsuario/:idProducto', function(req, res) {
                 return response
             } else {
                 Orden.create({
-                    estado: "abierto",
+                    estado: "Abierta",
                     userIdUser: req.params.idUsuario
                 }).then(ordenCreada => {
                     Productoxorden.create({
@@ -161,7 +161,7 @@ server.post('/agregaritem/:idUsuario/:idProducto', function(req, res) {
                     Orden.findOne({
                         where: {
                             userIdUser: req.params.idUsuario,
-                            estado: "abierto"
+                            estado: "Abierta"
                         }
                     }).then(response => {
                         Productoxorden.create({
@@ -185,7 +185,7 @@ server.get('/products/:iduser', function(req, res) {
     Orden.findOne({
         where: {
             userIdUser: req.params.iduser,
-            estado: "abierto"
+            estado: "Abierta"
         },
         include: {
             model: Product,
@@ -252,7 +252,7 @@ server.get('/:user', function(req, res) {
 server.post("/crear/:idUser", (req, res) => {
 
     Orden.create({
-            estado: "abierto",
+            estado: "Abierta",
             userIdUser: req.params.idUser
         })
         .then(() => {
@@ -268,7 +268,7 @@ server.put("/modificarcantidad/:iduser/:idProducto", (req, res) => {
     Orden.findOne({
         where: {
             userIdUser: req.params.iduser,
-            estado: "abierto"
+            estado: "Abierta"
         }
     }).then(response => {
         Productoxorden.findOne({

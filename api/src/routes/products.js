@@ -1,7 +1,6 @@
 const server = require('express').Router();
 const { Product, Review, User } = require('../models');
 const Sequelize = require('sequelize');
-const { where } = require('sequelize');
 const Op = Sequelize.Op;
 
 function loggedIn(req, res, next) {
@@ -95,7 +94,6 @@ server.put('/modificar/:id', loggedIn, isAdmin, function(req, res) {
                 titulo: req.body.titulo,
                 precio: req.body.precio,
                 cantidad: req.body.cantidad,
-                imagen: req.body.imagen,
                 descripcion: req.body.descripcion,
             })
         })

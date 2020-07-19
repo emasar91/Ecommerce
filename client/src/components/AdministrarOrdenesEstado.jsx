@@ -29,8 +29,8 @@ function AdministrarOrdenesEstado({estado,ordenes , allCarritosEstado}){
                         <tr key={orden.idOrden}>
                             <td>{orden.idOrden}</td>
                             <td>{orden.userIdUser}</td>
-                            <td>{orden.direccionEnvio}</td>
                             <td>{orden.estado}</td>
+                            <td>{orden.direccionEnvio}</td>
                             <td>
                                 <BotonCerrarOrden id={orden.idOrden}/>
                             </td>

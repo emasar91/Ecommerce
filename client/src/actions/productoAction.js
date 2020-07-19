@@ -7,6 +7,8 @@ export const MODIFY_PRODUCT = 'MODIFY_PRODUCT'
 export const MODIFY_CANT = 'MODIFY_CANT'
 export const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
 export const PRODUCT_REVIEW = 'PRODUCT_REVIEW';
+export const ADD_REVIEW = 'ADD_REVIEW';
+
 
 export function getProducts() {
     return function(dispatch) {
@@ -133,6 +135,8 @@ export function removeProduct(id) {
     }
 }
 
+
+
 export function getReview(idProduct) {
     return function(dispatch) {
         return fetch('http://localhost:3080/products/reviews/products/' + idProduct)
@@ -160,6 +164,31 @@ export function modifyCant(producto) {
                     return (
                         dispatch({ type: MODIFY_CANT })
                     )
+                }
+            })
+    }
+}
+
+export function addReview(producto, idproduct, idusuario) {
+
+    return function(dispatch) {
+        return fetch("http://localhost:3080/products/reviews/" + idproduct + "/" + idusuario + "/", {
+                headers: {
+                    'Accept': '*/*',
+                    'Content-Type': 'application/json'
+                },
+                method: 'POST',
+                body: JSON.stringify(producto),
+                credentials: 'include'
+            })
+            .then((res) => {
+                if (res.status === 200) {
+                    return (
+                        dispatch({ type: ADD_REVIEW }),
+                        window.location.replace('http://localhost:3000')
+                    )
+                } else {
+                    alert("No se pudo agregar el review")
                 }
             })
     }

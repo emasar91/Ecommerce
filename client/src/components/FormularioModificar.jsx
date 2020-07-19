@@ -65,9 +65,6 @@ function FormularioModificar({id, categorias, getProductDetail, modifyProduct, p
             <label htmlFor="descripcion">Descripcion</label>
             <input type="text" name="descripcion" placeholder={producto.descripcion } onChange={handleInputChange}/>
             <br/>
-            <label htmlFor="imagen">imagen</label>
-            <input type="file" name="imagen" onChange={handleInputChange}/>
-            <br/>
             <label htmlFor="accion"> Añadir / Eliminar</label>
             <br/>
             <select required name="accion" onChange={handleCategoryChange}>

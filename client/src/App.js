@@ -18,6 +18,8 @@ import Login from './components/Login';
 import AdministrarCuentas from './components/AdministrarCuentas';
 import ResetearContrasena from './components/ResetearContrasena'
 import MisCompras from './components/MisCompras';
+import FormularioAgregarReview from './components/FormularioAgregarReview';
+import Busqueda from './components/Busqueda.jsx';
 
 
 import { getUserLoggedIn ,getUsers} from './actions/usuarioAction'
@@ -49,6 +51,10 @@ console.log("usuarioConectado",usuario)
             <Route exact path = '/'
             render = {
                 () => < Categoria /> }
+            />
+            <Route exact path = '/'
+            render = {
+                () =>  <Busqueda  /> }
             />
             
             <Route exact path = '/'
@@ -153,6 +159,11 @@ console.log("usuarioConectado",usuario)
             <Route exact path = '/administrarOrdenes/estado/:estado'
             render = {
                 ({ match }) => < AdministrarOrdenesEstado estado = { match.params.estado }
+            />}/>
+
+            <Route exact path = '/products/reviews/:id'
+            render = {
+                ({ match }) =>  < FormularioAgregarReview id= { match.params.id }
             />}/>
 
            

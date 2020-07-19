@@ -26,7 +26,7 @@ function Producto ({item,usuario}){
                 <span className='review-producto'>Aquí va el review {review}
                 {usuario.admin===true && <Modificar id={id} />}
                 {usuario.admin===true && <Remover  id={id} />}
-                <Agregarchanguito id={id} />
+                {usuario.idUser!==0 && <Agregarchanguito id={id} />}
                 </span>
             </div> 
         </div>
