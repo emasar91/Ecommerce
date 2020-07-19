@@ -13,14 +13,12 @@ function ProductosPorCategoria({nombre, categorias,  productByCategory, producto
             }      
         })    
     },[nombre,categorias,productByCategory])
-
         
     return(
         <div>
             <Catalogo productos={productos}/>
         </div>
     )
-
 }
 
 function mapStateToProps(state){
@@ -29,6 +27,5 @@ function mapStateToProps(state){
         productos : state.producto.productos
     }
 }
-
 
 export default connect(mapStateToProps,{productByCategory})(ProductosPorCategoria)

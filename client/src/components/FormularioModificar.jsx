@@ -1,9 +1,10 @@
 import React ,{useEffect,useState}from 'react';
 import { connect } from 'react-redux'
 import {modifyProduct, getProductDetail} from '../actions/productoAction'
+import { getCategories } from '../actions/categoriaAction'
  
 
-function FormularioModificar({id, categorias, getProductDetail, modifyProduct, producto}){
+function FormularioModificar({id, categorias, getProductDetail, modifyProduct, producto,getCategories}){
     
    
     const[categoria, setCategoria] = useState({
@@ -18,14 +19,12 @@ function FormularioModificar({id, categorias, getProductDetail, modifyProduct, p
         imagen:'',
         categoryIdCat:''
     })
-    //input que modifica el producto
     const handleInputChange = function(e){
         setInput({
             ...input,
             [e.target.name] : e.target.value
         })
     }
-    //input para agregar o quitar la categoria
     const handleCategoryChange = function(e){
         setCategoria({
             ...categoria,
@@ -38,20 +37,16 @@ function FormularioModificar({id, categorias, getProductDetail, modifyProduct, p
         return window.location.replace('http://localhost:3000')
     }
 
-   
-
-
     const enviarFormulario = function(e){
         e.preventDefault();
          modifyProduct( input,categoria, id)      
        
     }
-
-
-
-//Trae la informacion del producto que fue clickeado
     
-    useEffect(()=>{getProductDetail(id)},[id,getProductDetail])
+    useEffect(()=>{
+        getProductDetail(id)
+        getCategories()
+    },[id,getProductDetail,getCategories])
 
    return (
     <div className= "container">
@@ -70,23 +65,14 @@ function FormularioModificar({id, categorias, getProductDetail, modifyProduct, p
             <label htmlFor="descripcion">Descripcion</label>
             <input type="text" name="descripcion" placeholder={producto.descripcion } onChange={handleInputChange}/>
             <br/>
-            <label htmlFor="imagen">imagen</label>
-            <input type="file" name="imagen" onChange={handleInputChange}/>
-            <br/>
-
-
             <label htmlFor="accion"> Añadir / Eliminar</label>
             <br/>
-            
             <select required name="accion" onChange={handleCategoryChange}>
                 <option value=""> Seleccionar Accion</option>
                 <option value="add"> Añadir Categoria</option>
                 <option value="remove"> Eliminar Categoria</option>
-
             </select>
             <br/>
-
-
             <label htmlFor="nombre"> Categorias</label>
             <br/>
             <select  required  name="nombre" onChange={handleCategoryChange}>
@@ -111,4 +97,4 @@ function mapStateToProps(state){
     }
 }
 
-export default connect(mapStateToProps,{getProductDetail, modifyProduct})(FormularioModificar)
+export default connect(mapStateToProps,{getProductDetail, modifyProduct,getCategories})(FormularioModificar)

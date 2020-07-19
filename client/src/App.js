@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { connect } from 'react-redux'
 import './App.css';
 import BarraNavegacion from './components/BarraNavegacion.jsx'
@@ -16,18 +16,29 @@ import ProductosPorCategoria from './components/ProductosPorCategoria.jsx'
 import Carrito from './components/Carrito.jsx'
 import Login from './components/Login';
 import AdministrarCuentas from './components/AdministrarCuentas';
+import ResetearContrasena from './components/ResetearContrasena'
+import MisCompras from './components/MisCompras';
+import FormularioAgregarReview from './components/FormularioAgregarReview';
+import Busqueda from './components/Busqueda.jsx';
 
 
-import {getUserLoggedIn, getUsers} from './actions/usuarioAction'
+import { getUserLoggedIn ,getUsers} from './actions/usuarioAction'
 import CarritoHome from './components/CarritoHome';
 import AdministrarOrdenes from './components/AdministrarOrdenes';
+import DetalleOrdenUsuario from './components/DetalleOrdenUsuario';
+import BotonLogout from './components/BotonLogout';
+import FormularioEnvio from './components/FormularioEnvio';
+import AdministrarOrdenesEstado from './components/AdministrarOrdenesEstado';
 
 
 
-function App(state) {
+function App({getUserLoggedIn, usuario }) {
 
+useEffect(()=>{
+    getUserLoggedIn()
+},[getUserLoggedIn])
+console.log("usuarioConectado",usuario)
 
-    
     
     
     return ( <div className = "App" >
@@ -40,6 +51,15 @@ function App(state) {
             <Route exact path = '/'
             render = {
                 () => < Categoria /> }
+            />
+            <Route exact path = '/'
+            render = {
+                () =>  <Busqueda  /> }
+            />
+            
+            <Route exact path = '/'
+            render = {
+                () => < BotonLogout /> }
             />
 
              <Route path = '/'
@@ -54,28 +74,28 @@ function App(state) {
 
             <Route exact path = '/administrarCuentas'
             render = {
-                () => < AdministrarCuentas /> }
+                () => usuario.admin === true && < AdministrarCuentas /> }
             />
 
             <Route exact path = '/administrarOrdenes'
             render = {
-                () => < AdministrarOrdenes /> }
+                () => usuario.admin === true && < AdministrarOrdenes /> }
             />
 
             <Route path = '/categories/:productos'
             render = {
-                () => < Categoria /> }
+                () => usuario.admin === true && < Categoria /> }
             />
 
             <Route exact path = '/'
-            render = {
-                () => < AgregarProducto /> }
+            render = {() => usuario.admin === true  && < AgregarProducto /> 
+            }
             />
 
 
             <Route exact path = '/'
             render = {
-                () => < AgregarCategoria /> }
+                () => usuario.admin === true && < AgregarCategoria /> }
             />
 
             <Route exact path = '/'
@@ -83,12 +103,12 @@ function App(state) {
 
             <Route exact path = '/products/agregar'
             render = {
-                () => < FormularioAgregar /> }
+                () => usuario.admin === true && < FormularioAgregar /> }
             />
 
             <Route  exact  path = '/categories/agregar'
             render = {
-                () => < FormularioCategoria /> }
+                () => usuario.admin === true && < FormularioCategoria /> }
             />
             <Route  exact  path = '/user/crearUsuario'
             render = {
@@ -98,6 +118,10 @@ function App(state) {
             <Route  exact  path = '/user/cart'
             render = {
                 () => < CarritoHome /> }
+            />
+            <Route  exact  path = '/user/cart/envio/:id'
+            render = {
+                ({ match }) => < FormularioEnvio id = { match.params.id }/> }
             />
 
 
@@ -109,12 +133,37 @@ function App(state) {
 
             <Route exact path = '/products/modificar/:id'
             render = {
-            ({ match }) => < FormularioModificar id = { match.params.id }
+            ({ match }) => usuario.admin === true && < FormularioModificar id = { match.params.id }
+            />}/>
+
+            <Route exact path = '/login/resetpass/:id'
+            render = {
+            ({ match }) =>  < ResetearContrasena id = { match.params.id }
             />}/>
 
             <Route exact path = '/categories/productporcategory/:nombre'
             render = {
                 ({ match }) => < ProductosPorCategoria nombre = { match.params.nombre }
+            />}/>
+
+            <Route exact path = '/ordenes/user'
+            render = {
+                () => < MisCompras
+            />}/>
+
+            <Route exact path = '/ordenes/detalleproductos/:idOrden'
+            render = {
+                ({ match }) => < DetalleOrdenUsuario idOrden = { match.params.idOrden }
+            />}/>
+            
+            <Route exact path = '/administrarOrdenes/estado/:estado'
+            render = {
+                ({ match }) => < AdministrarOrdenesEstado estado = { match.params.estado }
+            />}/>
+
+            <Route exact path = '/products/reviews/:id'
+            render = {
+                ({ match }) =>  < FormularioAgregarReview id= { match.params.id }
             />}/>
 
            
@@ -126,8 +175,8 @@ function App(state) {
 
 function mapStateToProps(state){
     return{
-        state
+        usuario : state.usuario.usuarioConectado
     }
 }
 
-export default connect (mapStateToProps,{getUserLoggedIn, getUsers})( App )
+export default connect (mapStateToProps,{ getUserLoggedIn,getUsers})( App )

@@ -5,10 +5,9 @@ import Modificar from   './Modificar.jsx'
 import { Link } from 'react-router-dom';
 import Remover from './Remover.jsx'
 import Agregarchanguito from './AgregarChanguito.jsx'
-// import Rating from '../components/Rating';
+import { connect } from 'react-redux'
 
-
-export default function Producto ({item}){
+function Producto ({item,usuario}){
     
     let {id,titulo,  precio, imagen, review} = item;
 
@@ -25,17 +24,18 @@ export default function Producto ({item}){
                     <h3 className='titulo-producto'>{titulo}</h3>
                 </Link>
                 <span className='review-producto'>Aquí va el review {review}
-               
-                 {/*  <Rating
-                    value={review.rating}
-                    text={id.numReviews + ' reviews'} /> */}
-                            
-             <Modificar id={id} />
-             <Remover  id={id} />
-             <Agregarchanguito id={id} />
-             </span>
-        </div> 
+                {usuario.admin===true && <Modificar id={id} />}
+                {usuario.admin===true && <Remover  id={id} />}
+                {usuario.idUser!==0 && <Agregarchanguito id={id} />}
+                </span>
+            </div> 
         </div>
     )
-  
 }
+function mapStateToProps(state){
+    return{
+        usuario: state.usuario.usuarioConectado 
+   }
+}
+
+export default connect (mapStateToProps, {})(Producto)

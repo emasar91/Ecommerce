@@ -4,8 +4,11 @@ export const ADD_PRODUCT = 'ADD_PRODUCT'
 export const SEARCH_PRODUCT = 'SEARCH_PRODUCT'
 export const PRODUCT_BY_CATEGORY = 'PRODUCT_BY_CATEGORY'
 export const MODIFY_PRODUCT = 'MODIFY_PRODUCT'
+export const MODIFY_CANT = 'MODIFY_CANT'
 export const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
 export const PRODUCT_REVIEW = 'PRODUCT_REVIEW';
+export const ADD_REVIEW = 'ADD_REVIEW';
+
 
 export function getProducts() {
     return function(dispatch) {
@@ -34,7 +37,8 @@ export function addProduct(producto) {
                     'Content-Type': 'application/json'
                 },
                 method: 'POST',
-                body: JSON.stringify(producto)
+                body: JSON.stringify(producto),
+                credentials: 'include'
 
             })
             .then((res) => {
@@ -79,7 +83,8 @@ export function modifyProduct(producto, categoria, id) {
                     'Content-Type': 'application/json'
                 },
                 method: 'PUT',
-                body: JSON.stringify(producto)
+                body: JSON.stringify(producto),
+                credentials: 'include'
             })
             .then((res) => {
                 if (res.status === 200) {
@@ -90,7 +95,8 @@ export function modifyProduct(producto, categoria, id) {
                             'Content-Type': 'application/json'
                         },
                         method: 'PUT',
-                        body: JSON.stringify(categoria)
+                        body: JSON.stringify(categoria),
+                        credentials: 'include'
                     }).then(res => {
                         if (res.status === 200) {
                             return (dispatch({ type: MODIFY_PRODUCT }),
@@ -114,7 +120,8 @@ export function removeProduct(id) {
                     'Accept': '*/*',
                     'Content-Type': 'application/json'
                 },
-                method: 'DELETE'
+                method: 'DELETE',
+                credentials: 'include'
 
             })
             .then((res) => {
@@ -128,12 +135,61 @@ export function removeProduct(id) {
     }
 }
 
+
+
 export function getReview(idProduct) {
     return function(dispatch) {
         return fetch('http://localhost:3080/products/reviews/products/' + idProduct)
             .then(response => response.json())
             .then(json => {
                 dispatch({ type: PRODUCT_REVIEW, payload: json })
+            })
+    }
+}
+
+export function modifyCant(producto) {
+    return function(dispatch) {
+        return fetch('http://localhost:3080/products/modificarcantidad', {
+                headers: {
+                    'Accept': '*/*',
+                    'Content-Type': 'application/json'
+                },
+                method: 'PUT',
+                credentials: 'include',
+                body: JSON.stringify(producto)
+
+            })
+            .then((res) => {
+                if (res.status === 200) {
+                    return (
+                        dispatch({ type: MODIFY_CANT })
+                    )
+                }
+            })
+    }
+}
+
+export function addReview(producto, idproduct, idusuario) {
+
+    return function(dispatch) {
+        return fetch("http://localhost:3080/products/reviews/" + idproduct + "/" + idusuario + "/", {
+                headers: {
+                    'Accept': '*/*',
+                    'Content-Type': 'application/json'
+                },
+                method: 'POST',
+                body: JSON.stringify(producto),
+                credentials: 'include'
+            })
+            .then((res) => {
+                if (res.status === 200) {
+                    return (
+                        dispatch({ type: ADD_REVIEW }),
+                        window.location.replace('http://localhost:3000')
+                    )
+                } else {
+                    alert("No se pudo agregar el review")
+                }
             })
     }
 }

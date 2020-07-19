@@ -2,7 +2,6 @@
     text-align: center;
     background-color: #e7e7e7;
     height: 100%;
-    
 }
 
 .App-logo {
@@ -42,11 +41,13 @@
 
 .btn {
     margin: 20px;
-    
-    }
+}
 
+.btn:hover {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: white;
+}
 
-    .btn:hover {
-        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-        color:white;
-    }
+.close {
+    width: 100%;
+}

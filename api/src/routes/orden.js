@@ -1,20 +1,53 @@
 const server = require('express').Router();
 const { Orden, User, Product, Productoxorden } = require("../models");
-const Sequelize = require('sequelize');
-const { response } = require('../app');
-const { where } = require('sequelize');
 
+
+
+function loggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    return res.send({
+        idUser: 0,
+        nombreUser: "Invitado",
+        contraUser: "",
+        emailUser: "",
+        admin: false
+    });
+}
+
+function isAdmin(req, res, next) {
+    if (req.isAuthenticated()) {
+        if (req.user.admin === true) {
+            return next()
+        }
+    }
+    return res.redirect("http://localhost:3000/");
+}
 
 //RUTA RETORNA TODAS LAS ORDENES 
 //-FUNCIONANDO Y REVISADO-
-server.get('/', function(req, res) {
+server.get('/', loggedIn, isAdmin, function(req, res) {
     Orden.findAll()
         .then(function(ordenes) {
             return res.send(ordenes);
         });
 });
 
-//RUTA MODIFICA ESTADO DE LA ORDEN  DE UN USUARIO 
+//RUTA RETORNA TODAS LAS ORDENES 
+//-FUNCIONANDO Y REVISADO-
+server.get('/estado/:estado', function(req, res) {
+    Orden.findAll({
+            where: {
+                estado: req.params.estado
+            }
+        })
+        .then(function(ordenes) {
+            return res.send(ordenes);
+        });
+});
+
+//RUTA MODIFICA ESTADO DE LA ORDEN  DE UN USUARIO A PROCESANDO
 //-FUNCIONANDO y REVISADO-
 server.put('/modificar/:id', function(req, res) {
 
@@ -24,11 +57,53 @@ server.put('/modificar/:id', function(req, res) {
             }
         }).then(function(orden) {
             orden.update({
-                estado: 'cerrado',
+                estado: 'Procesando',
             })
         })
         .then(() => {
             return res.send('Orden Cerrada')
+        })
+        .catch(() => {
+            return res.status(400).send('No se modifico');
+        })
+});
+
+//RUTA MODIFICA ESTADO DE LA ORDEN  DE UN USUARIO A COMPLETO
+//-FUNCIONANDO y REVISADO-
+server.put('/completar/:id', function(req, res) {
+
+    Orden.findOne({
+            where: {
+                idOrden: req.params.id,
+            }
+        }).then(function(orden) {
+            orden.update({
+                estado: 'Completa',
+            })
+        })
+        .then(() => {
+            return res.send('Orden Completa')
+        })
+        .catch(() => {
+            return res.status(400).send('No se modifico');
+        })
+});
+
+//RUTA MODIFICA ESTADO DE LA ORDEN  DE UN USUARIO A CANCELADA
+//-FUNCIONANDO y REVISADO-
+server.put('/cancelar/:id', function(req, res) {
+
+    Orden.findOne({
+            where: {
+                idOrden: req.params.id,
+            }
+        }).then(function(orden) {
+            orden.update({
+                estado: 'Cancelada',
+            })
+        })
+        .then(() => {
+            return res.send('Orden Cancelada')
         })
         .catch(() => {
             return res.status(400).send('No se modifico');
@@ -45,7 +120,7 @@ server.post('/agregaritem/:idUsuario/:idProducto', function(req, res) {
     Orden.findOne({
             where: {
                 userIdUser: req.params.idUsuario,
-                estado: "abierto"
+                estado: "Abierta"
             }
         })
         .then(response => {
@@ -54,7 +129,7 @@ server.post('/agregaritem/:idUsuario/:idProducto', function(req, res) {
                 return response
             } else {
                 Orden.create({
-                    estado: "abierto",
+                    estado: "Abierta",
                     userIdUser: req.params.idUsuario
                 }).then(ordenCreada => {
                     Productoxorden.create({
@@ -86,7 +161,7 @@ server.post('/agregaritem/:idUsuario/:idProducto', function(req, res) {
                     Orden.findOne({
                         where: {
                             userIdUser: req.params.idUsuario,
-                            estado: "abierto"
+                            estado: "Abierta"
                         }
                     }).then(response => {
                         Productoxorden.create({
@@ -107,29 +182,43 @@ server.post('/agregaritem/:idUsuario/:idProducto', function(req, res) {
 //RUTA RETORNA TODOS LOS PRODUCTOS DE UNA ORDEN/CARRITO
 //-REVISADO Y FUNCIONANDO-
 server.get('/products/:iduser', function(req, res) {
-
     Orden.findOne({
         where: {
             userIdUser: req.params.iduser,
-            estado: "abierto"
+            estado: "Abierta"
+        },
+        include: {
+            model: Product,
+            as: "product"
         }
     }).then(response => {
         if (response !== null) {
-            Productoxorden.findAll({
-                    where: {
-                        ordenIdOrden: response.idOrden
-                    }
-                })
-                .then(productos => {
-                    return res.send(productos)
-                })
+            return res.send(response.product);
         } else {
             return res.send([])
         }
     })
 })
 
-
+//TRAE TODOS LOS PRODUCTOS DE UNA ORDEN(CERRADA O ABIERTA)
+server.get('/products/:idUser/:idOrden/detalleorden', function(req, res) {
+    Orden.findOne({
+        where: {
+            userIdUser: req.params.idUser,
+            idOrden: req.params.idOrden,
+        },
+        include: {
+            model: Product,
+            as: "product"
+        }
+    }).then(response => {
+        if (response !== null) {
+            return res.send(response.product);
+        } else {
+            return res.send([])
+        }
+    })
+})
 
 //ELIMINA TODOS LOS PRODUCTOS DEL CARRITO (ELIMINANDO LA ORDEN)
 //-REVISADO Y FUNCIONANDO-
@@ -163,7 +252,7 @@ server.get('/:user', function(req, res) {
 server.post("/crear/:idUser", (req, res) => {
 
     Orden.create({
-            estado: "abierto",
+            estado: "Abierta",
             userIdUser: req.params.idUser
         })
         .then(() => {
@@ -179,7 +268,7 @@ server.put("/modificarcantidad/:iduser/:idProducto", (req, res) => {
     Orden.findOne({
         where: {
             userIdUser: req.params.iduser,
-            estado: "abierto"
+            estado: "Abierta"
         }
     }).then(response => {
         Productoxorden.findOne({
@@ -237,6 +326,26 @@ server.delete('/producto/:idProducto/:idOrden', (req, res) => {
 
     })
 })
+
+//AGREAGA DIRECCION DE ENVIO A LA ORDEN
+server.put('/envio/:id', function(req, res) {
+    console.log(req.body.direccionEnvio)
+    Orden.findOne({
+            where: {
+                idOrden: req.params.id,
+            }
+        }).then(function(orden) {
+            orden.update({
+                direccionEnvio: req.body.direccionEnvio,
+            })
+        })
+        .then(() => {
+            return res.send('Direccion agregada')
+        })
+        .catch(() => {
+            return res.status(400).send('No se modifico');
+        })
+});
 
 
 module.exports = server;

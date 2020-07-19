@@ -1,10 +1,12 @@
 import React, {useEffect} from 'react';
 import imagenDefault from '../img/sinImagen.png'
-import { getProductDetail} from '../actions/productoAction'/* 
-import AgregarReview from './components/AgregarReview.jsx' */
+import { getProductDetail} from '../actions/productoAction' 
+import AgregarReview from './AgregarReview.jsx' 
 import Review from './Review'
+
 import { connect } from 'react-redux'
 import './css/Producto.css'
+import Modificar from './Modificar'
 
 
 function DetalleProducto({id, detalleProducto, getProductDetail}){
@@ -28,12 +30,13 @@ function DetalleProducto({id, detalleProducto, getProductDetail}){
     return(
         <div className="productodetalle">
             <img src={imagen} alt="Imagen Producto"/> 
+            <Modificar id={detalleProducto.id}/>
             <h1>Nombre: {detalleProducto.titulo}</h1>
             <h1>Precio: {detalleProducto.precio}</h1>
             {stock()}
             <h1>Descripción:{detalleProducto.descripcion}</h1>
             Review:<Review id={detalleProducto.id} />
-           {/*  <AgregarReview id={id} /> */}
+            <AgregarReview id={detalleProducto.id} />
         </div>
     );
 }

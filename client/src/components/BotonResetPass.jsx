@@ -1,20 +1,19 @@
 import React  from 'react';
 import { connect } from 'react-redux'
-import { deleteUser } from '../actions/usuarioAction'
+import { resetPass } from '../actions/usuarioAction'
 
-function BorrarUsuario({id, deleteUser}){
+function BorrarUsuario({id, resetPass}){
 
-    function borrar(){
-        deleteUser(id)
-        window.location.reload()
+    function resetearContrasena(){
+        resetPass(id)
     }
 
     return (
         <button type="button" className="close" aria-label="Close"
-        onClick={borrar}>
+        onClick={resetearContrasena}>
             <span style={{color: "red"}} aria-hidden="true">&times;</span>
         </button>  
         )
 }
 
-export default connect  (null,{deleteUser})(BorrarUsuario)
+export default connect  (null,{resetPass})(BorrarUsuario)

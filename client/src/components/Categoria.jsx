@@ -13,20 +13,18 @@ function Categoria({categorias, getCategories}) {
              
       <div className="Categoria">
           {categorias.map(cat =>
-          <Link key={cat.id+cat.nombre} to ={'/categories/productporcategory/'+cat.nombre}>
-            <li className = "btn btn btn-primary ListaCategoria"  key={cat.id}   > {cat.nombre} </li>
-          </Link> 
+              <Link key={cat.id+cat.nombre} to ={'/categories/productporcategory/'+cat.nombre}>
+                  <li className = "btn btn btn-primary ListaCategoria"  key={cat.id}   > {cat.nombre} </li>
+              </Link> 
           )}
-             </div>
+      </div>
     );
   }
-
 
 function mapStateToProps(state){
   return{
       categorias: state.categoria.categorias
   }
 }
-
   
-  export default connect(mapStateToProps, {getCategories})(Categoria)
+export default connect(mapStateToProps, {getCategories})(Categoria)
