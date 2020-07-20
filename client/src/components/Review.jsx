@@ -12,7 +12,7 @@ function Review ({Review, getReview, id}){
  
 function Promedio (){
 let promedio=0
-Review.map(R => {
+Review.forEach(R => {
 promedio += parseFloat(R.puntaje)
 
 })

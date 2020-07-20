@@ -11,7 +11,7 @@ function AgregarChanguito({id, addCarrito,usuario}){
     
     return(
         <div>
-            <MdAddShoppingCart onClick={agregar} cursor="pointer" type="button" value="Agregar Changuito"  size={20} color="#007bff" />
+            <MdAddShoppingCart onClick={agregar} cursor="pointer" type="button" value="Agregar Changuito"  size={30} color="#007bff" />
         </div>
     )
     

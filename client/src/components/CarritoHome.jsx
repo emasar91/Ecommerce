@@ -7,6 +7,7 @@ import { modifyCant } from '../actions/productoAction'
 import BotonMas from './BotonMas'
 import BotonMenos from './BotonMenos'
 
+
 function CarritoHome({productosCarrito,getCarrito,usuario,modifyCant,closeCart}){
 
     let error = false
@@ -67,7 +68,7 @@ function CarritoHome({productosCarrito,getCarrito,usuario,modifyCant,closeCart})
                     {productosCarrito.map(prod=>
                         <tr key={prod.productoxorden.productId}>
                             <td>{prod.productoxorden.productId}</td>
-                            <td><img src={prod.imagen} alt={prod.imagen}/></td>
+                            <td><img className="img-productocarrito"src={prod.imagen} alt={prod.imagen}/></td>
                             <td>
                                 <Link to={'/products/producto/'+prod.id}>{prod.titulo}</Link>
                             </td>                            

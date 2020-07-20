@@ -6,9 +6,10 @@ import Review from './Review'
 import { connect } from 'react-redux'
 import './css/Producto.css'
 import Modificar from './Modificar'
+import Agregarchanguito from './AgregarChanguito.jsx'
 
 
-function DetalleProducto({id, detalleProducto, getProductDetail}){
+function DetalleProducto({id, detalleProducto, getProductDetail, usuario}){
     
     useEffect(()=>{getProductDetail(id)},[id,getProductDetail])
 
@@ -28,8 +29,9 @@ function DetalleProducto({id, detalleProducto, getProductDetail}){
     
     return(
         <div className="productodetalle">
-            <img src={imagen} alt="Imagen Producto"/> 
-            <span className="modificar"><Modificar id={detalleProducto.id}/></span>
+            <img className='img-producto2' src={imagen} alt="Imagen Producto"/> 
+            {usuario.admin === true &&<span className="modificar"><Modificar id={detalleProducto.id}/></span>}
+            {usuario.idUser!==0 && <span className="agregarChanguito"> <Agregarchanguito id={id} /> </span>}
             <h1>Nombre: {detalleProducto.titulo}</h1>
             <h1>Precio: {detalleProducto.precio}</h1>
             {stock()}
@@ -43,7 +45,8 @@ function DetalleProducto({id, detalleProducto, getProductDetail}){
 
 function mapStateToProps(state){
     return {
-        detalleProducto : state.producto.productoDetallado
+        detalleProducto : state.producto.productoDetallado,
+        usuario : state.usuario.usuarioConectado
     }
 }
 

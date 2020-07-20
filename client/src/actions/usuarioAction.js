@@ -110,7 +110,7 @@ export function loggin(user) {
                 if (res.status === 200) {
                     return (
                         dispatch({ type: LOGGIN, payload: res.json() }),
-                        window.history.back()
+                        window.location.replace('http://localhost:3000')
                     )
                 } else {
                     alert("Error en datos ingresados")

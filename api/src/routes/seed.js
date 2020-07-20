@@ -61,11 +61,11 @@ server.get('/', async function(req, res) {
 
         },
         {
-            titulo: "Lacteos",
+            titulo: "Yogur",
             descripcion: "",
             precio: 50,
             cantidad: 200,
-            imagen: "https://lh3.googleusercontent.com/proxy/FLzFff6agh34YoiyA-pcYgk81S02CNj2y2ZHmP8avceA9ZAsLtJvJbBkWZw1iz700IFYBjRLjwSvYMG7PTzYARImwwLlWojGSGceDp5464vRli0z0tw"
+            imagen: "https://fuertesconleche.com/wp-content/uploads/2017/11/yogur-casero.jpg"
 
         },
         {
@@ -130,6 +130,13 @@ server.get('/', async function(req, res) {
         { nombre: "Aderezos" },
 
     ]
+
+    User.create ({
+        nombreUser: 'admin',
+        contraUser: 'admin',
+        emailUser: 'admin@admin.com',
+        admin: true
+    })
 
     for (var i = 0; i < dataProducts.length; i++) {
         await Product.create(dataProducts[i]);
