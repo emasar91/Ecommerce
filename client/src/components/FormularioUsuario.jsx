@@ -25,7 +25,7 @@ const enviarFormulario = function(e){
 }
 
 const cancelar = function(e){
-    window.location.replace('http://localhost:3000')  
+    window.history.back();
 }
     return(
         <div className="container">

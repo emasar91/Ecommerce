@@ -24,7 +24,18 @@
       
 }
 
+.BotonLogout{
+    position: absolute;
+    left: 73%;
+    top: 30px;
+  }
 
-
+  .saludo{
+    position: absolute;
+    font-family: Comic Sans MS;
+    left: 50%;
+    top: 30px;
+   
+  }
 
 

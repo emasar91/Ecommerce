@@ -3,6 +3,7 @@ import  './css/Login.css'
 import { connect } from 'react-redux'
 import AgregarUsuario from './AgregarUsuario'
 import { loggin, getUser  } from '../actions/usuarioAction'
+
 function Login({ loggin,getUser}){
 
     const [input, setInput] = useState({
@@ -41,7 +42,8 @@ function Login({ loggin,getUser}){
     }
 
     const cancelar = function(e){
-        window.location.replace('http://localhost:3000')  
+        window.history.back();
+       
     }
 
     return(

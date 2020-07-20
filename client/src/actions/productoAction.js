@@ -185,7 +185,7 @@ export function addReview(producto, idproduct, idusuario) {
                 if (res.status === 200) {
                     return (
                         dispatch({ type: ADD_REVIEW }),
-                        window.location.replace('http://localhost:3000')
+                        window.history.back()
                     )
                 } else {
                     alert("No se pudo agregar el review")

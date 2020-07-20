@@ -7,6 +7,7 @@ import BotonCuentas from './BotonCuentas';
 import BotonOrdenes from './BotonOrdenes';
 import BotonOrdenUser from './BotonOrdenUser';
 import { connect } from 'react-redux'
+import BotonLogout from './BotonLogout';
 
 
 
@@ -21,12 +22,12 @@ function BarraNavegacion({usuario}){
                 <Link to ='/'>
                     <img className='logo' src={Logo} alt="Logo" onClick={recargar}/>
                 </Link>  
-                <h1 style={{color:"black"}}>Hola!: {usuario.nombreUser}</h1>         
+              <div className="saludo">  <h1 style={{color:"#007bff"}}>Hola, {usuario.nombreUser}&#9786; </h1> </div>         
                 <div className="búsqueda-login">
-                    
+               <div className="BotonLogout"> {usuario.idUser !==0  && < BotonLogout />}</div>
                     {usuario.admin && <BotonOrdenes/>}
                     {usuario.admin &&<BotonCuentas/>}
-                    <BotonLogin/>
+                    <BotonLogin/>   
                     <BotonOrdenUser/>
                 </div>
         </div>

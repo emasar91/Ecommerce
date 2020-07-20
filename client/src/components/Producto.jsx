@@ -9,7 +9,7 @@ import { connect } from 'react-redux'
 
 function Producto ({item,usuario}){
     
-    let {id,titulo,  precio, imagen, review} = item;
+    let {id,titulo,  precio, imagen} = item;
 
     if(imagen===""){
         imagen=foto;
@@ -23,7 +23,7 @@ function Producto ({item,usuario}){
                 <Link to={'/products/producto/'+id}>
                     <h3 className='titulo-producto'>{titulo}</h3>
                 </Link>
-                <span className='review-producto'>Aquí va el review {review}
+                <span className='review-producto'>
                 {usuario.admin===true && <Modificar id={id} />}
                 {usuario.admin===true && <Remover  id={id} />}
                 {usuario.idUser!==0 && <Agregarchanguito id={id} />}

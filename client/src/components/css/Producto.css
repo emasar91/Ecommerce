@@ -39,6 +39,7 @@
 .productodetalle {
     display: table;
   margin: 0 auto;
+  height: 100%;
   text-align: left;
 }
 
@@ -48,6 +49,17 @@
     justify-content: center;
 }
 
-.búsqueda-login {
+.AgregarReview{
+  position: absolute;
+  left: 50%;
+  top: 750px;
+}
 
+.modificar{
+    position: absolute;
+    left: 50%;
+    top: 450px;    
+    
+ 
+ 
 }

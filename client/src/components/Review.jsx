@@ -2,23 +2,37 @@ import React, {useEffect} from 'react';
 import { getReview} from '../actions/productoAction'
 import { connect } from 'react-redux'
 import './css/Producto.css'
+import Rating from '@material-ui/lab/Rating';
+
+
 
 function Review ({Review, getReview, id}){
 
   useEffect(()=>{getReview(id)},[getReview,id])
  
+function Promedio (){
+let promedio=0
+Review.map(R => {
+promedio += parseFloat(R.puntaje)
 
+})
+return Math.round(promedio/Review.length)
+
+}
   return (
       <div className="review">
-          <div className="container-informacion">
+         { Review.length !== 0 && <div className="container-informacion">
+           <h4>Review Promedio:</h4><h2> <Rating name="read-only" value={Promedio()}  precision={0.5} readOnly  /> {Promedio()} </h2>
             {Review.map(R =>{
-              return <div key={R.userIdUser+R.idReview}>
+              return <div className="RatingV" key={R.userIdUser+R.idReview}> <br />
                   <span>Usuario: {R.userIdUser} </span><br />
                   <span>Comentario: {R.descripcion} </span><br />
-                  <span>Puntaje: {R.puntaje}</span></div>})}
-            {/*   <span className='reviewdes'>$ {Review.descripcion}</span>
-              <span className='reviewpun'>$ {Review.puntaje}</span> */}
-          </div>
+                  
+                  <Rating name="read-only" value={R.puntaje} precision={0.5} readOnly  /> {/* {R.puntaje}  */}</div>})}
+                  
+                 
+        
+          </div>}
       </div> 
   )
 
@@ -26,7 +40,7 @@ function Review ({Review, getReview, id}){
 function mapStateToProps(state){
   return {
       Review : state.producto.review
-      //   state.reducer.campoquequierotraer
+    
   }
 }
-export default connect (mapStateToProps,{getReview})(Review)
+export default connect (mapStateToProps,{getReview})(Review) 

@@ -3,6 +3,8 @@ import { addCategory } from '../actions/categoriaAction'
 import { connect } from 'react-redux'
 
 
+
+
 function FormularioCategoria({addCategory}){
     
     const [input, setInput] = useState({

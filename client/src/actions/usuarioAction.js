@@ -26,7 +26,7 @@ export function addUser(usuario) {
                 if (res.status === 200) {
                     return (
                         dispatch({ type: ADD_USER }),
-                        window.location.replace('http://localhost:3000')
+                        window.history.back()
                     )
                 } else {
                     alert("Error en campos")
@@ -110,7 +110,7 @@ export function loggin(user) {
                 if (res.status === 200) {
                     return (
                         dispatch({ type: LOGGIN, payload: res.json() }),
-                        window.location.replace('http://localhost:3000')
+                        window.history.back()
                     )
                 } else {
                     alert("Error en datos ingresados")
