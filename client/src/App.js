@@ -20,15 +20,13 @@ import ResetearContrasena from './components/ResetearContrasena'
 import MisCompras from './components/MisCompras';
 import FormularioAgregarReview from './components/FormularioAgregarReview';
 import Busqueda from './components/Busqueda.jsx';
-
-
 import { getUserLoggedIn ,getUsers} from './actions/usuarioAction'
 import CarritoHome from './components/CarritoHome';
 import AdministrarOrdenes from './components/AdministrarOrdenes';
 import DetalleOrdenUsuario from './components/DetalleOrdenUsuario';
-import BotonLogout from './components/BotonLogout';
 import FormularioEnvio from './components/FormularioEnvio';
 import AdministrarOrdenesEstado from './components/AdministrarOrdenesEstado';
+
 
 
 
@@ -37,31 +35,27 @@ function App({getUserLoggedIn, usuario }) {
 useEffect(()=>{
     getUserLoggedIn()
 },[getUserLoggedIn])
-console.log("usuarioConectado",usuario)
+
 
     
     
     return ( <div className = "App" >
-
+            
             <Route path = '/'
             render = {
                 () => < BarraNavegacion 
                 />} />
-
+            
             <Route exact path = '/'
             render = {
                 () => < Categoria /> }
             />
+            <div className="Busqueda">
             <Route exact path = '/'
             render = {
                 () =>  <Busqueda  /> }
-            />
-            
-            <Route exact path = '/'
-            render = {
-                () => < BotonLogout /> }
-            />
-
+            /> </div>
+           
              <Route path = '/'
             render = {
                 () => < Carrito /> }
@@ -166,7 +160,7 @@ console.log("usuarioConectado",usuario)
                 ({ match }) =>  < FormularioAgregarReview id= { match.params.id }
             />}/>
 
-           
+
 
         </div>
     );

@@ -34,7 +34,7 @@ function FormularioModificar({id, categorias, getProductDetail, modifyProduct, p
     }
 
     const cancelar = function(){
-        return window.location.replace('http://localhost:3000')
+        return window.history.back();
     }
 
     const enviarFormulario = function(e){

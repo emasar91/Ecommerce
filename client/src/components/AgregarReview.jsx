@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 
-export default function AgregarReview({id}){  //sacar numero de homework y usar la cookie para devolverme el user
+export default function AgregarReview({id}){ 
    
   return(
 

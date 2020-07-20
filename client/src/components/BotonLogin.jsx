@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { MdPerson } from 'react-icons/md';
 import './css/Botonlogin.css';
 
-export default function AgregarProducto(){
+export default function BotonLogin(){
 
     return(
         <Link to={'/login'}>

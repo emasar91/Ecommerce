@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { subCant } from '../actions/carritoAction'
+import { IoIosRemoveCircle } from 'react-icons/io';
+
 
 function BotonMenos({id, subCant,usuario}){
     
@@ -9,8 +11,9 @@ function BotonMenos({id, subCant,usuario}){
     }
 
     return(
-        <div>
-           <button onClick={restar} >-</button>
+        <div className="Botones"> 
+            <IoIosRemoveCircle  type="button" size={20}  onClick={restar} color="red" />
+           
         </div>
     )
 } 

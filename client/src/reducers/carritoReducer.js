@@ -5,7 +5,7 @@ const initialState = {
 }
 
 export default function carrito(state = initialState, action) {
-    console.log('accion', action)
+    
     switch (action.type) {
         case ADD_CARRITO:
             return {

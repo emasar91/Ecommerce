@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { logout } from '../actions/usuarioAction'
+import { IoMdLogOut} from 'react-icons/io';
 
 function BotonLogout({logout,usuario}){
     
@@ -10,7 +11,8 @@ function BotonLogout({logout,usuario}){
 
     return(
         <div>
-           <button onClick={deslogear} >Desloguear</button>
+            <IoMdLogOut className="btn" type="button" size={60}  onClick={deslogear} color="red" /> 
+           
         </div>
     )
 } 

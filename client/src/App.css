@@ -51,3 +51,11 @@
 .close {
     width: 100%;
 }
+
+
+
+.Busqueda{
+    position: absolute;
+    left: 15%;
+    top: 40px;
+}

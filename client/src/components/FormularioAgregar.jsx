@@ -27,7 +27,7 @@ function FormularioAgregar({addProduct}){
     }
 
     const cancelar = function(e){
-        window.location.replace('http://localhost:3000')  
+        window.history.back(); 
     }
          
    return (

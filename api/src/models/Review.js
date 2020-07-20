@@ -15,7 +15,7 @@ const Review = (sequelize, S) => {
         },
         puntaje: {
             allowNull: false,
-            type: S.INTEGER,
+            type: S.DECIMAL,
             defaultValue: 1,
         }
     }, { timestamps: false });

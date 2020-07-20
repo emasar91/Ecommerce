@@ -1,11 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { MdShopTwo} from 'react-icons/md';
 
 export default function BotonUserOrden(){
     
     return(
         <Link to={'/ordenes/user'}>
-            <button type="button" className="btn btn-primary" >Mis Compras</button>
+            <MdShopTwo className="user" type="button" size={30}  color="#007bf" />
+            
         </Link>
     )
 }

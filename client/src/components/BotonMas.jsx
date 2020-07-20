@@ -1,6 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { addCant } from '../actions/carritoAction'
+import { IoIosAddCircle } from 'react-icons/io';
+
+
+
 
 function BotonMas({id, addCant,usuario}){
 
@@ -9,8 +13,9 @@ function BotonMas({id, addCant,usuario}){
     }
 
     return(
-        <div>
-           <button onClick={sumar} >+</button>
+        <div className="Botones">
+             <IoIosAddCircle type="button" size={20}  onClick={sumar} color="green" />
+                     
         </div>
     )
 } 
@@ -20,5 +25,4 @@ function mapStateToProps(state){
         usuario: state.usuario.usuarioConectado 
    }
 }
-
 export default connect (mapStateToProps, {addCant})(BotonMas)
